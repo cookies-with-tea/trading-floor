@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "trading-floor"
+version = "0.1.0"
+description = "Trading floor for the dormitory"
+authors = ["s1veme <kpdpav@gmail.com>"]
+
+
+[tool.poetry.dependencies]
+python = "3.10"
+Django = "^4.1.6"
+djangorestframework = "^3.14.0"
+environs = "^9.5.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: trading-web
+    env_file: .env
+    command: python /usr/src/trading_floor/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/usr/src/trading_floor
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13.10-alpine
+    container_name: trading-db
+    env_file: .env
+
+volumes:
+  postgres_data:
