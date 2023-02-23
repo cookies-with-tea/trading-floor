@@ -22,3 +22,4 @@
 
 # Разработчики:
 - [s1veme](https://github.com/s1veme/)
+- [FrozZzy1](https://github.com/frozzzy1/)
