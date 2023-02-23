@@ -51,6 +51,8 @@ LOCAL_APPS = [
     'apps.advertisement',
 ]
 
+INSTALLED_APPS = THIRD_PARTY_APPS + DJANGO_APPS + LOCAL_APPS
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
