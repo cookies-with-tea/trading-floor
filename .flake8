@@ -1,0 +1,43 @@
+[flake8]
+max-line-length = 120
+max-doc-length = 100
+format = pylint
+statistics = True
+max-complexity = 7
+import-order-style=pep8
+
+exclude =
+    __init__.py,
+    migrations/*,
+    .venv/*,
+
+select =
+    E,
+    F,
+    W,
+    CCE,
+    U100,
+    C812,
+    C813,
+    C814,
+    C815,
+    C816,
+    C817,
+    C818,
+    C901,
+ignore = W504, W503
+
+use_class_attributes_order_strict_mode = True
+class_attributes_order =
+    nested_class,
+    field,
+    meta_class,
+    magic_method,
+    property_method,
+    static_method,
+    class_method,
+    method,
+    private_static_method,
+    private_class_method,
+    private_method
+

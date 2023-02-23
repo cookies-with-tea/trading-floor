@@ -16,6 +16,8 @@ django-cors-headers = "^3.13.0"
 
 [tool.poetry.group.dev.dependencies]
 black = {extras = ["d"], version = "^23.1.0"}
+flake8 = "^6.0.0"
+pre-commit = "^3.1.0"
 
 [build-system]
 requires = ["poetry-core"]
