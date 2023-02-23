@@ -11,8 +11,33 @@ Django = "^4.1.6"
 djangorestframework = "^3.14.0"
 environs = "^9.5.0"
 psycopg2 = "^2.9.5"
+django-cors-headers = "^3.13.0"
 
+
+[tool.poetry.group.dev.dependencies]
+black = {extras = ["d"], version = "^23.1.0"}
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.black]
+line-length = 120
+target-version = ["py39", "py310"]
+include = ".py$"
+force-exclude = """
+migrations
+| .venv
+| venv
+"""
+
+
+[tool.isort]
+profile="black"
+line_length=120
+extend_skip_glob = [
+  "migrations/*",
+  ".venv/*",
+  "venv/*"
+]
