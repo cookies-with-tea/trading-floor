@@ -13,6 +13,18 @@ services:
     depends_on:
       - db
 
+  minio:
+    image: minio/minio:latest
+    command: server --console-address ":9004" /data
+    restart: always
+    ports:
+      - "9000:9000"
+      - "9004:9004"
+    env_file: .env
+    volumes:
+      - minio_data:/data
+      - minio_config:/root/.minio
+
   db:
     image: postgres:13.10-alpine
     container_name: trading-db
@@ -22,3 +34,5 @@ services:
 
 volumes:
   postgres_data:
+  minio_data:
+  minio_config:
