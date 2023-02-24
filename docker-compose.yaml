@@ -25,7 +25,6 @@ services:
       - minio_data:/data
       - minio_config:/root/.minio
 
-
   db:
     image: postgres:13.10-alpine
     container_name: trading-db
