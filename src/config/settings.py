@@ -44,7 +44,10 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
-THIRD_PARTY_APPS = ['corsheaders']
+THIRD_PARTY_APPS = [
+    'corsheaders',
+    'multiselectfield',
+]
 
 LOCAL_APPS = [
     'apps.user',
