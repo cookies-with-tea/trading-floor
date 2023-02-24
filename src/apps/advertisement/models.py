@@ -4,12 +4,16 @@ from multiselectfield import MultiSelectField
 
 
 class Image(models.Model):
-    image = models.ImageField(...)
-    advertisement = models.ForeignKey('Advertisement')
+    image = models.ImageField(verbose_name='Картинка')
+    advertisement = models.ForeignKey('Advertisement', verbose_name='Объявление', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.advertisement} | {self.image.name}'
 
     class Meta:
         verbose_name = 'Изображение'
         verbose_name_plural = 'Изображения'
+
 
 class Advertisement(models.Model):
     URGENCY_LIST = (
