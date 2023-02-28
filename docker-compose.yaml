@@ -5,7 +5,7 @@ services:
     build: .
     container_name: trading-web
     env_file: .env
-    command: python /usr/src/trading_floor/manage.py runserver 0.0.0.0:8000
+    command: python /usr/src/trading_floor/src/manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/usr/src/trading_floor
     ports:
