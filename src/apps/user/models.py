@@ -12,11 +12,11 @@ logger = logging.getLogger(__name__)
 class UserManager(BaseUserManager):
     @classmethod
     def email_normalization(cls, email):
-        email = email or ""
+        email = email or ''
         try:
-            email_name, domain_part = email.strip().rsplit("@", 1)
+            email_name, domain_part = email.strip().rsplit('@', 1)
         except ValueError:
-            logger.error("Incorrect email")
+            logger.error('Incorrect email')
         else:
             if domain_part.lower() != 'mer.ci.nsu.ru':
                 raise TypeError('Email must end with a "@mer.ci.nsu.ru"')
@@ -56,6 +56,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.CharField('email', max_length=100, unique=True, db_index=True)
     first_name = models.CharField('first_name', max_length=20)
     last_name = models.CharField('last_name', max_length=20)
+    room_number = models.CharField('room_number', max_length=3)
     avatar = ProcessedImageField(
         format='PNG',
         processors=[
