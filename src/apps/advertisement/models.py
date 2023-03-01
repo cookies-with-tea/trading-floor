@@ -4,7 +4,6 @@ from multiselectfield import MultiSelectField
 
 class Image(models.Model):
     image = models.ImageField(verbose_name='Картинка')
-    advertisement = models.ForeignKey('Advertisement', verbose_name='Объявление', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.advertisement} | {self.image.name}'
