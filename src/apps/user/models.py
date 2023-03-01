@@ -6,7 +6,7 @@ from django.db import models
 from imagekit.models import ProcessedImageField
 from pilkit.processors import ResizeToFill
 
-from src.utils.strings import email_normalization
+from utils.strings import email_normalization
 
 logger = logging.getLogger(__name__)
 
