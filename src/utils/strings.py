@@ -1,4 +1,9 @@
-def email_normalization(email, logger):
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+def email_normalization(email):
     email = email or ''
     try:
         email_name, domain_part = email.strip().rsplit('@', 1)
