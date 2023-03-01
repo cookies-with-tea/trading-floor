@@ -56,7 +56,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('Почта', unique=True)
     first_name = models.CharField('Имя', max_length=20)
     last_name = models.CharField('Фамилия', max_length=20)
-    room_number = models.PositiveIntegerField('Номер комнаты', max_length=3)
+    room_number = models.PositiveIntegerField('Номер комнаты')
     avatar = ProcessedImageField(
         format='PNG',
         processors=[
