@@ -1,5 +1,3 @@
-import logging
-
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
@@ -7,8 +5,6 @@ from imagekit.models import ProcessedImageField
 from pilkit.processors import ResizeToFill
 
 from utils.strings import email_normalization
-
-logger = logging.getLogger(__name__)
 
 
 class UserManager(BaseUserManager):
@@ -23,7 +19,7 @@ class UserManager(BaseUserManager):
             raise TypeError('The "room number" field is required')
 
         user = self.model(
-            email=email_normalization(email, logger),
+            email=email_normalization(email),
             first_name=first_name,
             last_name=last_name,
             room_number=room_number,
@@ -33,7 +29,7 @@ class UserManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self, username, email, password):
+    def create_superuser(self, email, username, password):
         user = self.create_user(email, username, password, room_number=666)
         user.is_superuser = True
         user.save()
