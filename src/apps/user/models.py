@@ -53,10 +53,10 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.CharField('email', max_length=100, unique=True, db_index=True)
-    first_name = models.CharField('first_name', max_length=20)
-    last_name = models.CharField('last_name', max_length=20)
-    room_number = models.CharField('room_number', max_length=3)
+    email = models.EmailField('Почта', unique=True)
+    first_name = models.CharField('Имя', max_length=20)
+    last_name = models.CharField('Фамилия', max_length=20)
+    room_number = models.PositiveIntegerField('Номер комнаты', max_length=3)
     avatar = ProcessedImageField(
         format='PNG',
         processors=[
