@@ -6,23 +6,12 @@ from django.db import models
 from imagekit.models import ProcessedImageField
 from pilkit.processors import ResizeToFill
 
+from src.utils.strings import email_normalization
+
 logger = logging.getLogger(__name__)
 
 
 class UserManager(BaseUserManager):
-    @classmethod
-    def email_normalization(cls, email):
-        email = email or ''
-        try:
-            email_name, domain_part = email.strip().rsplit('@', 1)
-        except ValueError:
-            logger.error('Incorrect email')
-        else:
-            if domain_part.lower() != 'mer.ci.nsu.ru':
-                raise TypeError('Email must end with a "@mer.ci.nsu.ru"')
-            email = f'{email_name}@{domain_part.lower()}'
-        return email
-
     def create_user(self, email, first_name, password, room_number, last_name=None):
         if not email:
             raise TypeError('The "email" field is required')
@@ -34,7 +23,7 @@ class UserManager(BaseUserManager):
             raise TypeError('The "room number" field is required')
 
         user = self.model(
-            email=self.email_normalization(email),
+            email=email_normalization(email, logger),
             first_name=first_name,
             last_name=last_name,
             room_number=room_number,
@@ -68,6 +57,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'password']
