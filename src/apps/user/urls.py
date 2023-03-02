@@ -1,7 +1,5 @@
 from django.urls import path
 
-from .views import UserProfileAPIList
+from .views import UserProfileAPIUpdate
 
-urlpatterns = [
-    path('all-users', UserProfileAPIList.as_view()),
-]
+urlpatterns = [path('<int:pk>', UserProfileAPIUpdate.as_view())]
