@@ -1,7 +1,9 @@
 from django.urls import path
 
-from apps.user.views import UserProfileAPIUpdate
+from .views import UserProfileAPICreate, UserProfileAPIRetrieve, UserProfileAPIUpdateDestroy
 
 urlpatterns = [
-    path('<int:pk>', UserProfileAPIUpdate.as_view()),
+    path('<int:pk>', UserProfileAPIRetrieve.as_view()),
+    path('me', UserProfileAPIUpdateDestroy.as_view()),
+    path('sign-up', UserProfileAPICreate.as_view()),
 ]
