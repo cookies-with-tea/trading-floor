@@ -1,24 +1,23 @@
 from rest_framework.generics import CreateAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
+from api.v1.user.serializers import UserProfileSerializer
 from apps.user.models import User
-from apps.user.permissions import IsOwnerProfileOrReadOnly
-from apps.user.serializer import UserProfileSerializer
 
 
-class UserProfileAPICreate(CreateAPIView):
+class SignUpAPIView(CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserProfileSerializer
     permission_classes = [AllowAny]
 
 
-class UserProfileAPIUpdateDestroy(RetrieveUpdateDestroyAPIView):
+class MeAPIView(RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserProfileSerializer
-    permission_classes = [IsOwnerProfileOrReadOnly]
+    permission_classes = [IsAuthenticated]
 
 
-class UserProfileAPIRetrieve(RetrieveAPIView):
+class UserProfileAPIView(RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserProfileSerializer
     permission_classes = [IsAuthenticated]
