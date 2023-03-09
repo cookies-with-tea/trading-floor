@@ -37,6 +37,11 @@ class UserManager(BaseUserManager):
         return user
 
 
+class ActiveUsersManager(models.QuerySet):
+    def active(self):
+        return self.filter(is_active=True)
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('Почта', unique=True)
     first_name = models.CharField('Имя', max_length=20)
@@ -59,7 +64,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'password']
 
-    objects = UserManager()
+    objects = ActiveUsersManager.as_manager()
 
     def __str__(self):
         return self.email
