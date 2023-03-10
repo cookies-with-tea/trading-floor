@@ -1,5 +1,6 @@
 from rest_framework.generics import CreateAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
 
 from api.v1.user.serializers import UserProfileSerializer
 from apps.user.models import User
@@ -15,6 +16,11 @@ class MeAPIView(RetrieveUpdateDestroyAPIView):
     queryset = User.objects.filter(is_active=True)
     serializer_class = UserProfileSerializer
     permission_classes = [IsAuthenticated]
+
+    def retrieve(self, request, *args, **kwargs):
+        serializer = self.serializer_class(request.user, context={'request': request})
+
+        return Response(serializer.data)
 
 
 class UserProfileAPIView(RetrieveAPIView):
