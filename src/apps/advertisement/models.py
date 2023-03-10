@@ -30,10 +30,11 @@ class Advertisement(models.Model):
 
     title = models.TextField()
     description = models.TextField(blank=True)
-    type = MultiSelectField(choices=TYPE_LIST, max_choices=3, max_length=8)
+    type = MultiSelectField(choices=TYPE_LIST, max_choices=3, max_length=100)
     image = models.ForeignKey(
         'Image',
         blank=True,
+        null=True,
         on_delete=models.CASCADE,
         related_name='images',
     )
