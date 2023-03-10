@@ -1,10 +1,12 @@
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
+from django.core.exceptions import ValidationError
 from django.db import models
 from imagekit.models import ProcessedImageField
 from pilkit.processors import ResizeToFill
 
-from utils.strings import email_normalization
+from config.settings import EMAIL_DOMAIN
+from utils.strings import is_correct_email_domain
 
 
 class UserManager(BaseUserManager):
@@ -19,7 +21,7 @@ class UserManager(BaseUserManager):
             raise TypeError('The "room number" field is required')
 
         user = self.model(
-            email=email_normalization(email),
+            email=self.normalize_email(email),
             first_name=first_name,
             last_name=last_name,
             room_number=room_number,
@@ -29,18 +31,24 @@ class UserManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self, email, username, password):
-        user = self.create_user(email, username, password, room_number=666)
+    def create_superuser(self, email, first_name, password):
+        user = self.create_user(email, first_name, password, room_number=666)
         user.is_superuser = True
+        user.is_staff = True
         user.save()
 
         return user
 
 
+def validate_email_address(email):
+    if not is_correct_email_domain(email, EMAIL_DOMAIN):
+        raise ValidationError('Разрешены только адреса домена mer.ci.nsu.ru')
+
+
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField('Почта', unique=True)
+    email = models.EmailField('Почта', unique=True, db_index=True, validators=[validate_email_address])
     first_name = models.CharField('Имя', max_length=20)
-    last_name = models.CharField('Фамилия', max_length=20)
+    last_name = models.CharField('Фамилия', max_length=20, blank=True, null=True)
     room_number = models.PositiveIntegerField('Номер комнаты')
     avatar = ProcessedImageField(
         format='PNG',
@@ -54,10 +62,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
-    is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'password']
+    REQUIRED_FIELDS = ['first_name']
 
     objects = UserManager()
 
