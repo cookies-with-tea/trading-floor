@@ -1,0 +1,32 @@
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.form-body {
+  &__title {
+    margin-bottom: 30px;
+  }
+}
+
+.auth-layout {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.auth-form-title {
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.block {
+  display: block;
+}
