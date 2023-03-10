@@ -12,12 +12,12 @@ class SignUpAPIView(CreateAPIView):
 
 
 class MeAPIView(RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
+    queryset = User.objects.filter(is_active=True)
     serializer_class = UserProfileSerializer
     permission_classes = [IsAuthenticated]
 
 
 class UserProfileAPIView(RetrieveAPIView):
-    queryset = User.objects.all()
+    queryset = User.objects.filter(is_active=True)
     serializer_class = UserProfileSerializer
     permission_classes = [IsAuthenticated]
