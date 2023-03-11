@@ -25,6 +25,8 @@ pytest = "^7.2.2"
 black = {extras = ["d"], version = "^23.1.0"}
 flake8 = "^6.0.0"
 pre-commit = "^3.1.0"
+factory-boy = "^3.2.1"
+pytest-factoryboy = "^2.5.1"
 
 [build-system]
 requires = ["poetry-core"]

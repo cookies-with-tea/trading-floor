@@ -582,6 +582,40 @@ files = [
 test = ["pytest (>=6)"]
 
 [[package]]
+name = "factory-boy"
+version = "3.2.1"
+description = "A versatile test fixtures replacement based on thoughtbot's factory_bot for Ruby."
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "factory_boy-3.2.1-py2.py3-none-any.whl", hash = "sha256:eb02a7dd1b577ef606b75a253b9818e6f9eaf996d94449c9d5ebb124f90dc795"},
+    {file = "factory_boy-3.2.1.tar.gz", hash = "sha256:a98d277b0c047c75eb6e4ab8508a7f81fb03d2cb21986f627913546ef7a2a55e"},
+]
+
+[package.dependencies]
+Faker = ">=0.7.0"
+
+[package.extras]
+dev = ["Django", "Pillow", "SQLAlchemy", "coverage", "flake8", "isort", "mongoengine", "tox", "wheel (>=0.32.0)", "zest.releaser[recommended]"]
+doc = ["Sphinx", "sphinx-rtd-theme", "sphinxcontrib-spelling"]
+
+[[package]]
+name = "faker"
+version = "17.6.0"
+description = "Faker is a Python package that generates fake data for you."
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "Faker-17.6.0-py3-none-any.whl", hash = "sha256:5aaa16fa9cfde7d117eef70b6b293a705021e57158f3fa6b44ed1b70202d2065"},
+    {file = "Faker-17.6.0.tar.gz", hash = "sha256:51f37ff9df710159d6d736d0ba1c75e063430a8c806b91334d7794305b5a6114"},
+]
+
+[package.dependencies]
+python-dateutil = ">=2.4"
+
+[[package]]
 name = "filelock"
 version = "3.9.0"
 description = "A platform independent file lock."
@@ -723,6 +757,18 @@ python-versions = ">=3.5"
 files = [
     {file = "idna-3.4-py3-none-any.whl", hash = "sha256:90b77e79eaa3eba6de819a0c442c0b4ceefc341a7a2ab77d7562bf49f425c5c2"},
     {file = "idna-3.4.tar.gz", hash = "sha256:814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"},
+]
+
+[[package]]
+name = "inflection"
+version = "0.5.1"
+description = "A port of Ruby on Rails inflector to Python"
+category = "dev"
+optional = false
+python-versions = ">=3.5"
+files = [
+    {file = "inflection-0.5.1-py2.py3-none-any.whl", hash = "sha256:f38b2b640938a4f35ade69ac3d053042959b62a0f1076a5bbaa1b9526605a8a2"},
+    {file = "inflection-0.5.1.tar.gz", hash = "sha256:1a29730d366e996aaacffb2f1f1cb9593dc38e2ddd30c91250c6dde09ea9b417"},
 ]
 
 [[package]]
@@ -1186,6 +1232,24 @@ docs = ["sphinx", "sphinx-rtd-theme"]
 testing = ["Django", "django-configurations (>=2.0)"]
 
 [[package]]
+name = "pytest-factoryboy"
+version = "2.5.1"
+description = "Factory Boy support for pytest."
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "pytest_factoryboy-2.5.1-py3-none-any.whl", hash = "sha256:41e3465935322188daefc8720f83cebb16bf3d3a430356dc91151c55f31d99c7"},
+    {file = "pytest_factoryboy-2.5.1.tar.gz", hash = "sha256:7275a52299b20c0f58b63fdf7326b3fd2b7cbefbdaa90fdcfc776bbe92197484"},
+]
+
+[package.dependencies]
+factory_boy = ">=2.10.0"
+inflection = "*"
+pytest = ">=5.0.0"
+typing_extensions = "*"
+
+[[package]]
 name = "python-dateutil"
 version = "2.8.2"
 description = "Extensions to the standard Python datetime module"
@@ -1331,6 +1395,18 @@ files = [
 ]
 
 [[package]]
+name = "typing-extensions"
+version = "4.5.0"
+description = "Backported and Experimental Type Hints for Python 3.7+"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "typing_extensions-4.5.0-py3-none-any.whl", hash = "sha256:fb33085c39dd998ac16d1431ebc293a8b3eedd00fd4a32de0ff79002c19511b4"},
+    {file = "typing_extensions-4.5.0.tar.gz", hash = "sha256:5cb5f4a79139d699607b3ef622a1dedafa84e115ab0024e0d9c044a9479ca7cb"},
+]
+
+[[package]]
 name = "tzdata"
 version = "2022.7"
 description = "Provider of IANA time zone data"
@@ -1471,4 +1547,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "7b41732a6f085af27c079e8633f8ad169546293a51b2fc67e003c7eaecc2e208"
+content-hash = "5df80068cb7e32de4f1763a70f4cf495c5fce11e6509070715abf24a39daaecd"
