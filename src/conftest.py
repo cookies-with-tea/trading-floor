@@ -1,7 +1,13 @@
 import pytest
 from django.contrib.auth import get_user_model
+from pytest_factoryboy import register
+
+from factories import UserFactory
 
 User = get_user_model()
+
+
+register(UserFactory)
 
 
 @pytest.fixture(scope='function')
