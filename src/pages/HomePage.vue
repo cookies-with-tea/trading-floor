@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container">
-      <el-form></el-form>
+      <el-form />
     </div>
   </div>
 </template>

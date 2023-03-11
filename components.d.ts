@@ -9,6 +9,14 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    CInput: typeof import('./src/components/common/CInput/CInput.vue')['default']
+    ElButton: typeof import('element-plus/es')['ElButton']
+    ElForm: typeof import('element-plus/es')['ElForm']
+    ElFormItem: typeof import('element-plus/es')['ElFormItem']
+    ElInput: typeof import('element-plus/es')['ElInput']
+    IconTemplate: typeof import('./src/components/common/IconTemplate.vue')['default']
+    LoginForm: typeof import('./src/components/LoginForm.vue')['default']
+    RegistrationForm: typeof import('./src/components/RegistrationForm.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

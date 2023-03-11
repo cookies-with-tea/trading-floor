@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import AuthLayout from '@/layouts/AuthLayout.vue';
+import { createRouter, createWebHistory } from 'vue-router'
+import AuthLayout from '@/layouts/AuthLayout.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -11,16 +11,16 @@ const router = createRouter({
         {
           path: 'registration',
           name: 'registration',
-          component: () => import('@/components/RegistrationForm.vue')
+          component: () => import('@/components/RegistrationForm.vue'),
         },
         {
           path: 'login',
           name: 'login',
-          component: () => import('@/components/LoginForm.vue')
-        }
-      ]
-    }
-  ]
-});
+          component: () => import('@/components/LoginForm.vue'),
+        },
+      ],
+    },
+  ],
+})
 
-export default router;
+export default router

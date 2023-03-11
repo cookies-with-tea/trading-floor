@@ -1,0 +1,31 @@
+// Vitest Snapshot v1
+
+exports[`CInput Snapshot 1`] = `
+<div
+  class="el-input"
+>
+  <!-- input -->
+  
+  <!-- prepend slot -->
+  <!--v-if-->
+  <div
+    class="el-input__wrapper"
+  >
+    <!-- prefix slot -->
+    <!--v-if-->
+    <input
+      autocomplete="off"
+      class="el-input__inner"
+      data-tid="c-input"
+      placeholder=""
+      tabindex="0"
+      type="text"
+    />
+    <!-- suffix slot -->
+    <!--v-if-->
+  </div>
+  <!-- append slot -->
+  <!--v-if-->
+  
+</div>
+`;
