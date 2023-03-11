@@ -1,14 +1,28 @@
-import { createApp } from 'vue';
-import { createPinia } from 'pinia';
-import router from '@/router';
-import ElementPlus from 'element-plus';
-import 'element-plus/dist/index.css';
-import '@/styles/index.scss';
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 
-import App from './App.vue';
+import IconTemplate from '@/components/common/IconTemplate.vue'
 
-const app = createApp(App);
+import 'virtual:svg-icons-register'
 
-app.use(createPinia()).use(ElementPlus).use(router);
+// TODO: После подключения шрифтов убрать комментарий.
+// import 'virtual:fonts.css'
 
-app.mount('#app');
+import App from './App.vue'
+import router from './router'
+
+import ElementPlus from 'element-plus'
+
+import '@/styles/index.scss'
+
+const app = createApp(App)
+
+app.component('IconTemplate', IconTemplate)
+
+app.use(createPinia())
+
+app.use(router)
+
+app.use(ElementPlus)
+
+app.mount('#app')

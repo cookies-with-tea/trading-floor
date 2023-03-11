@@ -1,6 +1,6 @@
-import type { FormItemRule } from 'element-plus';
+import type { FormItemRule } from 'element-plus'
 
 export const required_field_validation: FormItemRule = {
   required: true,
-  message: 'Обязательное поле'
-};
+  message: 'Обязательное поле',
+}

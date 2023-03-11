@@ -161,15 +161,15 @@ select {
   background-color: transparent;
 }
 
-pre {
-  font-family: monospace;
-  font-size: 1em;
-}
-
 hr {
   height: 0;
   box-sizing: content-box;
   overflow: visible;
+}
+
+pre {
+  font-family: monospace;
+  font-size: 1em;
 }
 
 a {
