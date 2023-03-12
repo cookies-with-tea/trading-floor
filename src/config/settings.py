@@ -47,6 +47,7 @@ THIRD_PARTY_APPS = [
     'corsheaders',
     'multiselectfield',
     'rest_framework_simplejwt',
+    'drf_yasg',
 ]
 
 LOCAL_APPS = [
@@ -206,3 +207,8 @@ SIMPLE_JWT = {
 }
 
 EMAIL_DOMAIN = '@mer.ci.nsu.ru'
+
+# SWAGGER
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False,
+}
