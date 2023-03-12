@@ -14,7 +14,7 @@ pytestmark = [
 def test_get_me(user_factory) -> None:
     api = APIClient(enforce_csrf_checks=True)
 
-    user = user_factory()
+    user: User = user_factory()
 
     api.force_authenticate(user)
 
@@ -40,7 +40,7 @@ def test_get_me_without_jwt() -> None:
 def test_update_me(user_factory) -> None:
     api = APIClient(enforce_csrf_checks=True)
 
-    user = user_factory()
+    user: User = user_factory()
 
     api.force_authenticate(user)
 
@@ -61,7 +61,7 @@ def test_update_me(user_factory) -> None:
 def test_invalid_update_me(user_factory) -> None:
     api = APIClient(enforce_csrf_checks=True)
 
-    user = user_factory()
+    user: User = user_factory()
 
     api.force_authenticate(user)
 
@@ -81,7 +81,7 @@ def test_invalid_update_me(user_factory) -> None:
 def test_delete_me(user_factory) -> None:
     api = APIClient(enforce_csrf_checks=True)
 
-    user = user_factory()
+    user: User = user_factory()
 
     api.force_authenticate(user)
 
