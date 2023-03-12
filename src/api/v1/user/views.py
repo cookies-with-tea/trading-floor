@@ -3,19 +3,19 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.status import HTTP_204_NO_CONTENT
 
-from api.v1.user.serializers import UserProfileSerializer
+from api.v1.user.serializers import UserDetailSerializer, UserProfileSerializer
 from apps.user.models import User
 
 
 class SignUpAPIView(CreateAPIView):
     queryset = User.objects.all()
-    serializer_class = UserProfileSerializer
+    serializer_class = UserDetailSerializer
     permission_classes = [AllowAny]
 
 
 class MeAPIView(RetrieveUpdateDestroyAPIView):
     queryset = User.objects.filter(is_active=True)
-    serializer_class = UserProfileSerializer
+    serializer_class = UserDetailSerializer
     permission_classes = [IsAuthenticated]
 
     def retrieve(self, request, *args, **kwargs):
