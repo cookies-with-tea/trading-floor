@@ -25,7 +25,7 @@ module.exports = {
   plugins: ['vue', '@typescript-eslint'],
 
   rules: {
-    semi: ['error', 'never'],
+    semi: ['error', 'always'],
     quotes: ['error', 'single'],
     'no-useless-constructor': 'off',
     'linebreak-style': ['error', 'unix'],
