@@ -25,28 +25,21 @@ body {
 }
 
 .auth-layout {
+  min-height: 100vh;
   max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border-radius: 20px;
+  padding: 20px;
   margin: 0 auto;
+
+
 }
 
 .auth-form-title {
   font-size: 2.5rem;
   text-align: center;
-}
-
-// TODO: Убрать. Есть альтернатива d-f
-.flex {
-  display: flex;
-}
-
-// TODO: Убрать. Есть альтернатива jc-sb
-.space-between {
-  justify-content: space-between;
-}
-
-// TODO: Убрать. Есть альтернатива d-b
-.block {
-  display: block;
 }
 
 .h1,
@@ -93,12 +86,8 @@ h4 {
 
 // Colors
 @each $_class-name,
-$_color
-in (
-    ('primary', $color--primary),
-    ('white', $color--white),
-    ('white-secondary', $color--white-secondary)
-) {
+  $_color in (('primary', $color--primary), ('white', $color--white), ('white-secondary', $color--white-secondary))
+{
   // @sample
   // .bg-primary
   // .color-primary

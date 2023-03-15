@@ -1,32 +1,32 @@
 <template>
-  <svg class="app-icon" :class="iconClass" :width="props.width" :height="props.height" aria-hidden="true">
+  <svg :class="iconClass" :height="props.height" :width="props.width" aria-hidden="true" class="app-icon">
     <use :href="symbolId" />
   </svg>
 </template>
 
-<script setup lang="ts">
-import { computed } from 'vue'
+<script lang="ts" setup>
+import { computed } from 'vue';
 
 type Props = {
-  name: string
-  prefix?: string
-  width?: string | number
-  height?: string | number
-  reverse?: boolean
-}
+  name: string;
+  prefix?: string;
+  width?: string | number;
+  height?: string | number;
+  reverse?: boolean;
+};
 
 const props = withDefaults(defineProps<Props>(), {
   prefix: 'icon',
   width: '23px',
   height: '24px',
   reverse: false,
-})
+});
 
-const symbolId = computed(() => `#${props.prefix}-${props.name}`)
+const symbolId = computed(() => `#${props.prefix}-${props.name}`);
 
 const iconClass = computed(() => {
-  return [{ 'reversed-icon': props.reverse }, `app-icon--${props.name}`]
-})
+  return [{ 'reversed-icon': props.reverse }, `app-icon--${props.name}`];
+});
 </script>
 
 <style scoped>
