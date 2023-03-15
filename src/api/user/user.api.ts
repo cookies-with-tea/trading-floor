@@ -1,6 +1,6 @@
 import { AxiosService } from '@/api/AxiosService/axiosService';
 import { AxiosRequestConfig } from 'axios';
-import { RegisterFormType } from '@/types/auth';
+import { RegisterFormType } from '@/types/authFormTypes';
 
 class UserApi extends AxiosService {
   constructor(config: AxiosRequestConfig) {

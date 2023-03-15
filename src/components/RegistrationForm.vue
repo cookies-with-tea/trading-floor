@@ -17,10 +17,10 @@
       <el-form-item label="Пароль" prop="password">
         <el-input v-model="formModel.password" type="password" />
       </el-form-item>
-      <div class="flex space-between">
-        <router-link :to="{ name: 'login' }">Вход</router-link>
-        <el-form-item class="flex space-between">
-          <el-button type="primary" @click="submitForm">Зарегистрироваться</el-button>
+      <div class="d-f jc-sb ai-c">
+        <router-link :to="{ name: ROUTE_NAMES.LoginPage }">Вход</router-link>
+        <el-form-item class="mb-0">
+          <el-button type="primary" @click="submitForm(formInstance)">Зарегистрироваться</el-button>
         </el-form-item>
       </div>
     </el-form>
@@ -28,45 +28,56 @@
 </template>
 
 <script lang="ts" setup>
-import type { RegisterForm } from '@/types/auth'
-import { FormInstance, FormRules } from 'element-plus'
-import { reactive, ref } from 'vue'
+import type { RegisterFormType } from '@/types/authFormTypes';
+import { ElMessage, FormInstance, FormRules } from 'element-plus';
+import { reactive, ref } from 'vue';
+import { userApi } from '@/api/user/user.api';
+import { ROUTE_NAMES } from '@/constants/routeNames';
 import {
-  email_validate_rules,
-  fisrt_name_validate_rules,
-  last_name_validate_rules,
-  password_validate_rules,
-  room_number_validate_rules,
-} from '@/validators/auth'
-import { errorMessage, successMessage } from '@/presets/messages'
+  emailRules,
+  firstNameRules,
+  lastNameRules,
+  passwordRules,
+  requiredRule,
+  roomNumberRules,
+} from '@/constants/formRules';
 
-const formInstance = ref<FormInstance>()
+const formInstance = ref<FormInstance>();
 
-const formModel = reactive<RegisterForm>({
+const formModel = reactive<RegisterFormType>({
   email: '',
   first_name: '',
   last_name: '',
   password: '',
   room_number: null,
-})
+});
 
 const formRules = reactive<FormRules>({
-  first_name: fisrt_name_validate_rules,
-  last_name: last_name_validate_rules,
-  email: email_validate_rules,
-  password: password_validate_rules,
-  room_number: room_number_validate_rules,
-})
+  first_name: [requiredRule, ...firstNameRules],
+  last_name: [...lastNameRules],
+  email: [requiredRule, ...emailRules],
+  password: [requiredRule, ...passwordRules],
+  room_number: [requiredRule, ...roomNumberRules],
+});
 
-const submitForm = () => {
-  if (!formInstance.value) return
-
-  formInstance.value.validate((valid) => {
+async function submitForm(form: FormInstance | undefined) {
+  if (!form) return;
+  await form.validate(async (valid) => {
     if (valid) {
-      successMessage()
-    } else {
-      errorMessage()
+      const [error] = await userApi.registerUser(formModel);
+
+      if (error !== null) {
+        ElMessage({
+          type: 'success',
+          message: 'Данные отправлены',
+        });
+      } else {
+        ElMessage({
+          type: 'error',
+          message: `${error}`,
+        });
+      }
     }
-  })
+  });
 }
 </script>
