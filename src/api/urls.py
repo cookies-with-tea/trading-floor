@@ -1,6 +1,6 @@
 from django.urls import include, path
 
 urlpatterns = [
-    path('users/', include('api.v1.user.urls')),
+    path('v1/', include(('api.v1.urls', 'v1'), namespace='v1')),
     path('auth/', include('api.common.auth.urls')),
 ]
