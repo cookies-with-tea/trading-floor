@@ -7,9 +7,10 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import path from 'path';
+
+// @ts-ignore
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 
 const styleLintConfig = StyleLintPlugin({
   files: ['src/**/*.{vue,scss}'],
@@ -53,7 +54,7 @@ const svgIconsConfig = createSvgIconsPlugin({
 export default defineConfig({
   server: {
     proxy: {
-      '/api/v1': {
+      '/api': {
         target: 'http://localhost:8000',
         changeOrigin: true,
         secure: false,
