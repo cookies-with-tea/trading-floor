@@ -15,8 +15,8 @@ declare module '@vue/runtime-core' {
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElInput: typeof import('element-plus/es')['ElInput']
     IconTemplate: typeof import('./src/components/common/IconTemplate.vue')['default']
-    LoginForm: typeof import('./src/components/LoginForm.vue')['default']
-    RegistrationForm: typeof import('./src/components/RegistrationForm.vue')['default']
+    LoginForm: typeof import('./src/components/Forms/LoginForm.vue')['default']
+    RegistrationForm: typeof import('./src/components/Forms/RegistrationForm.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

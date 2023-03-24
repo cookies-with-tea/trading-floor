@@ -11,7 +11,7 @@
       <div class="d-f jc-sb ai-c">
         <router-link :to="{ name: ROUTE_NAMES.RegistrationPage }">Регистрация</router-link>
         <el-form-item class="mb-0">
-          <el-button type="primary">Войти</el-button>
+          <el-button type="primary" @click="sendLoginData">Войти</el-button>
         </el-form-item>
       </div>
     </el-form>
@@ -24,6 +24,7 @@ import { FormInstance, FormRules } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { requiredRule } from '@/constants/formRules';
 import { ROUTE_NAMES } from '@/constants/routeNames';
+import { authApi } from '@/api/auth/auth.api';
 
 const formInstance = ref<FormInstance>();
 
@@ -36,4 +37,8 @@ const formRules = reactive<FormRules>({
   email: [requiredRule],
   password: [requiredRule],
 });
+
+function sendLoginData() {
+  authApi.authUser(formModel);
+}
 </script>
