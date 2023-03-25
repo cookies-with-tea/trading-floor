@@ -30,7 +30,7 @@ class AuthApi extends AxiosService {
       }
     });
   }
-  authGoogleUser(payload: number) {
+  authGoogleUser(payload: string) {
     this.axiosCall<Credentials>({
       method: 'post',
       url: '/google/id/',

@@ -30,7 +30,8 @@
     "vite-plugin-fonts": "^0.7.0",
     "vite-plugin-stylelint": "4.1.6",
     "vue": "^3.2.38",
-    "vue-router": "^4.1.5"
+    "vue-router": "^4.1.5",
+    "vue3-google-login": "^2.0.15"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",

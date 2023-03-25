@@ -14,6 +14,7 @@ declare module '@vue/runtime-core' {
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElInput: typeof import('element-plus/es')['ElInput']
+    GoogleAuth: typeof import('./src/components/widgets/GoogleAuth.vue')['default']
     IconTemplate: typeof import('./src/components/common/IconTemplate.vue')['default']
     LoginForm: typeof import('./src/components/Forms/LoginForm.vue')['default']
     RegistrationForm: typeof import('./src/components/Forms/RegistrationForm.vue')['default']
