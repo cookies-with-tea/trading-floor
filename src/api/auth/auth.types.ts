@@ -1,7 +1,7 @@
-export interface Credentials {
+export type Credentials = {
   refresh: string;
   access: string;
-}
+};
 
 export interface OnlyRefreshCredentials {
   refresh: string;
