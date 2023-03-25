@@ -5,6 +5,7 @@ import { useAuthStore } from '@/stores/authStore';
 
 class AuthApi extends AxiosService {
   authStore: any;
+
   constructor(config: AxiosRequestConfig) {
     super(config);
 
@@ -30,10 +31,11 @@ class AuthApi extends AxiosService {
       }
     });
   }
+
   authGoogleUser(payload: string) {
     this.axiosCall<Credentials>({
       method: 'post',
-      url: '/google/id/',
+      url: '/google/',
       data: payload,
     }).then((result) => {
       if (result[0] === null) {
