@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 export const useAuthStore = defineStore('auth', () => {
-  const refresh = ref('');
+  const refreshToken = ref('');
 
-  return { refresh };
+  return { refreshToken };
 });
