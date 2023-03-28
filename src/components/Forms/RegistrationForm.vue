@@ -29,7 +29,7 @@
 
 <script lang="ts" setup>
 import type { RegisterFormType } from '@/types/authFormTypes';
-import { ElMessage, FormInstance, FormRules } from 'element-plus';
+import { FormInstance, FormRules } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { userApi } from '@/api/user/user.api';
 import { ROUTE_NAMES } from '@/constants/routeNames';
@@ -64,19 +64,7 @@ async function submitForm(form: FormInstance | undefined) {
   if (!form) return;
   await form.validate(async (valid) => {
     if (valid) {
-      const [error] = await userApi.registerUser(formModel);
-
-      if (error !== null) {
-        ElMessage({
-          type: 'success',
-          message: 'Данные отправлены',
-        });
-      } else {
-        ElMessage({
-          type: 'error',
-          message: `${error}`,
-        });
-      }
+      await userApi.registerUser(formModel);
     }
   });
 }

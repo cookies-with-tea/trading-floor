@@ -25,8 +25,11 @@ import { reactive, ref } from 'vue';
 import { requiredRule } from '@/constants/formRules';
 import { ROUTE_NAMES } from '@/constants/routeNames';
 import { authApi } from '@/api/auth/auth.api';
+import { useAuthStore } from '@/stores/authStore';
 
 const formInstance = ref<FormInstance>();
+
+const authStore = useAuthStore();
 
 const formModel = reactive<LoginFormType>({
   email: '',
@@ -38,7 +41,15 @@ const formRules = reactive<FormRules>({
   password: [requiredRule],
 });
 
-function sendLoginData() {
-  authApi.authUser(formModel);
+async function sendLoginData() {
+  const [error, data] = await authApi.authUser(formModel);
+
+  if (!error) {
+    const { access, refresh } = data;
+
+    authStore.refreshToken = refresh;
+
+    localStorage.setItem('accessToken', access);
+  }
 }
 </script>
