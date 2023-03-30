@@ -1,7 +1,8 @@
-from django.urls import path
+from rest_framework import routers
 
-from api.v1.advertisement.views import CreateAdvertisementAPIView
+from api.v1.advertisement.views import CreateAdvertisementViewSet
 
-urlpatterns = [
-    path('create', CreateAdvertisementAPIView.as_view(), name='create-advertisement'),
-]
+router = routers.SimpleRouter()
+router.register('advertisements',  CreateAdvertisementViewSet)
+
+urlpatterns = [] + router.urls
