@@ -12,4 +12,5 @@ class AdvertisementSerializer(serializers.ModelSerializer):
             'type',
             'image',
             'urgency',
+            'author',
         ]
