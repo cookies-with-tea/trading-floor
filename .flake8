@@ -10,6 +10,8 @@ exclude =
     __init__.py,
     migrations/*,
     .venv/*,
+    venv/*,
+    */migrations,
 
 select =
     E,

@@ -14,7 +14,7 @@ pytestmark = [
 def test_get_detail_user(user_factory) -> None:
     api = APIClient(enforce_csrf_checks=True)
 
-    user = user_factory()
+    user = user_factory(is_active=True)
 
     api.force_authenticate(user)
 
@@ -27,6 +27,20 @@ def test_get_detail_user(user_factory) -> None:
         response_content['first_name'] == user.first_name
     ), 'Имя из тела ответа не равен имени пользователя, который был запрошен'
     assert response_content.get('email') is None, 'В теле ответа пришёл email, хотя его не ожидалось'
+
+
+def test_get_detail_not_is_active_user(user_factory) -> None:
+    api = APIClient(enforce_csrf_checks=True)
+
+    user: User = user_factory(is_active=False)
+
+    api.force_authenticate(user)
+
+    response = api.get(reverse('user-detail', kwargs={'pk': user.id}))
+    response_content = response.json()
+
+    assert response.status_code == status.HTTP_404_NOT_FOUND, 'Ожидался 404 статус-код ответа'
+    assert response_content == {'detail': 'Not found.'}, 'Ожидалось поле "detail" в ответ, которое равно "Not found"'
 
 
 def test_get_detail_unauthorized_user(user_factory) -> None:

@@ -1,8 +1,8 @@
 from django.urls import path
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+
+from api.common.auth.views import AuthorizationGoogleAPIView, SingUpAPIView
 
 urlpatterns = [
-    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='refresh_token'),
-    path('token/verify/', TokenVerifyView.as_view(), name='verify_token'),
+    path('sign-up', SingUpAPIView.as_view(), name='sign-up'),
+    path('google', AuthorizationGoogleAPIView.as_view(), name='authorization-google'),
 ]
