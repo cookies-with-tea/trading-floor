@@ -14,3 +14,14 @@ class AdvertisementSerializer(serializers.ModelSerializer):
             'urgency',
             'author',
         ]
+
+
+class ListAdvertisementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Advertisement
+        fields = [
+            'title',
+            'type',
+            'urgency',
+            'author',
+        ]
