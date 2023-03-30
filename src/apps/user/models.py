@@ -40,7 +40,7 @@ class UserManager(BaseUserManager):
         return user
 
 
-def validate_email_address(email):
+def validate_email_address(email: str) -> None:
     if not is_correct_email_domain(email, EMAIL_DOMAIN):
         raise ValidationError('Разрешены только адреса домена mer.ci.nsu.ru')
 
