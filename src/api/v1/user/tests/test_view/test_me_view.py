@@ -14,7 +14,7 @@ pytestmark = [
 def test_get_me(user_factory) -> None:
     api = APIClient(enforce_csrf_checks=True)
 
-    user: User = user_factory()
+    user: User = user_factory(is_active=True)
 
     api.force_authenticate(user)
 
@@ -89,7 +89,7 @@ def test_invalid_update_me(user_factory) -> None:
 def test_delete_me(user_factory) -> None:
     api = APIClient(enforce_csrf_checks=True)
 
-    user: User = user_factory()
+    user: User = user_factory(is_active=True)
 
     api.force_authenticate(user)
 
