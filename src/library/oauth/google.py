@@ -1,14 +1,23 @@
-from google.auth.transport import requests
-from google.oauth2 import id_token
+import oauthlib
+from google_auth_oauthlib.flow import Flow
 
-from .models import GoogleCredentials
+from .models import GoogleCredentials, GoogleUser
 
 
 class GoogleOauth:
+    USER_INFO_URL = 'https://www.googleapis.com/userinfo/v2/me'
+
     @staticmethod
-    def check_google_authentication(user: GoogleCredentials, google_client_id: str) -> bool:
-        user_data: dict = id_token.verify_oauth2_token(user.token, requests.Request(), google_client_id)
+    def create_flow(secret_file_path: str) -> Flow:
+        return Flow.from_client_secrets_file(secret_file_path, scopes=None, redirect_uri='postmessage')
 
-        print(user_data)
+    @classmethod
+    def google_authentication(cls, user: GoogleCredentials, flow: Flow) -> GoogleUser | None:
+        try:
+            flow.fetch_token(code=user.authorization_code)
+        except oauthlib.oauth2.rfc6749.errors.InvalidGrantError:
+            return None
 
-        return True
+        google_user: dict = flow.authorized_session().get(cls.USER_INFO_URL).json()
+
+        return GoogleUser(email=google_user['email'])

@@ -3,4 +3,9 @@ from dataclasses import dataclass
 
 @dataclass
 class GoogleCredentials:
-    token: str
+    authorization_code: str
+
+
+@dataclass
+class GoogleUser:
+    email: str
