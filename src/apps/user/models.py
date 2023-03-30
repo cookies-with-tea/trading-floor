@@ -49,7 +49,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('Почта', unique=True, db_index=True, validators=[validate_email_address])
     first_name = models.CharField('Имя', max_length=20)
     last_name = models.CharField('Фамилия', max_length=20, blank=True, null=True)
-    room_number = models.PositiveIntegerField('Номер комнаты')
+    room_number = models.PositiveIntegerField('Номер комнаты', null=True)
     avatar = ProcessedImageField(
         format='PNG',
         processors=[
@@ -61,7 +61,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
