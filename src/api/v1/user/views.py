@@ -1,7 +1,7 @@
 from rest_framework.generics import CreateAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.status import HTTP_204_NO_CONTENT
+from rest_framework import status
 
 from api.v1.user.serializers import UserDetailSerializer, UserProfileSerializer
 from apps.user.models import User
@@ -30,7 +30,7 @@ class MeAPIView(RetrieveUpdateDestroyAPIView):
         request.user.is_active = False
         request.user.save()
 
-        return Response(status=HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class UserProfileAPIView(RetrieveAPIView):
