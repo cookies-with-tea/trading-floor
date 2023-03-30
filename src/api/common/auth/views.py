@@ -10,6 +10,7 @@ from api.common.auth.serializers import CredentialsModelSerializer, GoogleCreden
 from apps.user.models import User
 from library.oauth.google import GoogleOauth
 from library.oauth.models import GoogleCredentials
+from utils.strings import is_correct_email_domain
 
 
 class AuthorizationGoogleAPIView(CreateAPIView):
@@ -30,6 +31,13 @@ class AuthorizationGoogleAPIView(CreateAPIView):
             user=GoogleCredentials(serializer.data['authorization_code']),
             flow=flow,
         )
+
+        # Валидируем данные, которые приходят
+        if not is_correct_email_domain(google_user.email, settings.EMAIL_DOMAIN):
+            return Response(
+                {'email': [f'Разрешены только адреса домена {settings.EMAIL_DOMAIN}']},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         # Cоздаём или получаем пользователя
         user, is_create = User.objects.get_or_create(email=google_user.email, room_number=0)
