@@ -1,6 +1,8 @@
 from django.db import models
 from multiselectfield import MultiSelectField
 
+from apps.user.models import User
+
 
 class Image(models.Model):
     image = models.ImageField(verbose_name='Картинка')
@@ -32,13 +34,18 @@ class Advertisement(models.Model):
     description = models.TextField(blank=True)
     type = MultiSelectField(choices=TYPE_LIST, max_choices=3, max_length=100)
     image = models.ForeignKey(
-        'Image',
+        Image,
         blank=True,
         null=True,
         on_delete=models.CASCADE,
         related_name='images',
     )
     urgency = models.CharField(max_length=6, choices=URGENCY_LIST)
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name='Автор',
+    )
 
     def __str__(self):
         return self.title
