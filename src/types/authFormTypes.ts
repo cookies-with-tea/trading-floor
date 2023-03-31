@@ -5,8 +5,8 @@ export type LoginFormType = {
 
 export type RegisterFormType = {
   email: string;
-  first_name: string;
-  last_name?: string;
+  firstName: string;
+  lastName?: string;
   password: string;
-  room_number: number | null;
+  roomNumber: number | null;
 };

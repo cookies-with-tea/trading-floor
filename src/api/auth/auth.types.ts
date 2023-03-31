@@ -3,11 +3,11 @@ export type Credentials = {
   access: string;
 };
 
-export interface OnlyRefreshCredentials {
+export type OnlyRefreshCredentials = {
   refresh: string;
-}
+};
 
-export interface AuthData {
+export type AuthData = {
   email: string;
   password: string;
-}
+};

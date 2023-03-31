@@ -1,5 +1,5 @@
 <template>
-  <button @click="login">Login Using Google</button>
+  <button @click="handleUserGoogleAuthorization">Login Using Google</button>
 </template>
 
 <script lang="ts" setup>
@@ -9,7 +9,7 @@ import { useAuthStore } from '@/stores/authStore';
 
 const authStore = useAuthStore();
 
-const login = async () => {
+const handleUserGoogleAuthorization = async () => {
   const googleData = await googleAuthCodeLogin();
   const [error, data] = await authApi.authGoogleUser(googleData.code);
 
