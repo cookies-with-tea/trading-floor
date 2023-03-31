@@ -11,6 +11,8 @@ class CreateAdvertisementViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
-        request.data['author'] = request.user
+        request.data._mutable = True
+        request.data['author'] = request.user.id
+        request.data._mutable = False
 
         return super().create(request)
