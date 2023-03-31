@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import AuthorizationLayout from '@/layouts/AuthorizationLayout.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import { ROUTE_NAMES } from '@/constants/routeNames';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -12,12 +13,12 @@ const router = createRouter({
       children: [
         {
           path: 'registration',
-          name: 'TheRegistration',
+          name: ROUTE_NAMES.RegistrationPage,
           component: () => import('@/components/Forms/RegistrationForm.vue'),
         },
         {
           path: 'login',
-          name: 'TheLogin',
+          name: ROUTE_NAMES.LoginPage,
           component: () => import('@/components/Forms/LoginForm.vue'),
         },
       ],
@@ -28,7 +29,7 @@ const router = createRouter({
       children: [
         {
           path: '/',
-          name: 'TheHome',
+          name: ROUTE_NAMES.LoginPage,
           component: () => import('@/pages/HomePage.vue'),
         },
       ],

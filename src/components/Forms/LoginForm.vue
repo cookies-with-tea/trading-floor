@@ -1,17 +1,17 @@
 <template>
-  <div class="form-body">
-    <h1 class="auth-form-title form-body__title">Вход</h1>
-    <el-form ref="formInstance" :model="formModel" :rules="formRules" class="">
+  <div class="form">
+    <h1 class="ta-c form-body__title">Вход</h1>
+    <el-form ref="loginFormInstance" :model="loginFormModel" :rules="loginFormRules" class="">
       <el-form-item label="Почта" prop="email">
-        <el-input v-model="formModel.email" />
+        <el-input v-model="loginFormModel.email" />
       </el-form-item>
       <el-form-item label="Пароль" prop="password">
-        <el-input v-model="formModel.password" type="password" />
+        <el-input v-model="loginFormModel.password" type="password" />
       </el-form-item>
       <div class="d-f jc-sb ai-c">
-        <router-link :to="{ name: ROUTE_NAMES.RegistrationPage }">Регистрация</router-link>
+        <router-link :to="{ name: routeNames.RegistrationPage }">Регистрация</router-link>
         <el-form-item class="mb-0">
-          <el-button type="primary" @click="sendLoginData">Войти</el-button>
+          <el-button type="primary" @click="handleUserSignIn">Войти</el-button>
         </el-form-item>
       </div>
     </el-form>
@@ -27,22 +27,22 @@ import { ROUTE_NAMES } from '@/constants/routeNames';
 import { authApi } from '@/api/auth/auth.api';
 import { useAuthStore } from '@/stores/authStore';
 
-const formInstance = ref<FormInstance>();
-
 const authStore = useAuthStore();
+const loginFormInstance = ref<FormInstance>();
+const routeNames = ROUTE_NAMES;
 
-const formModel = reactive<LoginFormType>({
+const loginFormModel = reactive<LoginFormType>({
   email: '',
   password: '',
 });
 
-const formRules = reactive<FormRules>({
+const loginFormRules = reactive<FormRules>({
   email: [requiredRule],
   password: [requiredRule],
 });
 
-async function sendLoginData() {
-  const [error, data] = await authApi.authUser(formModel);
+async function handleUserSignIn() {
+  const [error, data] = await authApi.authUser(loginFormModel);
 
   if (!error) {
     const { access, refresh } = data;
