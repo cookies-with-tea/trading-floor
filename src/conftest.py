@@ -12,13 +12,23 @@ register(UserFactory)
 
 
 @pytest.fixture(scope='function')
-def user_data():
+def user_data() -> dict:
     return {
         'first_name': 'TestUserTradingF',
         'last_name': 'TestUserTradingL',
         'room_number': 600,
         'email': 'testtradingfloor@mer.ci.nsu.ru',
         'password': 'testpassword1234',
+    }
+
+
+@pytest.fixture(scope='function')
+def advertisement_data() -> dict:
+    return {
+        'title': 'Test One',
+        'description': 'Test description one',
+        'type': 'EXCHANGE',
+        'urgency': 'URGENT',
     }
 
 
