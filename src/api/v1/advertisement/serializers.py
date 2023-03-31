@@ -1,9 +1,12 @@
 from rest_framework import serializers
+from rest_framework.fields import CurrentUserDefault
 
 from apps.advertisement.models import Advertisement
 
 
 class AdvertisementSerializer(serializers.ModelSerializer):
+    author = serializers.HiddenField(default=CurrentUserDefault())
+
     class Meta:
         model = Advertisement
         fields = [
