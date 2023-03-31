@@ -5,7 +5,7 @@ from api.v1.advertisement.serializers import AdvertisementSerializer
 from apps.advertisement.models import Advertisement
 
 
-class CreateAdvertisementViewSet(viewsets.ModelViewSet):
+class AdvertisementModelViewSet(viewsets.ModelViewSet):
     queryset = Advertisement.objects.all()
     serializer_class = AdvertisementSerializer
     permission_classes = [IsAuthenticated]
