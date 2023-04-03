@@ -3,12 +3,13 @@ from django.contrib.auth import get_user_model
 from pytest_factoryboy import register
 from rest_framework.test import APIClient
 
-from factories import UserFactory
+from factories import AdvertisementFactory, UserFactory
 
 User = get_user_model()
 
 
 register(UserFactory)
+register(AdvertisementFactory)
 
 
 @pytest.fixture(scope='function')
