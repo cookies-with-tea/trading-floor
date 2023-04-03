@@ -19,7 +19,7 @@ class AdvertisementSerializer(serializers.ModelSerializer):
         ]
 
 
-class ListAdvertisementSerializer(serializers.ModelSerializer):
+class AdvertisementListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Advertisement
         fields = [
