@@ -47,7 +47,7 @@ THIRD_PARTY_APPS = [
     'corsheaders',
     'multiselectfield',
     'rest_framework_simplejwt',
-    'drf_yasg',
+    'drf_spectacular',
 ]
 
 LOCAL_APPS = [
@@ -146,10 +146,13 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# REST FRAMEWORK
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ]
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
 }
 
 # CORS
@@ -208,9 +211,13 @@ SIMPLE_JWT = {
 
 EMAIL_DOMAIN = '@mer.ci.nsu.ru'
 
-# SWAGGER
-SWAGGER_SETTINGS = {
-    'USE_SESSION_AUTH': False,
+# SPECTACULAR
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Trading floor API',
+    'DESCRIPTION': 'Trading floor description',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SCHEMA_PATH_PREFIX': r'/api/v[0-9]',
 }
 
 # GOOGLE OAUTH
