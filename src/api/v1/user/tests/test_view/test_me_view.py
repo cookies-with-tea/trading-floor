@@ -18,7 +18,7 @@ def test_get_me(user_factory) -> None:
 
     api.force_authenticate(user)
 
-    response = api.get(reverse('user-me'))
+    response = api.get(reverse('v1:user-me'))
     response_content = response.json()
 
     assert response.status_code == status.HTTP_200_OK, 'Ожидался 200 статус-код ответа'
@@ -32,12 +32,12 @@ def test_get_me(user_factory) -> None:
 def test_get_me_without_jwt() -> None:
     api = APIClient(enforce_csrf_checks=True)
 
-    response = api.get(reverse('user-me'))
+    response = api.get(reverse('v1:user-me'))
     response_content = response.json()
 
     assert response.status_code == status.HTTP_401_UNAUTHORIZED, 'Ожидалось 401 статус-код ответа'
     assert (
-        response_content['detail'] == 'Authentication credentials were not provided.'
+        response_content['detail'] == 'Учетные данные не были предоставлены.'
     ), 'Сообщение в поле "detail" не соответствует ожидаемому'
 
 
@@ -53,7 +53,7 @@ def test_update_me(user_factory) -> None:
         'last_name': 'ChangeLastName',
     }
 
-    response = api.patch(reverse('user-me'), change_data)
+    response = api.patch(reverse('v1:user-me'), change_data)
     response_content = response.json()
 
     user.refresh_from_db()
@@ -76,7 +76,7 @@ def test_invalid_update_me(user_factory) -> None:
     update_data = {
         'email': 'test@gmail.com',
     }
-    response = api.patch(reverse('user-me'), update_data)
+    response = api.patch(reverse('v1:user-me'), update_data)
 
     user.refresh_from_db()
 
@@ -95,7 +95,7 @@ def test_delete_me(user_factory) -> None:
 
     assert user.is_active
 
-    response = api.delete(reverse('user-me'))
+    response = api.delete(reverse('v1:user-me'))
 
     user.refresh_from_db()
 

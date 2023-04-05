@@ -12,9 +12,10 @@ pytestmark = [
 
 def test_get_with_not_rights(api_client: APIClient, user_factory) -> None:
     user: User = user_factory()
+    user.is_active = False
 
     api_client.force_authenticate(user)
 
-    response = api_client.get(reverse('advertisements-list'))
+    response = api_client.get(reverse('v1:advertisements-list'))
 
     assert response.status_code == status.HTTP_403_FORBIDDEN

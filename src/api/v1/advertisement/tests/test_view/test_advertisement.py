@@ -18,7 +18,7 @@ def test_create_advertisement(api_client: APIClient, advertisement_data: dict, u
 
     assert Advertisement.objects.count() == 0, 'Ожидалось, что количество объявлений в базе данных будет равно 0'
 
-    response = api_client.post(reverse('advertisements-list'), advertisement_data)
+    response = api_client.post(reverse('v1:advertisements-list'), advertisement_data)
     response_content = response.json()
 
     assert response.status_code == status.HTTP_201_CREATED, 'Ожидался 201 статус-код ответа'
@@ -36,7 +36,7 @@ def test_retrieve_advertisement(api_client: APIClient, advertisement_factory) ->
 
     api_client.force_authenticate(advertisement.author)
 
-    response = api_client.get(reverse('advertisements-detail', args=[advertisement.id]))
+    response = api_client.get(reverse('v1:advertisements-detail', args=[advertisement.id]))
     response_content = response.json()
 
     assert response.status_code == status.HTTP_200_OK, 'Ожидался 200 статус-код ответа'
@@ -49,7 +49,7 @@ def test_retrieve_invalid_id_advertisement(api_client, advertisement_factory) ->
 
     api_client.force_authenticate(advertisement.author)
 
-    response = api_client.get(reverse('advertisements-detail', args=[2]))
+    response = api_client.get(reverse('v1:advertisements-detail', args=[2]))
 
     assert response.status_code == status.HTTP_404_NOT_FOUND, 'Ожидался 404 статус-код ответа'
 
@@ -63,7 +63,7 @@ def test_list_advertisement(api_client, advertisement_factory) -> None:
 
     api_client.force_authenticate(advertisement.author)
 
-    response = api_client.get(reverse('advertisements-list'))
+    response = api_client.get(reverse('v1:advertisements-list'))
     response_content = response.json()
 
     assert response.status_code == status.HTTP_200_OK, 'Ожидался 200 статус-код ответа'
