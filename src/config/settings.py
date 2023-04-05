@@ -46,6 +46,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'corsheaders',
     'multiselectfield',
+    'rest_framework',
     'rest_framework_simplejwt',
     'drf_spectacular',
 ]
