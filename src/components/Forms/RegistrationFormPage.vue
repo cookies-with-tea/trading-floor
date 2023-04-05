@@ -18,7 +18,7 @@
         <el-input v-model="registrationFormModel.password" type="password" />
       </el-form-item>
       <div class="d-f jc-sb ai-c">
-        <router-link :to="{ name: routeNames.LoginPage }">Вход</router-link>
+        <router-link :to="{ name: ROUTE_NAMES.LoginPage }">Вход</router-link>
         <el-form-item class="mb-0">
           <el-button type="primary" @click="handleUserSignUp">Зарегистрироваться</el-button>
         </el-form-item>
@@ -36,7 +36,6 @@ import { commonRules } from '@/constants/formRules';
 import { ROUTE_NAMES } from '@/constants/routeNames';
 
 const registrationFormInstance = ref<FormInstance>();
-const routeNames = ROUTE_NAMES;
 
 const registrationFormModel = reactive<RegisterFormType>({
   email: '',
