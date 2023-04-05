@@ -18,6 +18,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     last_name = factory.Faker('last_name')
     room_number = FuzzyInteger(700, 999)
     avatar = factory.Faker('image_url')
+    is_active = True
 
     class Meta:
         model = User
