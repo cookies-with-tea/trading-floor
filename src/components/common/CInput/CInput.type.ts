@@ -1,1 +1,1 @@
-export type CInputType = 'textarea' | 'text' | 'color' | 'url' | 'search' | 'tel' | 'password' | 'email' | 'number'
+export type CInputType = 'textarea' | 'text' | 'color' | 'url' | 'search' | 'tel' | 'password' | 'email' | 'number';

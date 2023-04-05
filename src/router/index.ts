@@ -1,26 +1,40 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import AuthLayout from '@/layouts/AuthLayout.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import AuthorizationLayout from '@/layouts/AuthorizationLayout.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import { ROUTE_NAMES } from '@/constants/routeNames';
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/',
-      component: AuthLayout,
+      path: '/authorization',
+      component: AuthorizationLayout,
+      redirect: { name: 'TheLogin' },
       children: [
         {
           path: 'registration',
-          name: 'registration',
-          component: () => import('@/components/RegistrationForm.vue'),
+          name: ROUTE_NAMES.RegistrationPage,
+          component: () => import('@/components/Forms/RegistrationFormPage.vue'),
         },
         {
           path: 'login',
-          name: 'login',
-          component: () => import('@/components/LoginForm.vue'),
+          name: ROUTE_NAMES.LoginPage,
+          component: () => import('@/components/Forms/LoginFormPage.vue'),
+        },
+      ],
+    },
+    {
+      path: '/',
+      component: DefaultLayout,
+      children: [
+        {
+          path: '/',
+          name: ROUTE_NAMES.HomePage,
+          component: () => import('@/pages/HomePage.vue'),
         },
       ],
     },
   ],
-})
+});
 
-export default router
+export default router;

@@ -549,4 +549,4 @@ module.exports = {
     'scss/percent-placeholder-pattern': null,
     'scss/selector-no-redundant-nesting-selector': true,
   },
-}
+};

@@ -1,28 +1,31 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
 
-import IconTemplate from '@/components/common/IconTemplate.vue'
+import IconTemplate from '@/components/common/IconTemplate.vue';
 
-import 'virtual:svg-icons-register'
+import 'virtual:svg-icons-register';
 
 // TODO: После подключения шрифтов убрать комментарий.
 // import 'virtual:fonts.css'
+import App from './App.vue';
+import router from './router';
+import ElementPlus from 'element-plus';
+import vue3GoogleLogin from 'vue3-google-login';
 
-import App from './App.vue'
-import router from './router'
+import '@/styles/index.scss';
 
-import ElementPlus from 'element-plus'
+const app = createApp(App);
 
-import '@/styles/index.scss'
+app.component('IconTemplate', IconTemplate);
 
-const app = createApp(App)
+app.use(createPinia());
 
-app.component('IconTemplate', IconTemplate)
+app.use(router);
 
-app.use(createPinia())
+app.use(ElementPlus);
 
-app.use(router)
+app.use(vue3GoogleLogin, {
+  clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+});
 
-app.use(ElementPlus)
-
-app.mount('#app')
+app.mount('#app');
