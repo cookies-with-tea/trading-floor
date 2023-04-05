@@ -14,12 +14,12 @@ const router = createRouter({
         {
           path: 'registration',
           name: ROUTE_NAMES.RegistrationPage,
-          component: () => import('@/components/Forms/RegistrationFormPage.vue'),
+          component: () => import('@/components/Forms/RegistrationForm.vue'),
         },
         {
           path: 'login',
           name: ROUTE_NAMES.LoginPage,
-          component: () => import('@/components/Forms/LoginFormPage.vue'),
+          component: () => import('@/components/Forms/LoginForm.vue'),
         },
       ],
     },
