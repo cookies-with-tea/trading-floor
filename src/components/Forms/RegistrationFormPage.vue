@@ -32,18 +32,11 @@ import type { RegisterFormType } from '@/types/authFormTypes';
 import { FormInstance, FormRules } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { userApi } from '@/api/user/user.api';
-import {
-  emailRules,
-  firstNameRules,
-  lastNameRules,
-  passwordRules,
-  requiredRule,
-  roomNumberRules,
-} from '@/constants/formRules';
+import { commonRules } from '@/constants/formRules';
 import { ROUTE_NAMES } from '@/constants/routeNames';
 
 const registrationFormInstance = ref<FormInstance>();
-const routeNames = ref(ROUTE_NAMES);
+const routeNames = ROUTE_NAMES;
 
 const registrationFormModel = reactive<RegisterFormType>({
   email: '',
@@ -54,11 +47,11 @@ const registrationFormModel = reactive<RegisterFormType>({
 });
 
 const registrationFormRules = reactive<FormRules>({
-  firstName: [requiredRule, ...firstNameRules],
-  lastName: [...lastNameRules],
-  email: [requiredRule, ...emailRules],
-  password: [requiredRule, ...passwordRules],
-  roomNumber: [requiredRule, ...roomNumberRules],
+  firstName: [commonRules.required, commonRules.onlyRussian],
+  lastName: [commonRules.onlyRussian],
+  email: [commonRules.required, commonRules.email, commonRules.domain],
+  password: [commonRules.required, commonRules.passwordLength],
+  roomNumber: [commonRules.required, commonRules.room],
 });
 
 async function handleUserSignUp() {

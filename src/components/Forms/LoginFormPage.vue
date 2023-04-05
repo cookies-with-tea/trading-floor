@@ -22,7 +22,7 @@
 import type { LoginFormType } from '@/types/authFormTypes';
 import { FormInstance, FormRules } from 'element-plus';
 import { reactive, ref } from 'vue';
-import { requiredRule } from '@/constants/formRules';
+import { commonRules } from '@/constants/formRules';
 import { ROUTE_NAMES } from '@/constants/routeNames';
 import { authApi } from '@/api/auth/auth.api';
 import { useAuthStore } from '@/stores/authStore';
@@ -37,8 +37,8 @@ const loginFormModel = reactive<LoginFormType>({
 });
 
 const loginFormRules = reactive<FormRules>({
-  email: [requiredRule],
-  password: [requiredRule],
+  email: [commonRules.required],
+  password: [commonRules.required],
 });
 
 async function handleUserSignIn() {

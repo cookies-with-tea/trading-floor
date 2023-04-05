@@ -1,26 +1,19 @@
-import type { FormItemRule } from 'element-plus';
+import { FormItemRule } from 'element-plus';
 
-export const requiredRule: FormItemRule = {
-  required: true,
-  message: 'Обязательное поле',
+export const RULES_STATUSES: Record<string, string> = {
+  required: 'Это поле обязательно для заполнения',
+  onlyRussian: 'Это поле должно состоять только из букв русского алфавита',
+  passwordLength: 'Длина пароля должна быть не меньше 8 символов',
+  domain: 'Почта должна принадлежать домену ВКИ',
+  room: 'Номер комнаты должен быть числом',
+  email: 'Неверный формат почты',
 };
 
-export const emailRules: FormItemRule[] = [
-  { type: 'email', message: 'Неверный формат почты' },
-  {
-    pattern: '^[\\w-\\.]+@mer.ci.nsu.ru',
-    message: 'Почта должна принадлежать доменной сети Высшего Колледжа Информатики',
-  },
-];
-
-export const firstNameRules: FormItemRule[] = [
-  { pattern: '^[а-яА-Я-]*$', message: 'Имя должно состоять только из букв русского алфавита' },
-];
-
-export const lastNameRules: FormItemRule[] = [
-  { pattern: '^[а-яА-Я-]*$', message: 'Фамилия должна состоять только из букв русского алфавита' },
-];
-
-export const roomNumberRules: FormItemRule[] = [{ type: 'number', message: 'Номер комнаты должен быть числом' }];
-
-export const passwordRules: FormItemRule[] = [{ min: 8, message: 'Длина пароля должна быть не меньше 8 символов' }];
+export const commonRules: Record<string, FormItemRule> = {
+  required: { required: true, message: RULES_STATUSES.required },
+  onlyRussian: { pattern: '^[а-яА-Я-]*$', message: RULES_STATUSES.onlyRussian },
+  email: { type: 'email', message: RULES_STATUSES.email },
+  domain: { pattern: '^[\\w-\\.]+@mer.ci.nsu.ru', message: RULES_STATUSES.domain },
+  passwordLength: { min: 8, message: RULES_STATUSES.passwordLength },
+  room: { type: 'number', message: RULES_STATUSES.room },
+};
