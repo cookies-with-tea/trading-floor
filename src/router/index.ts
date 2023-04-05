@@ -7,12 +7,12 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/auth',
+      path: '/',
       component: AuthorizationLayout,
       redirect: { name: ROUTE_NAMES.LoginPage },
       children: [
         {
-          path: 'register',
+          path: 'registration',
           name: ROUTE_NAMES.RegistrationPage,
           component: () => import('@/pages/RegistrationPage.vue'),
         },
