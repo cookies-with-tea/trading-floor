@@ -29,7 +29,6 @@ import { useAuthStore } from '@/stores/authStore';
 
 const authStore = useAuthStore();
 const loginFormInstance = ref<FormInstance>();
-// const routeNames = ROUTE_NAMES;
 
 const loginFormModel = reactive<LoginFormType>({
   email: '',
