@@ -1,11 +1,21 @@
 from rest_framework import serializers
 from rest_framework.fields import CurrentUserDefault
 
-from apps.advertisement.models import Advertisement
+from apps.advertisement.models import Advertisement, Image
+
+
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
+        fields = [
+            'title',
+            'advertisement',
+        ]
 
 
 class AdvertisementSerializer(serializers.ModelSerializer):
     author = serializers.HiddenField(default=CurrentUserDefault())
+    images = ImageSerializer(many=True)
 
     class Meta:
         model = Advertisement
@@ -13,18 +23,20 @@ class AdvertisementSerializer(serializers.ModelSerializer):
             'title',
             'description',
             'type',
-            'image',
-            'urgency',
+            'images',
+            'urgency_type',
             'author',
         ]
 
 
 class AdvertisementListSerializer(serializers.ModelSerializer):
+    author = serializers.HiddenField(default=CurrentUserDefault())
+
     class Meta:
         model = Advertisement
         fields = [
             'title',
             'type',
-            'urgency',
+            'urgency_type',
             'author',
         ]
