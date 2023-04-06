@@ -7,19 +7,19 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/authorization',
+      path: '/',
       component: AuthorizationLayout,
-      redirect: { name: 'TheLogin' },
+      redirect: { name: ROUTE_NAMES.LoginPage },
       children: [
         {
           path: 'registration',
           name: ROUTE_NAMES.RegistrationPage,
-          component: () => import('@/components/Forms/RegistrationFormPage.vue'),
+          component: () => import('@/pages/RegistrationPage.vue'),
         },
         {
           path: 'login',
           name: ROUTE_NAMES.LoginPage,
-          component: () => import('@/components/Forms/LoginFormPage.vue'),
+          component: () => import('@/pages/LoginPage.vue'),
         },
       ],
     },
