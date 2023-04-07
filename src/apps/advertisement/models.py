@@ -7,6 +7,7 @@ from apps.user.models import User
 class Image(models.Model):
     image = models.ImageField(verbose_name='Картинка')
     advertisement = models.ForeignKey(
+        'Advertisement',
         blank=True,
         null=True,
         on_delete=models.CASCADE,
@@ -39,7 +40,6 @@ class Advertisement(models.Model):
     title = models.TextField()
     description = models.TextField(blank=True)
     type = MultiSelectField(choices=TYPE_LIST, max_choices=3, max_length=100)
-    image = models.ForeignKey()
     urgency_type = models.CharField(max_length=6, choices=URGENCY_LIST)
     author = models.ForeignKey(
         User,
