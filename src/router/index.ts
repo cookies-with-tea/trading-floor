@@ -9,7 +9,6 @@ const router = createRouter({
     {
       path: '/',
       component: AuthorizationLayout,
-      redirect: { name: ROUTE_NAMES.LoginPage },
       children: [
         {
           path: 'registration',
@@ -28,7 +27,7 @@ const router = createRouter({
       component: DefaultLayout,
       children: [
         {
-          path: '/',
+          path: '/home',
           name: ROUTE_NAMES.HomePage,
           component: () => import('@/pages/HomePage.vue'),
         },
