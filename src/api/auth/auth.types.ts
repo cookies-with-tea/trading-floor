@@ -3,6 +3,12 @@ export type Credentials = {
   access: string;
 };
 
+export type GoogleCredentials = {
+  refresh: string;
+  access: string;
+  isActive: boolean;
+};
+
 export type OnlyRefreshCredentials = {
   refresh: string;
 };

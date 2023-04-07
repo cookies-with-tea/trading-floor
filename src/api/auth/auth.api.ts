@@ -1,6 +1,7 @@
 import { AxiosService } from '@/api/AxiosService/axiosService';
 import { AxiosRequestConfig } from 'axios';
-import { AuthData, Credentials } from '@/api/auth/auth.types';
+import { AuthData, Credentials, GoogleCredentials } from '@/api/auth/auth.types';
+import { GoogleRegistrationFormType } from '@/types/authFormTypes';
 
 class AuthApi extends AxiosService {
   constructor(config: AxiosRequestConfig) {
@@ -10,17 +11,29 @@ class AuthApi extends AxiosService {
   authUser(payload: AuthData) {
     return this.axiosCall<Credentials>({
       method: 'post',
-      url: '/token/',
+      url: '/token',
       data: payload,
     });
   }
 
   authGoogleUser(code: string) {
-    return this.axiosCall<Credentials>({
+    return this.axiosCall<GoogleCredentials>({
       method: 'post',
-      url: '/google/',
+      url: '/google',
       data: {
         authorization_code: code,
+      },
+    });
+  }
+
+  confirmGoogleUser(payload: GoogleRegistrationFormType) {
+    return this.axiosCall<GoogleCredentials>({
+      method: 'post',
+      url: 'sign-up',
+      data: {
+        first_name: payload.firstName,
+        last_name: payload.lastName,
+        room_number: payload.roomNumber,
       },
     });
   }
