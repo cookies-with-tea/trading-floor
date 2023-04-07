@@ -2,12 +2,13 @@ from django.conf import settings
 from rest_framework import status
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.generics import CreateAPIView
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny
 from rest_framework.request import Request
 from rest_framework.response import Response
 
 from api.common.auth.serializers import CredentialsModelSerializer, GoogleCredentialsSerializer, SignUpModelSerializer
 from apps.user.models import User
+from apps.user.permissions import IsUser
 from library.oauth.google import GoogleOauth
 from library.oauth.models import GoogleCredentials
 from utils.strings import is_correct_email_domain
@@ -49,7 +50,7 @@ class AuthorizationGoogleAPIView(CreateAPIView):
 class SingUpAPIView(CreateAPIView):
     queryset = User.objects.filter(is_active=True)
     serializer_class = SignUpModelSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsUser]
 
     def create(self, request: Request, *args, **kwargs):
         serializer = SignUpModelSerializer(request.user, request.data)
