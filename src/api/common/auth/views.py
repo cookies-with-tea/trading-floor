@@ -47,7 +47,7 @@ class AuthorizationGoogleAPIView(CreateAPIView):
 
 
 class SingUpAPIView(CreateAPIView):
-    queryset = User.objects.filter(is_active=True)
+    queryset = User.objects.filter(is_register=False)
     serializer_class = SignUpModelSerializer
     permission_classes = [AllowAny]
 
