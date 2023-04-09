@@ -26,6 +26,8 @@ class CredentialsModelSerializer(serializers.ModelSerializer):
 
 
 class SignUpModelSerializer(serializers.ModelSerializer):
+    is_register = serializers.HiddenField(default=True)
+
     class Meta:
         model = User
         fields = [
@@ -33,4 +35,5 @@ class SignUpModelSerializer(serializers.ModelSerializer):
             'last_name',
             'room_number',
             'avatar',
+            'is_register',
         ]
