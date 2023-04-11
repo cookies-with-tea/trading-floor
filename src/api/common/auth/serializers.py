@@ -8,11 +8,11 @@ class GoogleCredentialsSerializer(serializers.Serializer):
     authorization_code = serializers.CharField()
 
 
-class CredentialsModelSerializer(serializers.ModelSerializer):
+class CredentialsSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['is_active']
-        read_only_fields = ['access', 'refresh']
+        read_only_fields = ['access', 'refresh', 'is_active']
 
     def to_representation(self, instance: User):
         data = super().to_representation(instance)
@@ -25,7 +25,7 @@ class CredentialsModelSerializer(serializers.ModelSerializer):
         return data
 
 
-class SignUpModelSerializer(serializers.ModelSerializer):
+class SignUpSerializer(serializers.ModelSerializer):
     is_register = serializers.HiddenField(default=True)
 
     class Meta:
