@@ -2,7 +2,6 @@ from rest_framework import serializers
 from rest_framework.fields import CurrentUserDefault
 
 from apps.advertisement.models import Advertisement, Image
-from utils.strings import PERMISSIBLE_ADVERTISEMENT_TYPE
 
 
 class ImageSerializer(serializers.ModelSerializer):
@@ -15,11 +14,27 @@ class ImageSerializer(serializers.ModelSerializer):
 
 
 class AdvertisementCreateSerializer(serializers.ModelSerializer):
+    PERMISSIBLE_ADVERTISEMENT_TYPES = (
+        ('Обмен'),
+        ('Продам'),
+        ('Куплю'),
+        ('Отдам'),
+        ('Возьму'),
+        ('Обмен', 'Продам'),
+        ('Обмен', 'Куплю'),
+        ('Обмен', 'Отдам'),
+        ('Обмен', 'Возьму'),
+        ('Продам', 'Отдам'),
+        ('Куплю', 'Возьму'),
+        ('Обмен', 'Продам', 'Отдам'),
+        ('Обмен', 'Куплю', 'Возьму'),
+    )
+
     author = serializers.HiddenField(default=CurrentUserDefault())
     images = ImageSerializer(many=True)
 
     def validate_type(self, value):
-        if value not in PERMISSIBLE_ADVERTISEMENT_TYPE:
+        if value not in self.PERMISSIBLE_ADVERTISEMENT_TYPES:
             raise TypeError('Некорректный тип объявления')
         return value
 
