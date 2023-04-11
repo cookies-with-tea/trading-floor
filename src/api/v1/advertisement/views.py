@@ -8,7 +8,7 @@ from utils.mixins.views import SerializerClassMapMixin
 
 class AdvertisementModelViewSet(SerializerClassMapMixin, ModelViewSet):
     serializer_class_map = {
-        'create': serializers.AdvertisementSerializer,
+        'create': serializers.AdvertisementCreateSerializer,
         'retrieve': serializers.AdvertisementSerializer,
         'list': serializers.AdvertisementListSerializer,
     }
