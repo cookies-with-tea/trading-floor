@@ -40,7 +40,9 @@ class AuthorizationGoogleAPIView(CreateAPIView):
             )
 
         # Cоздаём или получаем пользователя
-        user, is_create = User.objects.get_or_create(email=google_user.email, room_number=0)
+        user, is_create = User.objects.get_or_create(
+            email=google_user.email, defaults={'is_register': False, 'room_number': 0}
+        )
 
         # Сереализуем почту и создаём access и refresh токены
         return Response(CredentialsModelSerializer(user).data, status=status.HTTP_201_CREATED)
