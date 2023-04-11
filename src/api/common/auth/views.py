@@ -1,4 +1,5 @@
 from django.conf import settings
+from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.generics import CreateAPIView
@@ -6,7 +7,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from api.common.auth.serializers import CredentialsModelSerializer, GoogleCredentialsSerializer, SignUpModelSerializer
+from api.common.auth.serializers import CredentialsSerializer, GoogleCredentialsSerializer, SignUpSerializer
 from apps.user.models import User
 from library.oauth.google import GoogleOauth
 from library.oauth.models import GoogleCredentials
@@ -18,6 +19,7 @@ class AuthorizationGoogleAPIView(CreateAPIView):
     serializer_class = GoogleCredentialsSerializer
     permission_classes = [AllowAny]
 
+    @extend_schema(responses=CredentialsSerializer)
     def create(self, request: Request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
 
@@ -45,17 +47,18 @@ class AuthorizationGoogleAPIView(CreateAPIView):
         )
 
         # Сереализуем почту и создаём access и refresh токены
-        return Response(CredentialsModelSerializer(user).data, status=status.HTTP_201_CREATED)
+        return Response(CredentialsSerializer(user).data, status=status.HTTP_201_CREATED)
 
 
 class SingUpAPIView(CreateAPIView):
     queryset = User.objects.filter(is_register=False)
-    serializer_class = SignUpModelSerializer
+    serializer_class = SignUpSerializer
     permission_classes = [AllowAny]
 
+    @extend_schema(responses=CredentialsSerializer)
     def create(self, request: Request, *args, **kwargs):
-        serializer = SignUpModelSerializer(request.user, request.data)
+        serializer = SignUpSerializer(request.user, request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(CredentialsSerializer(request.user).data, status=status.HTTP_200_OK)
