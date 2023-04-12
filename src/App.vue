@@ -4,12 +4,13 @@
 </template>
 
 <script lang="ts" setup>
-import { userApi } from '@/api/user/user.api';
 import { ElMessage } from 'element-plus';
+import { useApi } from '@/composables/useApi';
+import { userApi } from '@/api/user/user.api';
+import { UserResponseType } from '@/api/user/user.types';
 
 const gg = async () => {
-  const ans = await userApi.getSelf();
-  const [error, data] = ans;
+  const [error, data] = await useApi<UserResponseType>(await userApi.getSelf());
 
   console.log('data: ', data);
 

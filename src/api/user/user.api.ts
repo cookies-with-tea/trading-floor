@@ -13,14 +13,12 @@ class UserApi extends AxiosService {
       url: id.toString(),
     });
   }
-  getSelf() {
-    console.log('getSelf');
-
-    return this.axiosCall<UserResponseType>({
+  getSelf = async () => {
+    return await this.axiosCall({
       method: 'get',
       url: 'me',
     });
-  }
+  };
 }
 
 export const userApi = new UserApi({

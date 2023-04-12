@@ -3,6 +3,7 @@ import { ElMessage } from 'element-plus';
 import { MetaAxios } from '@/api/meta/metaAxios';
 import { MESSAGES } from '@/constants/messages';
 import { tokenApi } from '@/api/token/token.api';
+import { setData } from '@/composables/useApi';
 
 export class AxiosService extends MetaAxios {
   constructor(config: AxiosRequestConfig) {
@@ -16,8 +17,6 @@ export class AxiosService extends MetaAxios {
           Authorization: `Bearer ${token}`,
         };
       }
-
-      console.log(config);
 
       return config;
     });
@@ -52,10 +51,10 @@ export class AxiosService extends MetaAxios {
 
                   localStorage.setItem('refreshToken', data.refresh);
 
-                  const [cerror, cdata] = await this.axiosCall(error.config);
+                  const [newError, newData] = await this.axiosCall(error.config);
 
-                  if (!cerror && cdata) {
-                    return Promise.resolve(data);
+                  if (!newError && newData) {
+                    setData(newData);
                   }
                 }
               }
