@@ -18,8 +18,6 @@ declare module '@vue/runtime-core' {
     GoogleAuth: typeof import('./src/components/widgets/GoogleAuth.vue')['default']
     GoogleRegistrationForm: typeof import('./src/components/Forms/GoogleRegistrationForm.vue')['default']
     IconTemplate: typeof import('./src/components/common/IconTemplate.vue')['default']
-    LoginForm: typeof import('./src/components/Forms/LoginForm.vue')['default']
-    RegistrationForm: typeof import('./src/components/Forms/RegistrationForm.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

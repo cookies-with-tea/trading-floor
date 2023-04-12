@@ -1,12 +1,12 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { AxiosResponseType } from '@/api/AxiosService/axiosService.types';
+import { AxiosRequestConfig } from 'axios';
 import { ElMessage } from 'element-plus';
+import { MetaAxios } from '@/api/meta/metaAxios';
+import { MESSAGES } from '@/constants/messages';
+import { tokenApi } from '@/api/token/token.api';
 
-export class AxiosService {
-  private axiosInstance!: AxiosInstance;
-
+export class AxiosService extends MetaAxios {
   constructor(config: AxiosRequestConfig) {
-    this.axiosInstance = axios.create(config);
+    super(config);
 
     this.axiosInstance.interceptors.request.use((config: AxiosRequestConfig) => {
       const token = localStorage.getItem('accessToken');
@@ -16,6 +16,8 @@ export class AxiosService {
           Authorization: `Bearer ${token}`,
         };
       }
+
+      console.log(config);
 
       return config;
     });
@@ -34,12 +36,33 @@ export class AxiosService {
 
         return Promise.resolve(response);
       },
-      (error: any) => {
+      async (error: any) => {
         const response = error?.response?.data;
 
         switch (error?.response?.status) {
           case 401:
+            if (error?.response?.data?.messages[0].message === MESSAGES.TOKEN_EXPIRED) {
+              const refreshToken = localStorage.getItem('refreshToken');
+
+              if (refreshToken) {
+                const [response_error, data] = await tokenApi.refreshTokens(refreshToken);
+
+                if (!response_error && data) {
+                  localStorage.setItem('accessToken', data.access);
+
+                  localStorage.setItem('refreshToken', data.refresh);
+
+                  const [cerror, cdata] = await this.axiosCall(error.config);
+
+                  if (!cerror && cdata) {
+                    return Promise.resolve(data);
+                  }
+                }
+              }
+            }
+
             break;
+
           case 403:
             break;
           case 404:
@@ -56,15 +79,5 @@ export class AxiosService {
         return Promise.reject(response);
       }
     );
-  }
-
-  protected async axiosCall<T = any>(config: AxiosRequestConfig): AxiosResponseType<T> {
-    try {
-      const { data } = await this.axiosInstance.request<T>(config);
-
-      return [null, data];
-    } catch (error: any) {
-      return [error];
-    }
   }
 }

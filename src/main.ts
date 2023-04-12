@@ -11,6 +11,7 @@ import App from './App.vue';
 import router from './router';
 import ElementPlus from 'element-plus';
 import vue3GoogleLogin from 'vue3-google-login';
+import 'element-plus/dist/index.css';
 
 import '@/styles/index.scss';
 

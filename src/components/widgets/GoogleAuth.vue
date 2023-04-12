@@ -21,13 +21,13 @@ const handleUserGoogleAuthorization = async () => {
   const [error, data] = await authApi.authGoogleUser(googleData.code);
 
   if (!error && data) {
-    const { isActive, access, refresh } = data;
+    const { is_register, access, refresh } = data;
 
-    authStore.refreshToken = refresh;
+    localStorage.setItem('refreshToken', refresh);
 
     localStorage.setItem('accessToken', access);
 
-    if (!isActive) {
+    if (!is_register) {
       dialogVisible.value = true;
     }
   }
@@ -37,13 +37,15 @@ const handleUserGoogleRegister = async (form: GoogleRegistrationFormType) => {
   const [error, data] = await authApi.confirmGoogleUser(form);
 
   if (!error) {
-    const { isActive, refresh, access } = data;
+    const { is_register, refresh, access } = data;
 
-    if (isActive) {
-      authStore.refreshToken = refresh;
+    if (is_register) {
+      localStorage.setItem('refreshToken', refresh);
 
       localStorage.setItem('accessToken', access);
     }
+
+    dialogVisible.value = false;
   }
 };
 

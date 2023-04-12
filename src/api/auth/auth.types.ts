@@ -6,7 +6,7 @@ export type Credentials = {
 export type GoogleCredentials = {
   refresh: string;
   access: string;
-  isActive: boolean;
+  is_register: boolean;
 };
 
 export type OnlyRefreshCredentials = {
