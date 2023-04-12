@@ -11,8 +11,8 @@ class GoogleCredentialsSerializer(serializers.Serializer):
 class CredentialsSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['is_active']
-        read_only_fields = ['access', 'refresh', 'is_active']
+        fields = ['is_register']
+        read_only_fields = ['access', 'refresh', 'is_register']
 
     def to_representation(self, instance: User):
         data = super().to_representation(instance)
