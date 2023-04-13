@@ -18,6 +18,8 @@ export const useApi = async <T = unknown>(responseData: Awaited<AxiosResponseTyp
     return [null, response as T];
   }
 
+  isDataChanged.value = false;
+
   return [error as Error];
 };
 
