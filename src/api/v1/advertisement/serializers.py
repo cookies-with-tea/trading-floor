@@ -43,7 +43,7 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
         fields = [
             'title',
             'description',
-            'type',
+            'advertisement_type',
             'images',
             'urgency_type',
             'author',
@@ -59,7 +59,7 @@ class AdvertisementSerializer(serializers.ModelSerializer):
         fields = [
             'title',
             'description',
-            'type',
+            'advertisement_type',
             'images',
             'urgency_type',
             'author',
@@ -73,7 +73,7 @@ class AdvertisementListSerializer(serializers.ModelSerializer):
         model = Advertisement
         fields = [
             'title',
-            'type',
+            'advertisement_type',
             'urgency_type',
             'author',
         ]
