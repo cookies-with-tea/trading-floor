@@ -39,7 +39,9 @@ def test_retrieve_advertisement(api_client: APIClient, advertisement_factory) ->
     response = api_client.get(reverse('v1:advertisements-detail', args=[advertisement.id]))
     response_content = response.json()
 
-    assert response.status_code == status.HTTP_200_OK, 'Ожидался 200 статус-код ответа'
+    assert (
+        response.status_code == status.HTTP_200_OK
+    ), f'Ожидался 200 статус-код ответа, пришёл - {response.status_code}'
     assert response_content['title'] == advertisement.title
     assert response_content['description'] == advertisement.description
 
@@ -49,9 +51,11 @@ def test_retrieve_invalid_id_advertisement(api_client, advertisement_factory) ->
 
     api_client.force_authenticate(advertisement.author)
 
-    response = api_client.get(reverse('v1:advertisements-detail', args=[2]))
+    response = api_client.get(reverse('v1:advertisements-detail', args=[200]))
 
-    assert response.status_code == status.HTTP_404_NOT_FOUND, 'Ожидался 404 статус-код ответа'
+    assert (
+        response.status_code == status.HTTP_404_NOT_FOUND
+    ), f'Ожидался 404 статус-код ответа, пришёл - {response.status_code}'
 
 
 def test_list_advertisement(api_client, advertisement_factory) -> None:
@@ -66,7 +70,9 @@ def test_list_advertisement(api_client, advertisement_factory) -> None:
     response = api_client.get(reverse('v1:advertisements-list'))
     response_content = response.json()
 
-    assert response.status_code == status.HTTP_200_OK, 'Ожидался 200 статус-код ответа'
+    assert (
+        response.status_code == status.HTTP_200_OK
+    ), f'Ожидался 200 статус-код ответа, пришёл - {response.status_code}'
     assert (
         len(response_content) == 20
     ), 'Ожидалось, что количество объектов в ответе будет равно количеству объектов в базе данных'
