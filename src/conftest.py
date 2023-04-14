@@ -3,13 +3,14 @@ from django.contrib.auth import get_user_model
 from pytest_factoryboy import register
 from rest_framework.test import APIClient
 
-from factories import AdvertisementFactory, UserFactory
+from factories import AdvertisementFactory, ImageFactory, UserFactory
 
 User = get_user_model()
 
 
 register(UserFactory)
 register(AdvertisementFactory)
+register(ImageFactory)
 
 
 @pytest.fixture(scope='function')
@@ -28,8 +29,8 @@ def advertisement_data() -> dict:
     return {
         'title': 'Test One',
         'description': 'Test description one',
-        'type': 'EXCHANGE',
-        'urgency': 'URGENT',
+        'advertisement_type': 'EXCHANGE',
+        'urgency_type': 'URGENT',
     }
 
 

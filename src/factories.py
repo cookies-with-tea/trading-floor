@@ -27,9 +27,9 @@ class UserFactory(factory.django.DjangoModelFactory):
 class AdvertisementFactory(factory.django.DjangoModelFactory):
     title = factory.Faker('text')
     description = factory.Faker('paragraph')
-    type = factory.Faker('random_element', elements=[item[0] for item in Advertisement.TYPE_LIST])
-    image = factory.SubFactory(ImageFactory)
-    urgency = factory.Faker('random_element', elements=[item[0] for item in Advertisement.URGENCY_LIST])
+    advertisement_type = factory.Faker('random_element', elements=[item[0] for item in Advertisement.TYPE_LIST])
+    images = factory.RelatedFactory(ImageFactory)
+    urgency_type = factory.Faker('random_element', elements=[item[0] for item in Advertisement.URGENCY_LIST])
     author = factory.SubFactory(UserFactory)
 
     class Meta:
