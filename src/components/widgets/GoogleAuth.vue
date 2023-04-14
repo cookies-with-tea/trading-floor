@@ -7,18 +7,16 @@
 
 <script lang="ts" setup>
 import { googleAuthCodeLogin } from 'vue3-google-login';
-import { authApi } from '@/api/auth/auth.api';
-import { useAuthStore } from '@/stores/authStore';
 import { GoogleRegistrationFormType } from '@/types/authFormTypes';
 import { provide, ref } from 'vue';
 import GoogleRegistrationForm from '@/components/Forms/GoogleRegistrationForm.vue';
+import { authApi } from '@/api/KY/AuthService/auth.api';
 
-const authStore = useAuthStore();
 const dialogVisible = ref(false);
 
 const handleUserGoogleAuthorization = async () => {
   const googleData = await googleAuthCodeLogin();
-  const [error, data] = await authApi.authGoogleUser(googleData.code);
+  const [error, data] = await authApi.loginGoogleUser(googleData.code);
 
   if (!error && data) {
     const { is_register, access, refresh } = data;
@@ -34,7 +32,7 @@ const handleUserGoogleAuthorization = async () => {
 };
 
 const handleUserGoogleRegister = async (form: GoogleRegistrationFormType) => {
-  const [error, data] = await authApi.confirmGoogleUser(form);
+  const [error, data] = await authApi.registerGoogleUser(form);
 
   if (!error) {
     const { is_register, refresh, access } = data;
@@ -51,5 +49,3 @@ const handleUserGoogleRegister = async (form: GoogleRegistrationFormType) => {
 
 provide('handleUserGoogleRegister', handleUserGoogleRegister);
 </script>
-
-<style lang="scss" scoped></style>
