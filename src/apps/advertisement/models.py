@@ -37,10 +37,15 @@ class Advertisement(models.Model):
         ('TAKE', 'Возьму'),
     )
 
-    title = models.TextField()
-    description = models.TextField(blank=True)
-    type = MultiSelectField(choices=TYPE_LIST, max_choices=3, max_length=100)
-    urgency_type = models.CharField(max_length=6, choices=URGENCY_LIST)
+    title = models.TextField('Название')
+    description = models.TextField('Описание', blank=True)
+    advertisement_type = MultiSelectField(
+        verbose_name='Тип объявления',
+        choices=TYPE_LIST,
+        max_choices=3,
+        max_length=100,
+    )
+    urgency_type = models.CharField('Срочность объявления', max_length=6, choices=URGENCY_LIST)
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
