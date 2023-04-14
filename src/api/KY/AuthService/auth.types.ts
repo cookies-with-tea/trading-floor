@@ -1,5 +1,5 @@
-import { TokenPair } from '@/api/Axios/token/token.types';
+import { TokenPairResponse } from '@/api/KY/commonTypes';
 
-export type GoogleAnswer = TokenPair & {
+export type GoogleAnswer = TokenPairResponse & {
   is_register: boolean;
 };
