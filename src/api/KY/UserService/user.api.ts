@@ -15,5 +15,5 @@ class UserApi extends KyApi {
 }
 
 export const userApi = new UserApi({
-  prefixUrl: '/api/v1/users/',
+  prefixUrl: '/api/v1/users',
 });
