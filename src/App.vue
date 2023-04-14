@@ -5,14 +5,10 @@
 
 <script lang="ts" setup>
 import { ElMessage } from 'element-plus';
-import { useApi } from '@/composables/useApi';
-import { userApi } from '@/api/user/user.api';
-import { UserResponseType } from '@/api/user/user.types';
+import { userApi } from '@/api/KY/UserService/user.api';
 
 const gg = async () => {
-  const [error, data] = await useApi<UserResponseType>(await userApi.getSelf());
-
-  console.log('data: ', data);
+  const [, data] = await userApi.getSelf();
 
   if (data) {
     ElMessage(data.first_name);
