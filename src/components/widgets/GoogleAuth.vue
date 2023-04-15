@@ -11,7 +11,7 @@ import { GoogleRegistrationFormType } from '@/types/authFormTypes';
 import { provide, ref } from 'vue';
 import GoogleRegistrationForm from '@/components/Forms/GoogleRegistrationForm.vue';
 import { authApi } from '@/api/KY/AuthService/auth.api';
-import { STORAGE_ITEMS_NAMES } from '@/constants/storageNames';
+import { useTokens } from '@/composables/useTokens';
 
 const dialogVisible = ref(false);
 
@@ -22,9 +22,11 @@ const handleUserGoogleAuthorization = async () => {
   if (!error && data) {
     const { is_register, access, refresh } = data;
 
-    localStorage.setItem(STORAGE_ITEMS_NAMES.refreshToken, refresh);
+    const { setAccess, setRefresh } = useTokens(localStorage);
 
-    localStorage.setItem(STORAGE_ITEMS_NAMES.accessToken, access);
+    setRefresh(refresh);
+
+    setAccess(access);
 
     if (!is_register) {
       dialogVisible.value = true;
@@ -39,9 +41,11 @@ const handleUserGoogleRegister = async (form: GoogleRegistrationFormType) => {
     const { is_register, refresh, access } = data;
 
     if (is_register) {
-      localStorage.setItem(STORAGE_ITEMS_NAMES.refreshToken, refresh);
+      const { setAccess, setRefresh } = useTokens(localStorage);
 
-      localStorage.setItem(STORAGE_ITEMS_NAMES.accessToken, access);
+      setRefresh(refresh);
+
+      setAccess(access);
     }
 
     dialogVisible.value = false;

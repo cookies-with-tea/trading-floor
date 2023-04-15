@@ -1,7 +1,7 @@
 import { KyApi } from '@/api/KY/meta/ApiService/ky.api';
 import { GoogleAnswer } from '@/api/KY/AuthService/auth.types';
 import { GoogleRegistrationFormType } from '@/types/authFormTypes';
-import { STORAGE_ITEMS_NAMES } from '@/constants/storageNames';
+import { useTokens } from '@/composables/useTokens';
 
 class AuthApi extends KyApi {
   loginGoogleUser(code: string) {
@@ -12,9 +12,11 @@ class AuthApi extends KyApi {
   }
 
   logoutUser() {
-    localStorage.removeItem(STORAGE_ITEMS_NAMES.accessToken);
+    const { removeRefresh, removeAccess } = useTokens(localStorage);
 
-    localStorage.removeItem(STORAGE_ITEMS_NAMES.refreshToken);
+    removeRefresh();
+
+    removeAccess();
   }
 
   registerGoogleUser(form: GoogleRegistrationFormType) {
