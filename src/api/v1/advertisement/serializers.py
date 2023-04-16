@@ -15,19 +15,19 @@ class ImageSerializer(serializers.ModelSerializer):
 
 class AdvertisementCreateSerializer(serializers.ModelSerializer):
     PERMISSIBLE_ADVERTISEMENT_TYPES = (
-        ('Обмен'),
-        ('Продам'),
-        ('Куплю'),
-        ('Отдам'),
-        ('Возьму'),
-        ('Обмен', 'Продам'),
-        ('Обмен', 'Куплю'),
-        ('Обмен', 'Отдам'),
-        ('Обмен', 'Возьму'),
-        ('Продам', 'Отдам'),
-        ('Куплю', 'Возьму'),
-        ('Обмен', 'Продам', 'Отдам'),
-        ('Обмен', 'Куплю', 'Возьму'),
+        ('EXCHANGE'),
+        ('SELL'),
+        ('BUY'),
+        ('GIVE'),
+        ('TAKE'),
+        ('EXCHANGE', 'SELL'),
+        ('EXCHANGE', 'BUY'),
+        ('EXCHANGE', 'GIVE'),
+        ('EXCHANGE', 'TAKE'),
+        ('SELL', 'GIVE'),
+        ('BUY', 'TAKE'),
+        ('EXCHANGE', 'SELL', 'GIVE'),
+        ('EXCHANGE', 'BUY', 'TAKE'),
     )
 
     author = serializers.HiddenField(default=CurrentUserDefault())
