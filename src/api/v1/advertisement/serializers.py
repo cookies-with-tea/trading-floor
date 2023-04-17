@@ -8,7 +8,7 @@ class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
         fields = [
-            'title',
+            'image',
             'advertisement',
         ]
 
