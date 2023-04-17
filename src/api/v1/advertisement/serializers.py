@@ -31,12 +31,13 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
     )
 
     author = serializers.HiddenField(default=CurrentUserDefault())
-    images = ImageSerializer(many=True)
-
-    def validate_type(self, value):
-        if value not in self.PERMISSIBLE_ADVERTISEMENT_TYPES:
-            raise TypeError('Некорректный тип объявления')
-        return value
+    images = serializers.ListField(
+        child=serializers.ImageField(
+            allow_empty_file=False,
+            use_url=False,
+        ),
+        write_only=True,
+    )
 
     class Meta:
         model = Advertisement
@@ -48,6 +49,22 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
             'urgency_type',
             'author',
         ]
+
+    def validate_type(self, value):
+        if value not in self.PERMISSIBLE_ADVERTISEMENT_TYPES:
+            raise TypeError('Некорректный тип объявления')
+        return value
+
+    def create(self, validated_data: dict) -> Meta.model:
+        uploaded_images = validated_data.pop('images')
+        advertisement = Advertisement.objects.create(**validated_data)
+        for image in uploaded_images:
+            Image.objects.create(
+                advertisement=advertisement,
+                image=image,
+            )
+
+        return advertisement
 
 
 class AdvertisementSerializer(serializers.ModelSerializer):
