@@ -4,7 +4,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from apps.advertisement.models import Advertisement
+from apps.advertisement.models import Advertisement, AdvertisementCategory
 from apps.user.models import User
 
 pytestmark = [
@@ -13,9 +13,14 @@ pytestmark = [
 
 
 def test_create_advertisement(
-    api_client: APIClient, advertisement_data: dict, image_file: SimpleUploadedFile, user_factory
+    api_client: APIClient,
+    advertisement_data: dict,
+    image_file: SimpleUploadedFile,
+    user_factory,
+    advertisement_category_factory,
 ) -> None:
     user: User = user_factory()
+    category: AdvertisementCategory = advertisement_category_factory()
 
     api_client.force_authenticate(user)
 
@@ -25,6 +30,7 @@ def test_create_advertisement(
         'advertisement_type': advertisement_data['advertisement_type'],
         'urgency_type': advertisement_data['urgency_type'],
         'images': [image_file],
+        'category': category.id,
     }
 
     assert Advertisement.objects.count() == 0, 'Ожидалось, что количество объявлений в базе данных будет равно 0'
@@ -55,6 +61,7 @@ def test_retrieve_advertisement(api_client: APIClient, advertisement_factory) ->
     ), f'Ожидался 200 статус-код ответа, пришёл - {response.status_code}'
     assert response_content['title'] == advertisement.title
     assert response_content['description'] == advertisement.description
+    assert response_content['category']['title'] == advertisement.category.title
 
 
 def test_retrieve_invalid_id_advertisement(api_client, advertisement_factory) -> None:
