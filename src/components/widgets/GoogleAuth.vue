@@ -1,8 +1,11 @@
 <template>
-  <button @click="handleUserGoogleAuthorization">Login Using Google</button>
-  <el-dialog v-model="dialogVisible" title="Завершите регистрацию">
-    <google-registration-form />
-  </el-dialog>
+  <div class="google-auth">
+    <el-button type="primary" @click="handleUserGoogleAuthorization">Login Using Google</el-button>
+    <base-dialog v-model="dialogVisible" class="google-auth__dialog">
+      <h2 class="ta-c">Введите свои данные</h2>
+      <google-registration-form class="mt-30" />
+    </base-dialog>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -13,7 +16,7 @@ import GoogleRegistrationForm from '@/components/Forms/GoogleRegistrationForm.vu
 import { authApi } from '@/api/KY/AuthService/auth.api';
 import { useTokens } from '@/composables/useTokens';
 
-const dialogVisible = ref(false);
+const dialogVisible = ref(true);
 
 const handleUserGoogleAuthorization = async () => {
   const googleData = await googleAuthCodeLogin();
@@ -54,3 +57,17 @@ const handleUserGoogleRegister = async (form: GoogleRegistrationFormType) => {
 
 provide('handleUserGoogleRegister', handleUserGoogleRegister);
 </script>
+
+<style lang="scss" scoped>
+.google-auth {
+  &__dialog {
+    width: 100% !important;
+    max-width: 500px !important;
+  }
+
+  :deep(.el-dialog) {
+    width: 100% !important;
+    max-width: 500px !important;
+  }
+}
+</style>

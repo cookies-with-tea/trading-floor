@@ -1,4 +1,5 @@
 @use './src/styles/resources/variables/fonts' as *;
+@use '@/styles/resources/variables/colors' as *;
 
 @mixin font($size: 16px, $line-height: 20px, $weight: 400, $style: normal) {
   font-family: $font--main;
@@ -9,11 +10,15 @@
 }
 
 @mixin text-h1() {
-  @include font(30px, 36px, 700);
+  @include font(36px, 42.19px, 500);
+
+  color: $color--header;
 }
 
 @mixin text-h2() {
-  @include font(24px, 30px, 700);
+  @include font(32px, 37.5px, 500);
+
+  color: $color--header;
 }
 
 @mixin text-h3() {
@@ -33,5 +38,5 @@
 }
 
 @mixin text-sm($bold: false) {
-  @include font(14px, 18px, if($bold, 700, 400));
+  @include font(14px, 21px, if($bold, 700, 400));
 }

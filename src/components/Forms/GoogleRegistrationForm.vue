@@ -1,24 +1,23 @@
 <template>
-  <div class="form">
-    <h1 class="ta-c form-body__title">Регистрация</h1>
-    <el-form
-      ref="googleRegistrationFormInstance"
-      :model="googleRegistrationFormModel"
-      :rules="googleRegistrationFormRules"
-      class=""
-    >
-      <el-form-item label="Имя" prop="firstName">
-        <el-input v-model="googleRegistrationFormModel.firstName" />
-      </el-form-item>
-      <el-form-item label="Фамилия" prop="lastName">
-        <el-input v-model="googleRegistrationFormModel.lastName" />
-      </el-form-item>
-      <el-form-item label="Номер комнаты" prop="roomNumber">
-        <el-input v-model.number="googleRegistrationFormModel.roomNumber" />
-      </el-form-item>
-      <el-button type="primary" @click="handleGoogleRegistrationFormSubmit">Зарегистрироваться</el-button>
-    </el-form>
-  </div>
+  <el-form
+    ref="googleRegistrationFormInstance"
+    :model="googleRegistrationFormModel"
+    :rules="googleRegistrationFormRules"
+  >
+    <el-form-item prop="firstName">
+      <label for="name">Имя</label>
+      <el-input v-model="googleRegistrationFormModel.firstName" name="name" placeholder="your gender" />
+    </el-form-item>
+    <el-form-item prop="lastName">
+      <label for="lastName">Фамилия</label>
+      <el-input v-model="googleRegistrationFormModel.lastName" name="lastName" placeholder="racial identity" />
+    </el-form-item>
+    <el-form-item prop="roomNumber">
+      <label for="room">№ Комнаты</label>
+      <el-input v-model.number="googleRegistrationFormModel.roomNumber" name="room" placeholder="sex" />
+    </el-form-item>
+    <el-button type="primary" @click="handleGoogleRegistrationFormSubmit">Зарегистрироваться</el-button>
+  </el-form>
 </template>
 
 <script lang="ts" setup>
@@ -38,7 +37,7 @@ const googleRegistrationFormModel = reactive<GoogleRegistrationFormType>({
 const googleRegistrationFormRules = reactive<FormRules>({
   firstName: [commonRules.required],
   lastName: [commonRules.required],
-  roomNumber: [commonRules.room],
+  roomNumber: [commonRules.room, commonRules.required],
 });
 
 const handleUserGoogleRegister = inject('handleUserGoogleRegister', async (form: GoogleRegistrationFormType) => {
@@ -53,4 +52,7 @@ const handleGoogleRegistrationFormSubmit = async () => {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.form {
+}
+</style>

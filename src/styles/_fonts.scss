@@ -1,11 +1,18 @@
 @use 'resources/variables/fonts' as *;
 
-// TODO: Пример подключение шрифтов.
-//@font-face {
-//  src: url('@/assets/fonts/SourceSansPro/SourceSansPro-Light.ttf') format('truetype');
-//  font-family: $font--main;
-//  font-weight: 200;
-//  font-style: normal;
-//  font-display: swap;
-//}
+@font-face {
+  src: url('@/assets/fonts/Roboto/Roboto-Regular.ttf') format('truetype');
+  font-family: $font--main;
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  src: url('@/assets/fonts/Roboto/Roboto-Medium.ttf') format('truetype');
+  font-family: $font--main;
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
 

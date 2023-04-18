@@ -6,22 +6,23 @@ html,
 body {
   width: 100%;
   height: 100%;
+
 }
 
 body {
-  // TODO: После подключения шрифтов убрать комментарий.
-  //font-family: $font--main;
+  min-height: 100%;
+  font-family: $font--main;
+  color: $color--text;
+  background-image: url('@/assets/images/background.png');
+  background-size: 30%;
+  background-color: $color--bg;
+
 }
+
 
 .container {
   max-width: 1440px;
   margin: 0 auto;
-}
-
-.form {
-  &__title {
-    margin-bottom: 30px;
-  }
 }
 
 .h1,
@@ -68,7 +69,7 @@ h4 {
 
 // Colors
 @each $_class-name,
-  $_color in (('primary', $color--primary), ('white', $color--white), ('white-secondary', $color--white-secondary))
+  $_color in $colors
 {
   // @sample
   // .bg-primary
