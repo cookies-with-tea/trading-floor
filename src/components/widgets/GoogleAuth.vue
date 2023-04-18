@@ -16,7 +16,7 @@ import GoogleRegistrationForm from '@/components/Forms/GoogleRegistrationForm.vu
 import { authApi } from '@/api/KY/AuthService/auth.api';
 import { useTokens } from '@/composables/useTokens';
 
-const dialogVisible = ref(true);
+const dialogVisible = ref(false);
 
 const handleUserGoogleAuthorization = async () => {
   const googleData = await googleAuthCodeLogin();
