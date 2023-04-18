@@ -7,12 +7,13 @@ from PIL import Image
 from pytest_factoryboy import register
 from rest_framework.test import APIClient
 
-from factories import AdvertisementFactory, ImageFactory, UserFactory
+from factories import AdvertisementCategoryFactory, AdvertisementFactory, ImageFactory, UserFactory
 
 User = get_user_model()
 
 
 register(UserFactory)
+register(AdvertisementCategoryFactory)
 register(AdvertisementFactory)
 register(ImageFactory)
 
