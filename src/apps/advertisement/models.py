@@ -22,6 +22,17 @@ class Image(models.Model):
         verbose_name_plural = 'Изображения'
 
 
+class AdvertisementCategory(models.Model):
+    title = models.TextField(unique=True)
+
+    def __str__(self) -> str:
+        return str(self.title)
+
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+
+
 class Advertisement(models.Model):
     URGENCY_LIST = (
         ('URGENT', 'Срочно'),
@@ -39,6 +50,7 @@ class Advertisement(models.Model):
 
     title = models.TextField('Название')
     description = models.TextField('Описание', blank=True)
+    category = models.ForeignKey(AdvertisementCategory, verbose_name='Категория', on_delete=models.CASCADE)
     advertisement_type = MultiSelectField(
         verbose_name='Тип объявления',
         choices=TYPE_LIST,

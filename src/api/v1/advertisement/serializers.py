@@ -1,14 +1,14 @@
 from rest_framework import serializers
 from rest_framework.fields import CurrentUserDefault
 
-from apps.advertisement.models import Advertisement, Image
+from apps.advertisement.models import Advertisement, AdvertisementCategory, Image
 
 
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
         fields = [
-            'title',
+            'image',
             'advertisement',
         ]
 
@@ -31,28 +31,53 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
     )
 
     author = serializers.HiddenField(default=CurrentUserDefault())
-    images = ImageSerializer(many=True)
+    images = serializers.ListField(
+        child=serializers.ImageField(
+            allow_empty_file=False,
+            use_url=False,
+        ),
+        write_only=True,
+    )
+
+    class Meta:
+        model = Advertisement
+        fields = [
+            'title',
+            'description',
+            'advertisement_type',
+            'images',
+            'urgency_type',
+            'author',
+            'category',
+        ]
 
     def validate_type(self, value):
         if value not in self.PERMISSIBLE_ADVERTISEMENT_TYPES:
             raise TypeError('Некорректный тип объявления')
         return value
 
+    def create(self, validated_data: dict) -> Meta.model:
+        uploaded_images = validated_data.pop('images')
+        advertisement = Advertisement.objects.create(**validated_data)
+        for image in uploaded_images:
+            Image.objects.create(
+                advertisement=advertisement,
+                image=image,
+            )
+
+        return advertisement
+
+
+class AdvertisementCategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Advertisement
-        fields = [
-            'title',
-            'description',
-            'advertisement_type',
-            'images',
-            'urgency_type',
-            'author',
-        ]
+        model = AdvertisementCategory
+        fields = ['id', 'title']
 
 
 class AdvertisementSerializer(serializers.ModelSerializer):
     author = serializers.HiddenField(default=CurrentUserDefault())
     images = ImageSerializer(many=True)
+    category = AdvertisementCategorySerializer()
 
     class Meta:
         model = Advertisement
@@ -63,11 +88,13 @@ class AdvertisementSerializer(serializers.ModelSerializer):
             'images',
             'urgency_type',
             'author',
+            'category',
         ]
 
 
 class AdvertisementListSerializer(serializers.ModelSerializer):
     author = serializers.HiddenField(default=CurrentUserDefault())
+    category = AdvertisementCategorySerializer()
 
     class Meta:
         model = Advertisement
@@ -76,4 +103,5 @@ class AdvertisementListSerializer(serializers.ModelSerializer):
             'advertisement_type',
             'urgency_type',
             'author',
+            'category',
         ]

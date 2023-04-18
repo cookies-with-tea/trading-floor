@@ -1,7 +1,7 @@
 import factory.django
 from factory.fuzzy import FuzzyInteger
 
-from apps.advertisement.models import Advertisement, Image
+from apps.advertisement.models import Advertisement, AdvertisementCategory, Image
 from apps.user.models import User
 
 
@@ -24,11 +24,19 @@ class UserFactory(factory.django.DjangoModelFactory):
         model = User
 
 
+class AdvertisementCategoryFactory(factory.django.DjangoModelFactory):
+    title = factory.Faker('text')
+
+    class Meta:
+        model = AdvertisementCategory
+
+
 class AdvertisementFactory(factory.django.DjangoModelFactory):
     title = factory.Faker('text')
     description = factory.Faker('paragraph')
     advertisement_type = factory.Faker('random_element', elements=[item[0] for item in Advertisement.TYPE_LIST])
     images = factory.RelatedFactory(ImageFactory)
+    category = factory.SubFactory(AdvertisementCategoryFactory)
     urgency_type = factory.Faker('random_element', elements=[item[0] for item in Advertisement.URGENCY_LIST])
     author = factory.SubFactory(UserFactory)
 
