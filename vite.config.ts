@@ -10,6 +10,7 @@ import path from 'path';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import vue from '@vitejs/plugin-vue';
 import { fileURLToPath, URL } from 'node:url';
+import VitePluginFonts from 'vite-plugin-fonts';
 
 const styleLintConfig = StyleLintPlugin({
   files: ['src/**/*.{vue,scss}'],
@@ -22,17 +23,17 @@ const eslintConfig = EslintPlugin({
 });
 
 // TODO: Убрать. Пример подключения шрифтов
-// const fontsConfig = VitePluginFonts({
-//   custom: {
-//     families: [
-//       {
-//         name: 'SourceSansPro',
-//         local: 'SourceSansPro',
-//         src: './src/assets/fonts/*.ttf',
-//       },
-//     ],
-//   },
-// })
+const fontsConfig = VitePluginFonts({
+  custom: {
+    families: [
+      {
+        name: 'Roboto',
+        local: 'Roboto',
+        src: './src/assets/fonts/*.ttf',
+      },
+    ],
+  },
+});
 
 const autoImportConfig = AutoImport({
   resolvers: [ElementPlusResolver()],
@@ -67,7 +68,7 @@ export default defineConfig(({ mode }) => {
       globals: true,
       environment: 'jsdom',
     },
-    plugins: [vue(), styleLintConfig, eslintConfig, autoImportConfig, componentsConfig, svgIconsConfig],
+    plugins: [vue(), styleLintConfig, eslintConfig, autoImportConfig, componentsConfig, svgIconsConfig, fontsConfig],
     css: {
       preprocessorOptions: {
         scss: {
