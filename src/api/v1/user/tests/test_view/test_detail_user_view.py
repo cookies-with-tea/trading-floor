@@ -18,7 +18,7 @@ def test_get_detail_user(user_factory) -> None:
 
     api.force_authenticate(user)
 
-    response = api.get(reverse('user-detail', kwargs={'pk': user.id}))
+    response = api.get(reverse('v1:user-detail', kwargs={'pk': user.id}))
     response_content = response.json()
 
     assert response.status_code == status.HTTP_200_OK, 'Ожидался 200 статус-код ответа'
@@ -36,11 +36,13 @@ def test_get_detail_not_is_active_user(user_factory) -> None:
 
     api.force_authenticate(user)
 
-    response = api.get(reverse('user-detail', kwargs={'pk': user.id}))
+    response = api.get(reverse('v1:user-detail', kwargs={'pk': user.id}))
     response_content = response.json()
 
     assert response.status_code == status.HTTP_404_NOT_FOUND, 'Ожидался 404 статус-код ответа'
-    assert response_content == {'detail': 'Not found.'}, 'Ожидалось поле "detail" в ответ, которое равно "Not found"'
+    assert response_content == {
+        'detail': 'Страница не найдена.'
+    }, 'Ожидалось поле "detail" в ответ, которое равно "Not found"'
 
 
 def test_get_detail_unauthorized_user(user_factory) -> None:
@@ -48,10 +50,10 @@ def test_get_detail_unauthorized_user(user_factory) -> None:
 
     user = user_factory()
 
-    response = api.get(reverse('user-detail', kwargs={'pk': user.id}))
+    response = api.get(reverse('v1:user-detail', kwargs={'pk': user.id}))
     response_content = response.json()
-
+    print(response_content)
     assert response.status_code == status.HTTP_401_UNAUTHORIZED, 'Ожидался 401 статус-код ответа'
     assert (
-        response_content['detail'] == 'Authentication credentials were not provided.'
+        response_content['detail'] == 'Учетные данные не были предоставлены.'
     ), 'Сообщение в поле "detail" не соответствует ожидаемому'
