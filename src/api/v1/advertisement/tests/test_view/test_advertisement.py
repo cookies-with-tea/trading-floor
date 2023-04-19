@@ -46,6 +46,8 @@ def test_create_advertisement(
     assert (
         response_content['description'] == advertisement_data['description']
     ), 'Поле "description" в теле ответа не соответствует изначальным данным'
+    assert len(response_content.get('images', [])) == 1
+    assert response_content['images'][0].get('url') is not None
 
 
 def test_retrieve_advertisement(api_client: APIClient, advertisement_factory) -> None:
