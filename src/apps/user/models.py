@@ -35,6 +35,7 @@ class UserManager(BaseUserManager):
         user = self.create_user(email, first_name, password, room_number=666)
         user.is_superuser = True
         user.is_staff = True
+        user.is_active = True
         user.save()
 
         return user

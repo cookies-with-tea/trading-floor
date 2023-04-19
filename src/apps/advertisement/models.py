@@ -1,9 +1,18 @@
 from django.db import models
 from multiselectfield import MultiSelectField
 
+from apps.user.models import User
+
 
 class Image(models.Model):
     image = models.ImageField(verbose_name='Картинка')
+    advertisement = models.ForeignKey(
+        'Advertisement',
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name='images',
+    )
 
     def __str__(self):
         return f'{self.advertisement} | {self.image.name}'
@@ -11,6 +20,17 @@ class Image(models.Model):
     class Meta:
         verbose_name = 'Изображение'
         verbose_name_plural = 'Изображения'
+
+
+class AdvertisementCategory(models.Model):
+    title = models.TextField(unique=True)
+
+    def __str__(self) -> str:
+        return str(self.title)
+
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
 
 
 class Advertisement(models.Model):
@@ -28,17 +48,21 @@ class Advertisement(models.Model):
         ('TAKE', 'Возьму'),
     )
 
-    title = models.TextField()
-    description = models.TextField(blank=True)
-    type = MultiSelectField(choices=TYPE_LIST, max_choices=3, max_length=100)
-    image = models.ForeignKey(
-        'Image',
-        blank=True,
-        null=True,
-        on_delete=models.CASCADE,
-        related_name='images',
+    title = models.TextField('Название')
+    description = models.TextField('Описание', blank=True)
+    category = models.ForeignKey(AdvertisementCategory, verbose_name='Категория', on_delete=models.CASCADE)
+    advertisement_type = MultiSelectField(
+        verbose_name='Тип объявления',
+        choices=TYPE_LIST,
+        max_choices=3,
+        max_length=100,
     )
-    urgency = models.CharField(max_length=6, choices=URGENCY_LIST)
+    urgency_type = models.CharField('Срочность объявления', max_length=6, choices=URGENCY_LIST)
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name='Автор',
+    )
 
     def __str__(self):
         return self.title
