@@ -5,11 +5,12 @@ from apps.advertisement.models import Advertisement, AdvertisementCategory, Imag
 
 
 class ImageSerializer(serializers.ModelSerializer):
+    url = serializers.FileField(source='image')
+
     class Meta:
         model = Image
         fields = [
-            'image',
-            'advertisement',
+            'url',
         ]
 
 
@@ -67,6 +68,9 @@ class AdvertisementCreateSerializer(serializers.ModelSerializer):
 
         return advertisement
 
+    def to_representation(self, instance) -> dict:
+        return AdvertisementSerializer(instance).data
+
 
 class AdvertisementCategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -77,7 +81,7 @@ class AdvertisementCategorySerializer(serializers.ModelSerializer):
 class AdvertisementSerializer(serializers.ModelSerializer):
     author = serializers.HiddenField(default=CurrentUserDefault())
     images = ImageSerializer(many=True)
-    category = AdvertisementCategorySerializer()
+    category = AdvertisementCategorySerializer(read_only=True)
 
     class Meta:
         model = Advertisement
