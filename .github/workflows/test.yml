@@ -28,6 +28,7 @@ jobs:
         echo "${{ secrets.CLIENT_SECRET }}" > client_secret.json
     - name: Build docker
       run: |
+        chmod +x docker-entrypoint.sh
         docker-compose up -d --build
     - name: Run tests
       run: |
