@@ -35,13 +35,13 @@ def test_authorization_google(
     api_client: APIClient,
 ) -> None:
     data = {'authorization_code': '1234'}
-    response = api_client.post(reverse('authorization-google'), data)
+    response = api_client.post(reverse('common:authorization-google'), data)
     response_content = response.json()
 
     assert response.status_code == status.HTTP_201_CREATED, 'Ожидался 201 статус-код ответа'
     assert response_content['access'] is not None, 'Ожидалось, что поле "access" будет равно None'
     assert response_content['refresh'] is not None, 'Ожидалось, что поле "refresh" будет равно None'
-    assert not response_content['is_active'], 'Ожидалось, что поле "is_active" будет равно False'
+    assert not response_content['is_register'], 'Ожидалось, что поле "is_register" будет равно False'
 
 
 @patch('library.oauth.google.GoogleOauth.create_flow', return_value=None, autospec=True)
@@ -52,7 +52,7 @@ def test_invalid_authorization_google(
     api_client: APIClient,
 ) -> None:
     data = {'authorization_code': '1234'}
-    response = api_client.post(reverse('authorization-google'), data)
+    response = api_client.post(reverse('common:authorization-google'), data)
     response_content = response.json()
 
     assert response.status_code == status.HTTP_400_BAD_REQUEST, 'Ожидался 400 статус-код ответа'
@@ -72,15 +72,12 @@ def test_sign_up(api_client: APIClient, user_factory) -> None:
         'last_name': 'Test123MerCiN',
     }
 
-    response = api_client.post(reverse('sign-up'), new_data)
+    response = api_client.post(reverse('common:sign-up'), new_data)
     response_content = response.json()
 
     user.refresh_from_db()
 
     assert response.status_code == status.HTTP_200_OK, 'Ожидался 200 статус-код ответа'
-    assert (
-        response_content['first_name'] == user.first_name
-    ), 'Ожидалось, что поле "first_name" в ответе будет равно полю "first_name" в базе данных'
-    assert (
-        response_content['last_name'] == user.last_name
-    ), 'Ожидалось, что поле "last_name" в ответе будет равно полю "last_name" в базе данных'
+    assert response_content.get('refresh'), 'Ожидалось, что в теле ответа будет поле "refresh"'
+    assert response_content.get('access'), 'Ожидалось, что в теле ответа будет поле "access"'
+    assert response_content.get('is_register'), 'Ожидалось, что в теле ответа будет поле "is_register" будет равно True'
