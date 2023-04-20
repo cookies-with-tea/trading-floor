@@ -24,8 +24,12 @@ jobs:
       run: |
         echo "${{ secrets.ENV_FILE }}" > .env
     - name: Setup client secrest for Google
-      run: |
-        echo "${{ secrets.CLIENT_SECRET }}" > client_secret.json
+      id: create-json
+      uses: jsdaniell/create-json@v1.2.2
+      with:
+        name: "client_secret.json"
+        json: ${{ secrets.CLIENT_SECRET }}
+        dir: '/'
     - name: Build docker
       run: |
         chmod +x docker-entrypoint.sh
