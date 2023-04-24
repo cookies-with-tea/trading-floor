@@ -11,8 +11,8 @@ import router from './router';
 import ElementPlus from 'element-plus';
 import vue3GoogleLogin from 'vue3-google-login';
 
-import '@/styles/index.scss';
 import 'element-plus/dist/index.css';
+import '@/styles/index.scss';
 
 const app = createApp(App);
 

@@ -1,6 +1,13 @@
 <template>
   <div class="google-auth">
-    <el-button type="primary" @click="handleUserGoogleAuthorization">Login Using Google</el-button>
+    <div class="google-auth__body">
+      <h2 class="ta-c mb-30">Регистрация | Авторизация</h2>
+      <el-button class="google-auth__button" @click="handleUserGoogleAuthorization">
+        Войти с помощью Google
+        <icon-template class="icon-20 ml-10" name="google" />
+      </el-button>
+    </div>
+
     <base-dialog v-model="dialogVisible" class="google-auth__dialog">
       <h2 class="ta-c">Введите свои данные</h2>
       <google-registration-form class="mt-30" />
@@ -63,6 +70,15 @@ provide('handleUserGoogleRegister', handleUserGoogleRegister);
   &__dialog {
     width: 100% !important;
     max-width: 500px !important;
+  }
+
+  &__button {
+    width: 400px;
+    height: 50px;
+    border: 1px solid $color--text !important;
+    color: $color--text;
+    background-color: $color--bg;
+    padding: 15px 10px;
   }
 
   :deep(.el-dialog) {
