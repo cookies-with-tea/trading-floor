@@ -1,7 +1,10 @@
 <template>
-  <div class="login-page d-f fd-c jc-c">
+  <div class="login-page">
     <div class="d-f jc-c">
-      <google-auth />
+      <div>
+        <h2 class="ta-c mb-30">Регистрация&nbsp; |&nbsp; Авторизация</h2>
+        <google-auth />
+      </div>
     </div>
   </div>
 </template>
@@ -10,6 +13,9 @@
 
 <style lang="scss" scoped>
 .login-page {
+  display: flex;
   flex: 1 0;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>

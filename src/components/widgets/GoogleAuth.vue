@@ -1,14 +1,13 @@
 <template>
   <div class="google-auth">
     <div class="google-auth__body">
-      <h2 class="ta-c mb-30">Регистрация | Авторизация</h2>
-      <el-button class="google-auth__button" @click="handleUserGoogleAuthorization">
+      <el-button class="background w-100" type="primary" @click="handleUserGoogleAuthorize">
         Войти с помощью Google
         <icon-template class="icon-20 ml-10" name="google" />
       </el-button>
     </div>
 
-    <base-dialog v-model="dialogVisible" class="google-auth__dialog">
+    <base-dialog v-model="dialogVisible">
       <h2 class="ta-c">Введите свои данные</h2>
       <google-registration-form class="mt-30" />
     </base-dialog>
@@ -25,7 +24,7 @@ import { useTokens } from '@/composables/useTokens';
 
 const dialogVisible = ref(false);
 
-const handleUserGoogleAuthorization = async () => {
+const handleUserGoogleAuthorize = async () => {
   const googleData = await googleAuthCodeLogin();
   const [error, data] = await authApi.loginGoogleUser(googleData.code);
 
@@ -67,23 +66,16 @@ provide('handleUserGoogleRegister', handleUserGoogleRegister);
 
 <style lang="scss" scoped>
 .google-auth {
-  &__dialog {
-    width: 100% !important;
-    max-width: 500px !important;
-  }
-
-  &__button {
-    width: 400px;
-    height: 50px;
-    border: 1px solid $color--text !important;
-    color: $color--text;
-    background-color: $color--bg;
-    padding: 15px 10px;
-  }
+  display: flex;
+  justify-content: center;
 
   :deep(.el-dialog) {
     width: 100% !important;
     max-width: 500px !important;
+  }
+
+  &__body {
+    width: 400px !important;
   }
 }
 </style>

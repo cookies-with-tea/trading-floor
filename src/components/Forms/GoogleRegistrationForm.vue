@@ -53,6 +53,10 @@ const handleGoogleRegistrationFormSubmit = async () => {
 </script>
 
 <style lang="scss" scoped>
-.form {
+.el-form {
+  :deep(.el-button) {
+    width: 100%;
+    height: 50px;
+  }
 }
 </style>

@@ -9,7 +9,7 @@
       v-bind="$attrs"
       @close="$emit('update:modelValue', false)"
     >
-      <el-button>
+      <el-button type="primary">
         <icon-template class="icon-25 base-dialog__close" name="close" @click="handleClose" />
       </el-button>
       <slot />

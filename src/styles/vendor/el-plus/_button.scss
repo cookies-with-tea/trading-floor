@@ -1,10 +1,20 @@
 @use '@/styles/resources/variables' as *;
 
 .el-button {
-  border: none !important;
+  height: auto;
   color: $color--text;
+  padding: 15px 10px;
+
+
 
   &.el-button--primary {
+    border: none !important;
     background: $color--primary;
+
+    &.background{
+      border: 1px solid $color--text !important;
+      background-color: $color--bg;
+    }
   }
 }
+
