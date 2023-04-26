@@ -7,7 +7,7 @@
       </el-button>
     </div>
 
-    <base-dialog v-model="dialogVisible">
+    <base-dialog v-model="isRegistrationDialogVisible">
       <h2 class="ta-c">Введите свои данные</h2>
       <google-registration-form class="mt-30" />
     </base-dialog>
@@ -22,7 +22,7 @@ import GoogleRegistrationForm from '@/components/Forms/GoogleRegistrationForm.vu
 import { authApi } from '@/api/KY/AuthService/auth.api';
 import { useTokens } from '@/composables/useTokens';
 
-const dialogVisible = ref(false);
+const isRegistrationDialogVisible = ref(true);
 
 const handleUserGoogleAuthorize = async () => {
   const googleData = await googleAuthCodeLogin();
@@ -38,7 +38,7 @@ const handleUserGoogleAuthorize = async () => {
     setAccess(access);
 
     if (!is_register) {
-      dialogVisible.value = true;
+      isRegistrationDialogVisible.value = true;
     }
   }
 };
@@ -57,7 +57,7 @@ const handleUserGoogleRegister = async (form: GoogleRegistrationFormType) => {
       setAccess(access);
     }
 
-    dialogVisible.value = false;
+    isRegistrationDialogVisible.value = false;
   }
 };
 
@@ -75,7 +75,8 @@ provide('handleUserGoogleRegister', handleUserGoogleRegister);
   }
 
   &__body {
-    width: 400px !important;
+    width: 100%;
+    max-width: 400px;
   }
 }
 </style>
