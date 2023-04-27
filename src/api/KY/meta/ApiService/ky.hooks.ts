@@ -4,6 +4,7 @@ import { useTokens } from '@/composables/useTokens';
 
 export const requestAuthorizationHeader: BeforeRequestHook = (request: Request) => {
   const { getAccess } = useTokens(localStorage);
+
   const access = getAccess();
 
   if (access) {
@@ -14,6 +15,7 @@ export const requestAuthorizationHeader: BeforeRequestHook = (request: Request) 
 export const responseRetryOn401: AfterResponseHook = async (request, options, response) => {
   if (response.status === 401) {
     const { getRefresh, setRefresh, setAccess } = useTokens(localStorage);
+
     const storeRefresh = getRefresh();
 
     if (storeRefresh) {

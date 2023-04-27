@@ -1,18 +1,18 @@
 @use '@/styles/resources/variables' as *;
 @use "@/styles/resources/mixins/fonts" as *;
 
-.el-form{
+.el-form {
   color: $color--text;
   background-color: $color--box;
 
-  &-item{
-    label{
+  &-item {
+    label {
       @include text-sm;
 
       margin-bottom: 10px;
     }
 
-    &:not(:last-child){
+    &:not(:last-child) {
       margin-bottom: 20px;
     }
   }

@@ -44,8 +44,9 @@ const handleUserGoogleRegister = inject('handleUserGoogleRegister', async (form:
   console.log('Injection error', form);
 });
 
-const handleGoogleRegistrationFormSubmit = async () => {
+const handleGoogleRegistrationFormSubmit = async (): Promise<void> => {
   if (!googleRegistrationFormInstance.value) return;
+
   await googleRegistrationFormInstance.value.validate(async (valid) => {
     if (valid) await handleUserGoogleRegister(googleRegistrationFormModel);
   });

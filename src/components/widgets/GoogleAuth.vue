@@ -24,12 +24,12 @@ import { useTokens } from '@/composables/useTokens';
 
 const isRegistrationDialogVisible = ref(false);
 
-const handleUserGoogleAuthorize = async () => {
+const handleUserGoogleAuthorize = async (): Promise<void> => {
   const googleData = await googleAuthCodeLogin();
   const [error, data] = await authApi.loginGoogleUser(googleData.code);
 
   if (!error && data) {
-    const { is_register, access, refresh } = data;
+    const { is_register: isRegister, access, refresh } = data;
 
     const { setAccess, setRefresh } = useTokens(localStorage);
 
@@ -37,13 +37,13 @@ const handleUserGoogleAuthorize = async () => {
 
     setAccess(access);
 
-    if (!is_register) {
+    if (!isRegister) {
       isRegistrationDialogVisible.value = true;
     }
   }
 };
 
-const handleUserGoogleRegister = async (form: GoogleRegistrationFormType) => {
+const handleUserGoogleRegister = async (form: GoogleRegistrationFormType): Promise<void> => {
   const [error, data] = await authApi.registerGoogleUser(form);
 
   if (!error) {

@@ -1,17 +1,17 @@
 @use '@/styles/resources/variables' as *;
 
-.el-dialog{
-  &.base-dialog{
+.el-dialog {
+  &.base-dialog {
     max-width: 500px;
     border-radius: 15px;
     background-color: $color--box;
 
-    .el-dialog{
-      &__header{
+    .el-dialog {
+      &__header {
         display: none;
       }
 
-      &__body{
+      &__body {
         padding: 70px 50px;
       }
     }

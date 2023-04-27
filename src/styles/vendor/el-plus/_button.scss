@@ -5,13 +5,11 @@
   color: $color--text;
   padding: 15px 10px;
 
-
-
   &.el-button--primary {
     border: none !important;
     background: $color--primary;
 
-    &.background{
+    &.background {
       border: 1px solid $color--text !important;
       background-color: $color--bg;
     }
