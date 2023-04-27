@@ -1,5 +1,5 @@
-import { TokenPairResponse } from '@/api/KY/commonTypes';
+import { ApiTokenPairType } from '@/api/KY/commonTypes';
 
-export type GoogleAnswer = TokenPairResponse & {
+export type ApiGoogleAnswerType = ApiTokenPairType & {
   is_register: boolean;
 };

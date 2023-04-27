@@ -1,11 +1,11 @@
 import { KyApi } from '@/api/KY/meta/ApiService/ky.api';
-import { GoogleAnswer } from '@/api/KY/AuthService/auth.types';
+import { ApiGoogleAnswerType } from '@/api/KY/AuthService/auth.types';
 import { GoogleRegistrationFormType } from '@/types/authFormTypes';
 import { useTokens } from '@/composables/useTokens';
 
 class AuthApi extends KyApi {
   loginGoogleUser = async (code: string) => {
-    return this.kyCall<GoogleAnswer>('google', {
+    return this.kyCall<ApiGoogleAnswerType>('google', {
       method: 'post',
       json: { authorization_code: code },
     });
@@ -20,7 +20,7 @@ class AuthApi extends KyApi {
   };
 
   registerGoogleUser = async (form: GoogleRegistrationFormType) => {
-    return this.kyCall<GoogleAnswer>('sign-up', {
+    return this.kyCall<ApiGoogleAnswerType>('sign-up', {
       method: 'post',
       json: {
         first_name: form.firstName,

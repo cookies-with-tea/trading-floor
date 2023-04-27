@@ -1,14 +1,14 @@
 import { KyApi } from '@/api/KY/meta/ApiService/ky.api';
-import { UserResponse } from '@/api/KY/UserService/user.types';
+import { ApiUserType } from '@/api/KY/UserService/user.types';
 
 class UserApi extends KyApi {
   getSelf = async () => {
-    return this.kyCall<UserResponse>('me', {
+    return this.kyCall<ApiUserType>('me', {
       method: 'get',
     });
   };
   getUser = async (id: number) => {
-    return this.kyCall<UserResponse>(`${id}`, {
+    return this.kyCall<ApiUserType>(`${id}`, {
       method: 'get',
     });
   };

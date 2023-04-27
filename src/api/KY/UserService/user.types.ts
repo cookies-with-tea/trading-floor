@@ -1,4 +1,4 @@
-export type UserResponse = {
+export type ApiUserType = {
   id: number;
   first_name: string;
   last_name: string;
