@@ -1,12 +1,5 @@
-export type LoginFormType = {
-  email: string;
-  password: string;
-};
-
-export type RegisterFormType = {
-  email: string;
+export type GoogleRegistrationFormType = {
   firstName: string;
-  lastName?: string;
-  password: string;
-  roomNumber: number | null;
+  lastName: string;
+  roomNumber: string | null;
 };

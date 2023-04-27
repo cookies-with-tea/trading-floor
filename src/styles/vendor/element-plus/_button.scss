@@ -1,8 +1,0 @@
-@use '@/styles/resources/variables' as *;
-
-.el-button {
-  &.el-button--primary {
-    color: $color--white;
-    background: $color--primary;
-  }
-}

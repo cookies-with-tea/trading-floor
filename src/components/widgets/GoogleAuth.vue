@@ -1,26 +1,82 @@
 <template>
-  <button @click="handleUserGoogleAuthorization">Login Using Google</button>
+  <div class="google-auth">
+    <div class="google-auth__body">
+      <el-button class="background w-100" type="primary" @click="handleUserGoogleAuthorize">
+        Войти с помощью Google
+        <icon-template class="icon-20 ml-10" name="google" />
+      </el-button>
+    </div>
+
+    <base-dialog v-model="isRegistrationDialogVisible">
+      <h2 class="ta-c">Введите свои данные</h2>
+      <google-registration-form class="mt-30" />
+    </base-dialog>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import { googleAuthCodeLogin } from 'vue3-google-login';
-import { authApi } from '@/api/auth/auth.api';
-import { useAuthStore } from '@/stores/authStore';
+import { GoogleRegistrationFormType } from '@/types/authFormTypes';
+import { provide, ref } from 'vue';
+import GoogleRegistrationForm from '@/components/Forms/GoogleRegistrationForm.vue';
+import { authApi } from '@/api/KY/AuthService/auth.api';
+import { useTokens } from '@/composables/useTokens';
 
-const authStore = useAuthStore();
+const isRegistrationDialogVisible = ref(false);
 
-const handleUserGoogleAuthorization = async () => {
+const handleUserGoogleAuthorize = async (): Promise<void> => {
   const googleData = await googleAuthCodeLogin();
-  const [error, data] = await authApi.authGoogleUser(googleData.code);
+  const [error, data] = await authApi.loginGoogleUser(googleData.code);
 
   if (!error && data) {
-    const { access, refresh } = data;
+    const { is_register: isRegister, access, refresh } = data;
 
-    authStore.refreshToken = refresh;
+    const { setAccess, setRefresh } = useTokens(localStorage);
 
-    localStorage.setItem('accessToken', access);
+    setRefresh(refresh);
+
+    setAccess(access);
+
+    if (!isRegister) {
+      isRegistrationDialogVisible.value = true;
+    }
   }
 };
+
+const handleUserGoogleRegister = async (form: GoogleRegistrationFormType): Promise<void> => {
+  const [error, data] = await authApi.registerGoogleUser(form);
+
+  if (!error) {
+    const { is_register, refresh, access } = data;
+
+    if (is_register) {
+      const { setAccess, setRefresh } = useTokens(localStorage);
+
+      setRefresh(refresh);
+
+      setAccess(access);
+    }
+
+    isRegistrationDialogVisible.value = false;
+  }
+};
+
+provide('handleUserGoogleRegister', handleUserGoogleRegister);
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.google-auth {
+  display: flex;
+  justify-content: center;
+
+  :deep(.el-dialog) {
+    width: 100% !important;
+    max-width: 500px !important;
+  }
+
+  &__body {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+</style>

@@ -1,0 +1,8 @@
+@use '@/styles/resources/variables' as *;
+
+.el-input {
+  &__wrapper {
+    box-shadow: none !important;
+    background-color: $color--field !important;
+  }
+}

@@ -5,13 +5,13 @@ import IconTemplate from '@/components/common/IconTemplate.vue';
 
 import 'virtual:svg-icons-register';
 
-// TODO: После подключения шрифтов убрать комментарий.
-// import 'virtual:fonts.css'
+import 'virtual:fonts.css';
 import App from './App.vue';
 import router from './router';
 import ElementPlus from 'element-plus';
 import vue3GoogleLogin from 'vue3-google-login';
 
+import 'element-plus/dist/index.css';
 import '@/styles/index.scss';
 
 const app = createApp(App);

@@ -9,15 +9,16 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BaseDialog: typeof import('./src/components/common/BaseDialog/BaseDialog.vue')['default']
     CInput: typeof import('./src/components/common/CInput/CInput.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElDialog: typeof import('element-plus/es')['ElDialog']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElInput: typeof import('element-plus/es')['ElInput']
     GoogleAuth: typeof import('./src/components/widgets/GoogleAuth.vue')['default']
+    GoogleRegistrationForm: typeof import('./src/components/Forms/GoogleRegistrationForm.vue')['default']
     IconTemplate: typeof import('./src/components/common/IconTemplate.vue')['default']
-    LoginForm: typeof import('./src/components/Forms/LoginForm.vue')['default']
-    RegistrationForm: typeof import('./src/components/Forms/RegistrationForm.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
