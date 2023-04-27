@@ -4,22 +4,22 @@ import { GoogleRegistrationFormType } from '@/types/authFormTypes';
 import { useTokens } from '@/composables/useTokens';
 
 class AuthApi extends KyApi {
-  loginGoogleUser(code: string) {
+  loginGoogleUser = async (code: string) => {
     return this.kyCall<GoogleAnswer>('google', {
       method: 'post',
       json: { authorization_code: code },
     });
-  }
+  };
 
-  logoutUser() {
+  logoutUser = async () => {
     const { removeRefresh, removeAccess } = useTokens(localStorage);
 
     removeRefresh();
 
     removeAccess();
-  }
+  };
 
-  registerGoogleUser(form: GoogleRegistrationFormType) {
+  registerGoogleUser = async (form: GoogleRegistrationFormType) => {
     return this.kyCall<GoogleAnswer>('sign-up', {
       method: 'post',
       json: {
@@ -28,7 +28,7 @@ class AuthApi extends KyApi {
         room_number: form.roomNumber,
       },
     });
-  }
+  };
 }
 
 export const authApi = new AuthApi({

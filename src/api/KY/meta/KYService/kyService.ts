@@ -8,7 +8,7 @@ export class KyService {
   constructor(options: Options) {
     this.kyInstance = ky.create(options);
   }
-  protected async kyCall<T = any>(url: string, options: Options): KyResponseType<T> {
+  protected kyCall = async <T = any>(url: string, options: Options): KyResponseType<T> => {
     try {
       const data = await this.kyInstance(url, options).json<T>();
 
@@ -16,5 +16,5 @@ export class KyService {
     } catch (e: any) {
       return [e];
     }
-  }
+  };
 }
