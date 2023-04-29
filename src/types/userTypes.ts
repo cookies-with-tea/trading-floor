@@ -3,7 +3,7 @@ export type UserType = {
   firstName: string;
   lastName: string;
   roomNumber: number;
-  avatar: string;
+  avatar?: string;
   createdAt: string;
   updatedAt: string;
   isActive: boolean;

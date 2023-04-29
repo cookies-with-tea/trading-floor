@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { GoogleRegistrationFormType } from '@/types/authFormTypes';
+import type { GoogleRegistrationFormType } from '@/types/formTypes';
 import { FormInstance, FormRules } from 'element-plus';
 import { inject, reactive, ref } from 'vue';
 import { commonRules } from '@/constants/formRules';
@@ -31,7 +31,7 @@ const googleRegistrationFormInstance = ref<FormInstance>();
 const googleRegistrationFormModel = reactive<GoogleRegistrationFormType>({
   firstName: '',
   lastName: '',
-  roomNumber: null,
+  roomNumber: 0,
 });
 
 const googleRegistrationFormRules = reactive<FormRules>({

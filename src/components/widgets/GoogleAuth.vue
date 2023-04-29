@@ -16,7 +16,7 @@
 
 <script lang="ts" setup>
 import { googleAuthCodeLogin } from 'vue3-google-login';
-import { GoogleRegistrationFormType } from '@/types/authFormTypes';
+import { GoogleRegistrationFormType } from '@/types/formTypes';
 import { provide, ref } from 'vue';
 import GoogleRegistrationForm from '@/components/Forms/GoogleRegistrationForm.vue';
 import { authApi } from '@/api/KY/AuthService/auth.api';
@@ -44,7 +44,11 @@ const handleUserGoogleAuthorize = async (): Promise<void> => {
 };
 
 const handleUserGoogleRegister = async (form: GoogleRegistrationFormType): Promise<void> => {
-  const [error, data] = await authApi.registerGoogleUser(form);
+  const [error, data] = await authApi.registerGoogleUser({
+    first_name: form.firstName,
+    last_name: form.lastName,
+    room_number: form.roomNumber,
+  });
 
   if (!error) {
     const { is_register, refresh, access } = data;

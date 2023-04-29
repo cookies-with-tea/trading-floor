@@ -1,20 +1,8 @@
-export enum ApiAdvertisementTypeEnum {
-  exchange = 'EXCHANGE',
-  sell = 'SELL',
-  buy = 'BUY',
-  give = 'GIVE',
-  take = 'TAKE',
-}
+import { AdvertisementTypeEnum, AdvertisementUrgencyEnum } from '@/types/advertisementTypes';
 
 export type ApiAdvertisementImageType = {
   url: string;
 };
-
-export enum ApiAdvertisementUrgencyEnum {
-  urgent = 'URGENT',
-  nsu = 'NSU',
-  naau = 'NAAU',
-}
 
 export type ApiAdvertisementCategoryType = {
   id: number;
@@ -24,15 +12,33 @@ export type ApiAdvertisementCategoryType = {
 export type ApiAdvertisementType = {
   title: string;
   description: string;
-  advertisement_type: Array<ApiAdvertisementTypeEnum>;
+  advertisement_type: Array<AdvertisementTypeEnum>;
   images: Array<ApiAdvertisementImageType>;
-  urgency_type: ApiAdvertisementUrgencyEnum;
+  urgency_type: AdvertisementUrgencyEnum;
   category: ApiAdvertisementCategoryType;
 };
 
 export type ApiAdvertisementListType = Array<{
   title: string;
-  advertisement_type: Array<ApiAdvertisementTypeEnum>;
-  urgency_type: ApiAdvertisementUrgencyEnum;
+  advertisement_type: Array<AdvertisementTypeEnum>;
+  urgency_type: AdvertisementUrgencyEnum;
   category: ApiAdvertisementCategoryType;
 }>;
+
+export type ApiPatchedAdvertisementType = {
+  title?: string;
+  description?: string;
+  advertisement_type?: Array<AdvertisementTypeEnum>;
+  images?: Array<ApiAdvertisementImageType>;
+  urgency_type?: AdvertisementUrgencyEnum;
+  category?: ApiAdvertisementCategoryType;
+};
+
+export type ApiCreatedAdvertisementType = {
+  title: string;
+  description: string;
+  advertisement_type: Array<AdvertisementTypeEnum>;
+  images?: Array<File>;
+  urgency_type: AdvertisementUrgencyEnum;
+  category: number;
+};

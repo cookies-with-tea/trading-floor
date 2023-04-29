@@ -1,5 +1,9 @@
 import { KyApi } from '@/api/KY/meta/ApiService/ky.api';
-import { ApiAdvertisementListType, ApiAdvertisementType } from '@/api/KY/AdvertisementService/advertisement.types';
+import {
+  ApiAdvertisementListType,
+  ApiAdvertisementType,
+  ApiPatchedAdvertisementType,
+} from '@/api/KY/AdvertisementService/advertisement.types';
 
 class AdvertisementApi extends KyApi {
   getAllAdvertisements = async () => {
@@ -13,10 +17,10 @@ class AdvertisementApi extends KyApi {
       method: 'get',
     });
   };
-  addAdvertisement = async (advertisement: ApiAdvertisementType) => {
+  addAdvertisement = async (advertisement: FormData) => {
     return this.kyCall<ApiAdvertisementType>('', {
       method: 'post',
-      json: advertisement,
+      body: advertisement,
     });
   };
 
@@ -26,7 +30,7 @@ class AdvertisementApi extends KyApi {
     });
   };
 
-  updateAdvertisement = async (id: number, advertisement: ApiAdvertisementType) => {
+  updateAdvertisement = async (id: number, advertisement: ApiPatchedAdvertisementType) => {
     return this.kyCall<ApiAdvertisementType>(`/${id}`, {
       method: 'patch',
       json: advertisement,
