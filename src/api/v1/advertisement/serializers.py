@@ -14,7 +14,7 @@ class ImageSerializer(serializers.ModelSerializer):
         ]
 
 
-class AdvertisementCreateSerializer(serializers.ModelSerializer):
+class CreateAdvertisementSerializer(serializers.ModelSerializer):
     PERMISSIBLE_ADVERTISEMENT_TYPES = (
         ('EXCHANGE'),
         ('SELL'),

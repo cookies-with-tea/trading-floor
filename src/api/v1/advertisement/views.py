@@ -11,7 +11,7 @@ from utils.mixins.views import SerializerClassMapMixin
 
 class AdvertisementModelViewSet(SerializerClassMapMixin, ModelViewSet):
     serializer_class_map = {
-        'create': serializers.AdvertisementCreateSerializer,
+        'create': serializers.CreateAdvertisementSerializer,
         'retrieve': serializers.AdvertisementSerializer,
         'list': serializers.AdvertisementListSerializer,
     }
