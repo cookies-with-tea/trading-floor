@@ -3,10 +3,9 @@ from django.db import models
 from apps.advertisement.models import Advertisement
 from apps.user.models import User
 
-STATUS_OPEN = 'OPEN'
-
 
 class Deal(models.Model):
+    STATUS_OPEN = 'OPEN'
     STATUSES = (
         (STATUS_OPEN, 'Открыта'),
         ('SUCCESSFULLY_COMPLETED', 'Успешно завершена'),

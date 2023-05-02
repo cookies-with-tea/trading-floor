@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from api.v1.user.serializers import UserProfileSerializer
-from apps.deal.models import STATUS_OPEN, Deal
+from apps.deal.models import Deal
 
 
 class DealSerailizer(serializers.Serializer):
@@ -36,7 +36,7 @@ class CreateDealSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         validated_data['is_response'] = True
-        validated_data['status'] = STATUS_OPEN
+        validated_data['status'] = Deal.STATUS_OPEN
         deal = Deal.objects.create(**validated_data)
 
         return deal
