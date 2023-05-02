@@ -3,10 +3,12 @@ from django.db import models
 from apps.advertisement.models import Advertisement
 from apps.user.models import User
 
+STATUS_OPEN = 'OPEN'
+
 
 class Deal(models.Model):
     STATUSES = (
-        ('OPEN', 'Открыта'),
+        (STATUS_OPEN, 'Открыта'),
         ('SUCCESSFULLY_COMPLETED', 'Успешно завершена'),
         ('CANCELLED', 'Отменена'),
     )
@@ -30,9 +32,11 @@ class Deal(models.Model):
         verbose_name='Покупатель',
     )
     status = models.CharField(
-        'Статус объявления',
+        'Статус сделки',
         max_length=22,
         choices=STATUSES,
+        null=True,
+        blank=True,
     )
     created_at = models.DateTimeField(auto_now_add=True)
     closed_at = models.DateTimeField(null=True)
