@@ -39,7 +39,7 @@ class Deal(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     closed_at = models.DateTimeField(null=True)
-    is_response = models.BooleanField(default=False)
+    is_response = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = 'Сделка'
