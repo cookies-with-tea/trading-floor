@@ -34,7 +34,7 @@ class CreateDealSerializer(serializers.ModelSerializer):
             'is_response',
         ]
 
-    def update(self, instance: Deal, validated_data: dict) -> None:
+    def update(self, instance: Deal, validated_data: dict) -> Deal:
         instance.is_response = False
         instance.status = Deal.STATUS_OPEN
         instance.save()
