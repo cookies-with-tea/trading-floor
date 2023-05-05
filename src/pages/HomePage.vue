@@ -1,5 +1,5 @@
 <template>
-  <div class="home-page"> Домашняя страница </div>
+  <div class="home-page" />
 </template>
 
 <script lang="ts" setup></script>

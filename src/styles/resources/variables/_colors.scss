@@ -4,7 +4,8 @@ $color--button-pressed: #1a2539;
 $color--field: #293448;
 $color--hovered-button: #424a5c;
 $color--hint: #626d81;
-$color--header: #d9d9d9;
+$color--header: #0d1c38;
+$color--footer: #00071b;
 $color--box: #152034;
 
 $color--primary: #00288e;
@@ -32,6 +33,7 @@ $colors: (
   'text': $color--text,
   'danger': $color--danger,
   'white': $color--white,
+  'footer': $color--footer,
   'white-secondary': $color--white-secondary,
   'box-secondary': $color--box-secondary,
 )
