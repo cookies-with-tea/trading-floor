@@ -34,7 +34,7 @@ class CreateDealSerializer(serializers.Serializer):
             'is_response',
         ]
 
-    def create(self, validated_data):
+    def create(self, validated_data: dict) -> Meta.model:
         validated_data['is_response'] = True
         validated_data['status'] = Deal.STATUS_OPEN
         deal = Deal.objects.create(**validated_data)
