@@ -19,7 +19,7 @@ class DealSerailizer(serializers.Serializer):
         ]
 
 
-class CreateDealSerializer(serializers.Serializer):
+class CreateDealSerializer(serializers.ModelSerializer):
     seller = UserProfileSerializer()
     buyer = UserProfileSerializer()
 
@@ -34,15 +34,15 @@ class CreateDealSerializer(serializers.Serializer):
             'is_response',
         ]
 
-    def create(self, validated_data: dict) -> Meta.model:
-        validated_data['is_response'] = True
-        validated_data['status'] = Deal.STATUS_OPEN
-        deal = Deal.objects.create(**validated_data)
+    def update(self, instance: Deal, validated_data: dict) -> None:
+        instance.is_response = False
+        instance.status = Deal.STATUS_OPEN
+        instance.save()
 
-        return deal
+        return instance
 
 
-class CreateFeedbackSerializer(serializers.Serializer):
+class CreateFeedbackSerializer(serializers.ModelSerializer):
     class Meta:
         model = Deal
         fields = [
