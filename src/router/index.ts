@@ -1,14 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { ROUTE_NAMES } from '@/constants/routeNames';
 import { useTokens } from '@/composables/useTokens';
+import AuthorizationLayout from '@/layouts/AuthorizationLayout.vue';
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
       path: '/',
-      component: DefaultLayout,
+      component: AuthorizationLayout,
       children: [
         {
           path: 'login',
