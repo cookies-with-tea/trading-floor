@@ -26,6 +26,7 @@ def test_get_detail_user(user_factory) -> None:
     assert (
         response_content['first_name'] == user.first_name
     ), 'Имя из тела ответа не равен имени пользователя, который был запрошен'
+    assert response_content['avatar_color'], 'В теле ответа ожидалось поле "avatar_color"'
     assert response_content.get('email') is None, 'В теле ответа пришёл email, хотя его не ожидалось'
 
 

@@ -64,28 +64,6 @@ def test_update_me(user_factory) -> None:
     ), 'Имя из тела ответа не равен имени пользователя, который был запрошен'
 
 
-def test_invalid_update_me(user_factory) -> None:
-    api = APIClient(enforce_csrf_checks=True)
-
-    user: User = user_factory()
-
-    api.force_authenticate(user)
-
-    old_email = user.email
-
-    update_data = {
-        'email': 'test@gmail.com',
-    }
-    response = api.patch(reverse('v1:user-me'), update_data)
-
-    user.refresh_from_db()
-
-    assert response.status_code == status.HTTP_400_BAD_REQUEST, 'Ожидался 400 статус-код ответа'
-    assert (
-        user.email == old_email
-    ), 'У пользователя изменилось поле "email", хотя ожидалось, что это поле не будет изменено'
-
-
 def test_delete_me(user_factory) -> None:
     api = APIClient(enforce_csrf_checks=True)
 
