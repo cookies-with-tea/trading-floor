@@ -1,4 +1,5 @@
 import { AdvertisementUrgencyEnum, AllowedAdvertisementTypesType } from '@/types/advertisementTypes';
+import { UploadFile } from 'element-plus';
 
 export type GoogleRegistrationFormType = {
   firstName: string;
@@ -11,7 +12,7 @@ export type AdvertisementCreateFormType = {
   title: string;
   description: string;
   advertisementType: AllowedAdvertisementTypesType;
-  images?: Array<File>;
+  images: UploadFile[];
   urgencyType: AdvertisementUrgencyEnum;
   category: number;
 };

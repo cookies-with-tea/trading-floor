@@ -17,3 +17,10 @@ export type AllowedAdvertisementTypesType =
   | [AdvertisementTypeEnum.exchange, AdvertisementTypeEnum.take]
   | [AdvertisementTypeEnum.take, AdvertisementTypeEnum.buy, AdvertisementTypeEnum.exchange]
   | [AdvertisementTypeEnum.sell, AdvertisementTypeEnum.give, AdvertisementTypeEnum.exchange];
+
+export const AllowedAdvertisementTypes = [
+  [AdvertisementTypeEnum.exchange, AdvertisementTypeEnum.sell],
+  [AdvertisementTypeEnum.exchange, AdvertisementTypeEnum.take],
+  [AdvertisementTypeEnum.take, AdvertisementTypeEnum.buy, AdvertisementTypeEnum.exchange],
+  [AdvertisementTypeEnum.sell, AdvertisementTypeEnum.give, AdvertisementTypeEnum.exchange],
+];

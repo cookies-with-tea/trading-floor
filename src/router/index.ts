@@ -15,6 +15,9 @@ const router = createRouter({
           path: '',
           name: ROUTE_NAMES.LoginPage,
           component: async () => import('@/pages/LoginPage.vue'),
+          meta: {
+            isPublic: true,
+          },
         },
       ],
     },

@@ -6,3 +6,9 @@
     background-color: $color--field !important;
   }
 }
+
+.el-textarea{
+  &__inner{
+    background-color: $color--field !important;
+  }
+}

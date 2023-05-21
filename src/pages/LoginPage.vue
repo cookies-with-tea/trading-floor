@@ -9,7 +9,9 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import GoogleAuth from '@/components/widgets/GoogleAuth.vue';
+</script>
 
 <style lang="scss" scoped>
 .login-page {

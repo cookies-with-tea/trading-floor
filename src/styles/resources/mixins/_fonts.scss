@@ -1,4 +1,4 @@
-@use './src/styles/resources/variables/fonts' as *;
+@use '@/styles/resources/variables/fonts' as *;
 @use '@/styles/resources/variables/colors' as *;
 
 @mixin font($size: 16px, $line-height: 20px, $weight: 400, $style: normal) {
@@ -12,13 +12,13 @@
 @mixin text-h1() {
   @include font(36px, 42.19px, 500);
 
-  color: $color--header;
+  color: $color--header-text;
 }
 
 @mixin text-h2() {
   @include font(32px, 37.5px, 500);
 
-  color: $color--header;
+  color: $color--header-text;
 }
 
 @mixin text-h3() {

@@ -5,6 +5,7 @@ $color--field: #293448;
 $color--hovered-button: #424a5c;
 $color--hint: #626d81;
 $color--header: #0d1c38;
+$color--header-text: #f7f7f7;
 $color--footer: #00071b;
 $color--box: #152034;
 
@@ -14,10 +15,12 @@ $color--primary-light: #2850b6;
 $color--text: #cacaca;
 $color--danger: #b5271e;
 $color--box-secondary: #242d43;
+$color--hovered-text: #939393;
 
 
 $color--white: #fff;
 $color--white-secondary: #fefefe;
+$color--bright-icon-bg: #7b869b;
 
 $colors: (
   'bg': $color--bg,
