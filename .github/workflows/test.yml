@@ -27,7 +27,7 @@ jobs:
       id: create-json
       uses: jsdaniell/create-json@v1.2.2
       with:
-        name: "client_secret.json"
+        name: "client_secrets.json"
         json: ${{ secrets.CLIENT_SECRET }}
         dir: '/'
     - name: Build docker
