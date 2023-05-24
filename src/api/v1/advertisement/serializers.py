@@ -104,7 +104,9 @@ class AdvertisementListSerializer(serializers.ModelSerializer):
         model = Advertisement
         fields = [
             'title',
+            'description',
             'advertisement_type',
+            'images',
             'urgency_type',
             'author',
             'category',
