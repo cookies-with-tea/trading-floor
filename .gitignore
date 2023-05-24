@@ -166,4 +166,4 @@ pnpm-debug.log*
 
 # config project
 config-project.json
-client_secrets.json
+client_secret.json
