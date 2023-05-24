@@ -10,6 +10,7 @@ class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
         fields = [
+            'id',
             'url',
         ]
 
@@ -43,6 +44,7 @@ class CreateAdvertisementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Advertisement
         fields = [
+            'id',
             'title',
             'description',
             'advertisement_type',
@@ -86,6 +88,7 @@ class AdvertisementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Advertisement
         fields = [
+            'id',
             'title',
             'description',
             'advertisement_type',
@@ -103,6 +106,7 @@ class AdvertisementListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Advertisement
         fields = [
+            'id',
             'title',
             'advertisement_type',
             'urgency_type',
