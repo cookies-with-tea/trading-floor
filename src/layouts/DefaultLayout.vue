@@ -1,6 +1,6 @@
 <template>
   <div class="default-layout">
-    <tf-header />
+    <tf-header class="mb-20" />
     <div class="content">
       <div class="container">
         <router-view />

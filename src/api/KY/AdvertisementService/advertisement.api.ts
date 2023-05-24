@@ -1,13 +1,13 @@
 import { KyApi } from '@/api/KY/meta/ApiService/ky.api';
 import {
-  ApiAdvertisementListType,
+  ApiAdvertisementListItemType,
   ApiAdvertisementType,
   ApiPatchedAdvertisementType,
 } from '@/api/KY/AdvertisementService/advertisement.types';
 
 class AdvertisementApi extends KyApi {
   getAllAdvertisements = async () => {
-    return this.kyCall<ApiAdvertisementListType>('', {
+    return this.kyCall<Array<ApiAdvertisementListItemType>>('', {
       method: 'get',
     });
   };

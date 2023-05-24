@@ -2,7 +2,7 @@
   <el-button type="primary" @click="handleNewAdvertisementButtonClick"> Новое объявление </el-button>
   <base-dialog v-model="isNewAdvertisementDialogVisible">
     <h2 class="ta-c">Новое объявление</h2>
-    <create-advertisement-form class="mt-30" />
+    <create-advertisement-form class="mt-30" @created="isNewAdvertisementDialogVisible = false" />
   </base-dialog>
 </template>
 

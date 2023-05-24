@@ -18,12 +18,12 @@ export type ApiAdvertisementType = {
   category: ApiAdvertisementCategoryType;
 };
 
-export type ApiAdvertisementListType = Array<{
+export type ApiAdvertisementListItemType = {
   title: string;
   advertisement_type: Array<AdvertisementTypeEnum>;
   urgency_type: AdvertisementUrgencyEnum;
   category: ApiAdvertisementCategoryType;
-}>;
+};
 
 export type ApiPatchedAdvertisementType = {
   title?: string;

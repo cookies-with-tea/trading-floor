@@ -1,0 +1,79 @@
+<template>
+  <div class="categories-sidebar">
+    <el-button class="category--all" type="primary" @click="changeCategory(null)">Все объявления</el-button>
+    <hr class="color-hovered-button" />
+    <el-button
+      v-for="category in categories"
+      :key="category.id"
+      :class="{ 'category--selected': current == category.id }"
+      class="category"
+      type="primary"
+      @click="changeCategory(category.id)"
+    >
+      {{ category.title }}
+    </el-button>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ApiAdvertisementCategoryType } from '@/api/KY/AdvertisementService/advertisement.types';
+import { ref } from 'vue';
+
+const props = defineProps<{
+  modelValue: number | null;
+}>();
+
+const emits = defineEmits<{
+  (e: 'update:modelValue', value: number | null): void;
+}>();
+
+const categories: Array<ApiAdvertisementCategoryType> = [
+  { id: 1, title: 'Интим игрушки' },
+  { id: 2, title: 'Интим работа' },
+  { id: 3, title: 'Интим смерть' },
+];
+
+const current = ref(props.modelValue);
+
+const changeCategory = async (value: number | null) => {
+  current.value = value;
+
+  emits('update:modelValue', value);
+};
+</script>
+
+<style lang="scss" scoped>
+.categories-sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 5px;
+  background-color: $color--box;
+  padding: 15px;
+  row-gap: 10px;
+}
+
+.el-button.category {
+  width: 182px;
+  height: 42px;
+  max-width: 182px;
+  border-radius: 3px;
+  font-size: 0.75em;
+  white-space: normal;
+  text-align: left;
+  background-color: $color--box;
+  padding: 5px 10px;
+  margin: 0;
+
+  &:hover,
+  &--selected {
+    background-color: $color--field;
+  }
+
+  &--all {
+    color: #648cf2;
+    background-color: $color--field;
+    padding: 10px 5px;
+  }
+}
+</style>

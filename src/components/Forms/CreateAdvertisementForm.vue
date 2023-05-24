@@ -28,7 +28,7 @@
     <label for="category">Категория</label>
     <el-form-item prop="category">
       <el-select v-model="createAdvertisementFormModel.category">
-        <el-option v-for="category in categories" :key="category" :value="category">{{ category }}</el-option>
+        <el-option v-for="category in categories" :key="category.id" :label="category.title" :value="category.id" />
       </el-select>
     </el-form-item>
     <label for="type">Тип объявления</label>
@@ -63,18 +63,22 @@
 
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
-import { FormInstance, FormRules, UploadFile, UploadFiles } from 'element-plus';
+import { ElMessage, FormInstance, FormRules, UploadFile, UploadFiles } from 'element-plus';
 import { commonRules } from '@/constants/formRules';
 import { AdvertisementCreateFormType } from '@/types/formTypes';
 import { AdvertisementTypeEnum, AdvertisementUrgencyEnum, AllowedAdvertisementTypes } from '@/types/advertisementTypes';
 import { advertisementApi } from '@/api/KY/AdvertisementService/advertisement.api';
+
+const emits = defineEmits<{
+  (e: 'created'): void;
+}>();
 
 const createAdvertisementFormInstance = ref<FormInstance>();
 
 const createAdvertisementFormModel = reactive<AdvertisementCreateFormType>({
   title: '',
   description: '',
-  category: 0,
+  category: 1,
   urgencyType: AdvertisementUrgencyEnum.nsu,
   advertisementType: [AdvertisementTypeEnum.exchange, AdvertisementTypeEnum.sell],
   images: [],
@@ -86,6 +90,7 @@ const createAdvertisementFormRules = reactive<FormRules>({
   category: [commonRules.required],
   urgencyType: [commonRules.required],
   advertisementType: [commonRules.required],
+  images: [commonRules.required],
 });
 
 const handleCreateAdvertisementFormSubmit = async (): Promise<void> => {
@@ -111,7 +116,13 @@ const handleCreateAdvertisementFormSubmit = async (): Promise<void> => {
 
       formData.append('category', createAdvertisementFormModel.category.toString());
 
-      await advertisementApi.addAdvertisement(formData);
+      const [error] = await advertisementApi.addAdvertisement(formData);
+
+      if (!error) {
+        return emits('created');
+      } else {
+        ElMessage('');
+      }
     }
   });
 };
@@ -120,7 +131,11 @@ const handleFilesChanged = async (uploadFile: UploadFile, uploadFiles: UploadFil
   createAdvertisementFormModel.images = uploadFiles;
 };
 
-const categories = [1, 2, 4, 5, 5];
+const categories = [
+  { id: 1, title: 'Интим игрушки' },
+  { id: 2, title: 'Интим работа' },
+  { id: 3, title: 'Интим смерть' },
+];
 </script>
 
 <style lang="scss" scoped></style>

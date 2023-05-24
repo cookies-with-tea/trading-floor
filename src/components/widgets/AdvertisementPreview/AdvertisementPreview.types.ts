@@ -1,4 +1,4 @@
-enum RussianAdvertisementTypeEnum {
+export enum RussianAdvertisementTypeEnum {
   EXCHANGE = 'Обмен',
   SELL = 'Продажа',
   BUY = 'Покупка',
@@ -6,16 +6,15 @@ enum RussianAdvertisementTypeEnum {
   TAKE = 'Принятие',
 }
 
-enum RussianAdvertisementUrgencyEnum {
-  urgent = 'Срочно',
-  nsu = 'Не очень срочно',
-  naau = 'Вообще не срочно',
+export enum RussianAdvertisementUrgencyEnum {
+  URGENT = 'Срочно',
+  NSU = 'Не очень срочно',
+  NAAU = 'Вообще не срочно',
 }
 
 export type AdvertisementCardType = {
   title: string;
-  description: string;
   urgency: Array<RussianAdvertisementUrgencyEnum>;
   advertisement_type: Array<RussianAdvertisementTypeEnum>;
-  images: Array<string>;
+  category: number;
 };
