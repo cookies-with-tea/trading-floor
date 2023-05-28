@@ -18,8 +18,8 @@ def test_get_list_categories(api_client, user_factory, advertisement_category_fa
         advertisement_category_factory(title=f'Category {index}')
 
     assert (
-        AdvertisementCategory.objects.count() == 9
-    ), f'Ожидалось, что количество категорий в базе данных будет равно 9, а не {AdvertisementCategory.objects.count()}'
+        AdvertisementCategory.objects.count() == 10
+    ), f'Ожидалось, что количество категорий в базе данных будет равно 10, а не {AdvertisementCategory.objects.count()}'
 
     response = api_client.get(reverse('v1:categories-list'))
     response_json = response.json()
@@ -29,5 +29,5 @@ def test_get_list_categories(api_client, user_factory, advertisement_category_fa
     ), f'Ожидался 200 статус-код ответа, а пришёл {response.status_code}'
 
     assert (
-        len(response_json) == 9
-    ), f'Ожидалось, что количество категорий в ответе будет равно 9, а не {len(response_json)}'
+        len(response_json) == 10
+    ), f'Ожидалось, что количество категорий в ответе будет равно 10, а не {len(response_json)}'
