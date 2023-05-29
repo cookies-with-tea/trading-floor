@@ -1,5 +1,6 @@
 import { KyApi } from '@/api/KY/meta/ApiService/ky.api';
 import {
+  ApiAdvertisementCategoryType,
   ApiAdvertisementListItemType,
   ApiAdvertisementType,
   ApiPatchedAdvertisementType,
@@ -13,7 +14,7 @@ class AdvertisementApi extends KyApi {
   };
 
   getAdvertisement = async (id: number) => {
-    return this.kyCall<ApiAdvertisementType>(`/${id}`, {
+    return this.kyCall<ApiAdvertisementType>(`${id}`, {
       method: 'get',
     });
   };
@@ -25,15 +26,21 @@ class AdvertisementApi extends KyApi {
   };
 
   deleteAdvertisement = async (id: number) => {
-    return this.kyCall(`/${id}`, {
+    return this.kyCall(`${id}`, {
       method: 'delete',
     });
   };
 
   updateAdvertisement = async (id: number, advertisement: ApiPatchedAdvertisementType) => {
-    return this.kyCall<ApiAdvertisementType>(`/${id}`, {
+    return this.kyCall<ApiAdvertisementType>(`${id}`, {
       method: 'patch',
       json: advertisement,
+    });
+  };
+
+  getAllCategories = async () => {
+    return this.kyCall<Array<ApiAdvertisementCategoryType>>('categories', {
+      method: 'get',
     });
   };
 }

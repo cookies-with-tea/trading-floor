@@ -10,6 +10,7 @@ export type ApiAdvertisementCategoryType = {
 };
 
 export type ApiAdvertisementType = {
+  id: number;
   title: string;
   description: string;
   advertisement_type: Array<AdvertisementTypeEnum>;
@@ -19,13 +20,17 @@ export type ApiAdvertisementType = {
 };
 
 export type ApiAdvertisementListItemType = {
+  id: number;
   title: string;
+  description: string;
   advertisement_type: Array<AdvertisementTypeEnum>;
+  images: Array<ApiAdvertisementImageType>;
   urgency_type: AdvertisementUrgencyEnum;
   category: ApiAdvertisementCategoryType;
 };
 
 export type ApiPatchedAdvertisementType = {
+  id: number;
   title?: string;
   description?: string;
   advertisement_type?: Array<AdvertisementTypeEnum>;
