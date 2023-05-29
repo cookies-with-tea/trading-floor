@@ -5,7 +5,7 @@ export type GoogleRegistrationFormType = {
   firstName: string;
   lastName: string;
   roomNumber: number;
-  avatar?: File;
+  avatar?: UploadFile;
 };
 
 export type AdvertisementCreateFormType = {

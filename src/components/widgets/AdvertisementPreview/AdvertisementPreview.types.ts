@@ -11,10 +11,3 @@ export enum RussianAdvertisementUrgencyEnum {
   NSU = 'Не очень срочно',
   NAAU = 'Вообще не срочно',
 }
-
-export type AdvertisementCardType = {
-  title: string;
-  urgency: Array<RussianAdvertisementUrgencyEnum>;
-  advertisement_type: Array<RussianAdvertisementTypeEnum>;
-  category: number;
-};

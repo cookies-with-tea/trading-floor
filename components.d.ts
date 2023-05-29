@@ -11,6 +11,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AdvertisementList: typeof import('./src/components/widgets/AdvertisementList.vue')['default']
     AdvertisementPreview: typeof import('./src/components/widgets/AdvertisementPreview/AdvertisementPreview.vue')['default']
+    AdvertisementType: typeof import('./src/components/widgets/buttons/AdvertisementType.vue')['default']
     BaseDialog: typeof import('./src/components/common/BaseDialog/BaseDialog.vue')['default']
     CategoriesSidebar: typeof import('./src/components/widgets/CategoriesSidebar.vue')['default']
     CInput: typeof import('./src/components/common/CInput/CInput.vue')['default']

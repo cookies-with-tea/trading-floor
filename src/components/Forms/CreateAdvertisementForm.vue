@@ -20,9 +20,13 @@
     <label class="d-b" for="urgency">Срочность</label>
     <el-form-item prop="urgencyType">
       <el-radio-group v-model="createAdvertisementFormModel.urgencyType" name="urgency">
-        <el-radio :label="AdvertisementUrgencyEnum.urgent">Срочно</el-radio>
-        <el-radio :label="AdvertisementUrgencyEnum.nsu">Не очень срочно</el-radio>
-        <el-radio :label="AdvertisementUrgencyEnum.naau">Вообще не срочно</el-radio>
+        <!--        <el-radio :label="AdvertisementUrgencyEnum.urgent">Срочно</el-radio>-->
+        <!--        <el-radio :label="AdvertisementUrgencyEnum.nsu">Не очень срочно</el-radio>-->
+        <!--        <el-radio :label="AdvertisementUrgencyEnum.naau">Вообще не срочно</el-radio>-->
+        <el-radio v-for="urgency in AdvertisementUrgencyEnum" :key="urgency" :label="urgency">{{
+          RussianAdvertisementUrgencyEnum[urgency]
+        }}</el-radio>
+        <el-radio />
       </el-radio-group>
     </el-form-item>
     <label for="category">Категория</label>
@@ -33,10 +37,8 @@
     </el-form-item>
     <label for="type">Тип объявления</label>
     <el-form-item prop="advertisementType">
-      <el-select v-model="createAdvertisementFormModel.advertisementType" name="type">
-        <el-option v-for="type in AllowedAdvertisementTypes" :key="type.toString()" :value="type">
-          {{ type }}</el-option
-        >
+      <el-select v-model="createAdvertisementFormModel.advertisementType" default-first-option name="type" remote>
+        <el-option v-for="option in typesOption" :key="option.key" :value="option.value">{{ option.label }}</el-option>
       </el-select>
     </el-form-item>
     <label for="images">Добавьте изображения</label>
@@ -45,7 +47,6 @@
         v-model:file-list="createAdvertisementFormModel.images"
         :auto-upload="false"
         :limit="10"
-        :on-change="handleFilesChanged"
         action=""
         drag
         list-type="picture-card"
@@ -62,12 +63,17 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
-import { ElMessage, FormInstance, FormRules, UploadFile, UploadFiles } from 'element-plus';
+import { onBeforeMount, reactive, ref } from 'vue';
+import { ElMessage, FormInstance, FormRules, UploadFile } from 'element-plus';
 import { commonRules } from '@/constants/formRules';
 import { AdvertisementCreateFormType } from '@/types/formTypes';
 import { AdvertisementTypeEnum, AdvertisementUrgencyEnum, AllowedAdvertisementTypes } from '@/types/advertisementTypes';
 import { advertisementApi } from '@/api/KY/AdvertisementService/advertisement.api';
+import { ApiAdvertisementCategoryType } from '@/api/KY/AdvertisementService/advertisement.types';
+import {
+  RussianAdvertisementTypeEnum,
+  RussianAdvertisementUrgencyEnum,
+} from '../widgets/AdvertisementPreview/AdvertisementPreview.types';
 
 const emits = defineEmits<{
   (e: 'created'): void;
@@ -127,15 +133,21 @@ const handleCreateAdvertisementFormSubmit = async (): Promise<void> => {
   });
 };
 
-const handleFilesChanged = async (uploadFile: UploadFile, uploadFiles: UploadFiles) => {
-  createAdvertisementFormModel.images = uploadFiles;
-};
+const categories = ref<Array<ApiAdvertisementCategoryType>>([]);
 
-const categories = [
-  { id: 1, title: 'Интим игрушки' },
-  { id: 2, title: 'Интим работа' },
-  { id: 3, title: 'Интим смерть' },
-];
+const typesOption = AllowedAdvertisementTypes.map((type) => ({
+  value: type,
+  label: type.map((el) => RussianAdvertisementTypeEnum[el]).join('/'),
+  key: type.toString(),
+}));
+
+onBeforeMount(async () => {
+  const [error, data] = await advertisementApi.getAllCategories();
+
+  if (!error && data) {
+    categories.value = data;
+  }
+});
 </script>
 
 <style lang="scss" scoped></style>

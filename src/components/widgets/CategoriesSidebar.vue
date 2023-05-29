@@ -17,7 +17,8 @@
 
 <script lang="ts" setup>
 import { ApiAdvertisementCategoryType } from '@/api/KY/AdvertisementService/advertisement.types';
-import { ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
+import { advertisementApi } from '@/api/KY/AdvertisementService/advertisement.api';
 
 const props = defineProps<{
   modelValue: number | null;
@@ -27,11 +28,7 @@ const emits = defineEmits<{
   (e: 'update:modelValue', value: number | null): void;
 }>();
 
-const categories: Array<ApiAdvertisementCategoryType> = [
-  { id: 1, title: 'Интим игрушки' },
-  { id: 2, title: 'Интим работа' },
-  { id: 3, title: 'Интим смерть' },
-];
+const categories = ref<Array<ApiAdvertisementCategoryType>>([]);
 
 const current = ref(props.modelValue);
 
@@ -40,6 +37,16 @@ const changeCategory = async (value: number | null) => {
 
   emits('update:modelValue', value);
 };
+
+onBeforeMount(async () => {
+  const [error, data] = await advertisementApi.getAllCategories();
+
+  console.log(error);
+
+  if (!error && data) {
+    categories.value = data;
+  }
+});
 </script>
 
 <style lang="scss" scoped>

@@ -2,7 +2,7 @@
   <div class="advertisement-list">
     <advertisement-preview
       v-for="advertisement in advertisements"
-      :key="advertisement.title"
+      :key="advertisement.id"
       :advertisement="advertisement"
     />
   </div>
@@ -12,7 +12,7 @@
 import { ApiAdvertisementListItemType } from '@/api/KY/AdvertisementService/advertisement.types';
 import AdvertisementPreview from '@/components/widgets/AdvertisementPreview/AdvertisementPreview.vue';
 
-const props = defineProps<{
+defineProps<{
   advertisements: Array<ApiAdvertisementListItemType>;
 }>();
 </script>
