@@ -26,7 +26,6 @@
         <el-radio v-for="urgency in AdvertisementUrgencyEnum" :key="urgency" :label="urgency">{{
           RussianAdvertisementUrgencyEnum[urgency]
         }}</el-radio>
-        <el-radio />
       </el-radio-group>
     </el-form-item>
     <label for="category">Категория</label>
