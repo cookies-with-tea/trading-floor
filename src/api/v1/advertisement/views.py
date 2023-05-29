@@ -1,7 +1,7 @@
 from rest_framework.generics import ListAPIView
 from rest_framework.viewsets import ModelViewSet
 
-from api.v1.advertisement import serializers
+from api.v1.advertisement import serializers, utils
 from api.v1.advertisement.filters import AdvertisementFilter
 from api.v1.advertisement.serializers import AdvertisementCategorySerializer
 from apps.advertisement.models import Advertisement, AdvertisementCategory
@@ -18,6 +18,7 @@ class AdvertisementModelViewSet(SerializerClassMapMixin, ModelViewSet):
     default_serializer_class = serializers.AdvertisementSerializer
 
     queryset = Advertisement.objects.all()
+    pagination_class = utils.StandardResultsSetPagination
     permission_classes = [IsAuthenticatedAndIsActive]
     filterset_class = AdvertisementFilter
 
