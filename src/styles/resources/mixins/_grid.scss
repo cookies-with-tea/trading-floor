@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use '../variables' as *;
+@use '@/styles/resources/variables' as *;
 
 @mixin responsive($key, $map: $breakpoints-map) {
   @if map-has-key($map, $key) {

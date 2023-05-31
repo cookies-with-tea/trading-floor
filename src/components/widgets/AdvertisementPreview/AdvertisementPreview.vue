@@ -24,10 +24,13 @@
 
 <script lang="ts" setup>
 import { ApiAdvertisementListItemType } from '@/api/KY/AdvertisementService/advertisement.types';
+import AdvertisementType from '@/components/widgets/buttons/AdvertisementType.vue';
 
-defineProps<{
+type Props = {
   advertisement: ApiAdvertisementListItemType;
-}>();
+};
+
+defineProps<Props>();
 </script>
 
 <style lang="scss" scoped>

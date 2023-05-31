@@ -6,11 +6,13 @@
 
 <script lang="ts" setup>
 import { AdvertisementTypeEnum } from '@/types/advertisementTypes';
-import { RussianAdvertisementTypeEnum } from '../AdvertisementPreview/AdvertisementPreview.types';
+import { RussianAdvertisementTypeEnum } from '@/components/widgets/AdvertisementPreview/AdvertisementPreview.types';
 
-defineProps<{
+type Props = {
   advertisementType: AdvertisementTypeEnum;
-}>();
+};
+
+defineProps<Props>();
 </script>
 
 <style lang="scss" scoped>

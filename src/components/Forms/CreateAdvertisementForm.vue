@@ -69,11 +69,13 @@ import { ApiAdvertisementCategoryType } from '@/api/KY/AdvertisementService/adve
 import {
   RussianAdvertisementTypeEnum,
   RussianAdvertisementUrgencyEnum,
-} from '../widgets/AdvertisementPreview/AdvertisementPreview.types';
+} from '@/components/widgets/AdvertisementPreview/AdvertisementPreview.types';
 
-const emits = defineEmits<{
+type Emits = {
   (e: 'created'): void;
-}>();
+};
+
+const emits = defineEmits<Emits>();
 
 const createAdvertisementFormInstance = ref<FormInstance>();
 

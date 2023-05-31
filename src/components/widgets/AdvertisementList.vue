@@ -12,9 +12,11 @@
 import { ApiAdvertisementListItemType } from '@/api/KY/AdvertisementService/advertisement.types';
 import AdvertisementPreview from '@/components/widgets/AdvertisementPreview/AdvertisementPreview.vue';
 
-defineProps<{
+type Props = {
   advertisements: ApiAdvertisementListItemType[];
-}>();
+};
+
+defineProps<Props>();
 </script>
 
 <style lang="scss" scoped>

@@ -20,13 +20,17 @@ import { ApiAdvertisementCategoryType } from '@/api/KY/AdvertisementService/adve
 import { onBeforeMount, ref } from 'vue';
 import { advertisementApi } from '@/api/KY/AdvertisementService/advertisement.api';
 
-const props = defineProps<{
+type Props = {
   modelValue: number | null;
-}>();
+};
 
-const emits = defineEmits<{
+type Emits = {
   (e: 'update:modelValue', value: number | null): void;
-}>();
+};
+
+const props = defineProps<Props>();
+
+const emits = defineEmits<Emits>();
 
 const categories = ref<ApiAdvertisementCategoryType[]>([]);
 
