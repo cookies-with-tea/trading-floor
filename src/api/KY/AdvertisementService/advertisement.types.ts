@@ -1,6 +1,7 @@
 import { AdvertisementTypeEnum, AdvertisementUrgencyEnum } from '@/types/advertisementTypes';
 
 export type ApiAdvertisementImageType = {
+  id: number;
   url: string;
 };
 
