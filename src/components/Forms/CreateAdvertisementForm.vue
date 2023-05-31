@@ -17,12 +17,9 @@
         type="textarea"
       />
     </el-form-item>
-    <label class="d-b" for="urgency">Срочность</label>
     <el-form-item prop="urgencyType">
+      <label for="urgency">Срочность</label>
       <el-radio-group v-model="createAdvertisementFormModel.urgencyType" name="urgency">
-        <!--        <el-radio :label="AdvertisementUrgencyEnum.urgent">Срочно</el-radio>-->
-        <!--        <el-radio :label="AdvertisementUrgencyEnum.nsu">Не очень срочно</el-radio>-->
-        <!--        <el-radio :label="AdvertisementUrgencyEnum.naau">Вообще не срочно</el-radio>-->
         <el-radio v-for="urgency in AdvertisementUrgencyEnum" :key="urgency" :label="urgency">{{
           RussianAdvertisementUrgencyEnum[urgency]
         }}</el-radio>
@@ -37,7 +34,7 @@
     <label for="type">Тип объявления</label>
     <el-form-item prop="advertisementType">
       <el-select v-model="createAdvertisementFormModel.advertisementType" default-first-option name="type" remote>
-        <el-option v-for="option in typesOption" :key="option.key" :value="option.value">{{ option.label }}</el-option>
+        <el-option v-for="option in typesOption" :key="option.key" :label="option.label" :value="option.value" />
       </el-select>
     </el-form-item>
     <label for="images">Добавьте изображения</label>
@@ -126,7 +123,7 @@ const handleCreateAdvertisementFormSubmit = async (): Promise<void> => {
       if (!error) {
         return emits('created');
       } else {
-        ElMessage('');
+        ElMessage('Failed');
       }
     }
   });
