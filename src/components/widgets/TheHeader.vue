@@ -1,15 +1,13 @@
 <template>
-  <div>
-    <header class="bg-header">
-      <div class="container jc-sb">
-        <icon-template height="55" name="vki" width="160" />
-        <div class="d-f ai-c">
-          <the-notification />
-          <profile-icon />
-        </div>
+  <header class="bg-header">
+    <div class="container jc-sb">
+      <icon-template height="55" name="vki" width="160" />
+      <div class="d-f ai-c">
+        <the-notification />
+        <profile-icon />
       </div>
-    </header>
-  </div>
+    </div>
+  </header>
 </template>
 
 <script lang="ts" setup>

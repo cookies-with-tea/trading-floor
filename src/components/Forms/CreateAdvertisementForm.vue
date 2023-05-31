@@ -34,7 +34,7 @@
     <label for="type">Тип объявления</label>
     <el-form-item prop="advertisementType">
       <el-select v-model="createAdvertisementFormModel.advertisementType" default-first-option name="type" remote>
-        <el-option v-for="option in typesOption" :key="option.key" :label="option.label" :value="option.value" />
+        <el-option v-for="option in typesOptions" :key="option.key" :label="option.label" :value="option.value" />
       </el-select>
     </el-form-item>
     <label for="images">Добавьте изображения</label>
@@ -124,28 +124,30 @@ const handleCreateAdvertisementFormSubmit = async (): Promise<void> => {
 
       if (!error) {
         return emits('created');
-      } else {
-        ElMessage('Failed');
       }
+
+      ElMessage(`Произошла ошибка: ${error.message}`);
     }
   });
 };
 
 const categories = ref<ApiAdvertisementCategoryType[]>([]);
 
-const typesOption = AllowedAdvertisementTypes.map((type) => ({
+const typesOptions = AllowedAdvertisementTypes.map((type) => ({
   value: type,
   label: type.map((el) => RussianAdvertisementTypeEnum[el]).join('/'),
   key: type.toString(),
 }));
 
-onBeforeMount(async () => {
+const getCategories = async () => {
   const [error, data] = await advertisementApi.getAllCategories();
 
   if (!error && data) {
     categories.value = data;
   }
-});
+};
+
+onBeforeMount(getCategories);
 </script>
 
 <style lang="scss" scoped></style>

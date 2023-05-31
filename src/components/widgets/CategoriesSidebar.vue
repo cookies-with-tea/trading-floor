@@ -45,8 +45,6 @@ const changeCategory = async (value: number | null) => {
 onBeforeMount(async () => {
   const [error, data] = await advertisementApi.getAllCategories();
 
-  console.log(error);
-
   if (!error && data) {
     categories.value = data;
   }
@@ -54,6 +52,19 @@ onBeforeMount(async () => {
 </script>
 
 <style lang="scss" scoped>
+@mixin category {
+  width: 182px;
+  height: 42px;
+  max-width: 182px;
+  border-radius: 3px;
+  font-size: 12px;
+  white-space: normal;
+  text-align: left;
+  background-color: $color--box;
+  padding: 5px 10px;
+  margin: 0;
+}
+
 .categories-sidebar {
   display: flex;
   flex-direction: column;
@@ -62,29 +73,20 @@ onBeforeMount(async () => {
   background-color: $color--box;
   padding: 15px;
   row-gap: 10px;
-}
 
-.el-button.category {
-  width: 182px;
-  height: 42px;
-  max-width: 182px;
-  border-radius: 3px;
-  font-size: 0.75em;
-  white-space: normal;
-  text-align: left;
-  background-color: $color--box;
-  padding: 5px 10px;
-  margin: 0;
+  .category {
+    @include category;
 
-  &:hover,
-  &--selected {
-    background-color: $color--field;
-  }
+    &--selected,
+    &:hover {
+      background-color: $color--field;
+    }
 
-  &--all {
-    color: #648cf2;
-    background-color: $color--field;
-    padding: 10px 5px;
+    &--all {
+      color: #648cf2;
+      background-color: $color--field;
+      padding: 10px 5px;
+    }
   }
 }
 </style>
