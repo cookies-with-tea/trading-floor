@@ -19,10 +19,11 @@ import CategoriesSidebar from '@/components/widgets/CategoriesSidebar.vue';
 import { computed, onBeforeMount, ref } from 'vue';
 import { advertisementApi } from '@/api/KY/AdvertisementService/advertisement.api';
 import { ApiAdvertisementListItemType } from '@/api/KY/AdvertisementService/advertisement.types';
+import NewAdvertisement from '@/components/widgets/buttons/NewAdvertisement.vue';
 
 const selectedCategory = ref<number | null>(null);
 
-const loadedAdvertisement = ref<Array<ApiAdvertisementListItemType>>([]);
+const loadedAdvertisement = ref<ApiAdvertisementListItemType[]>([]);
 
 const loadAdvertisements = async () => {
   const [error, data] = await advertisementApi.getAllAdvertisements();

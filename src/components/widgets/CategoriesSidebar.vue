@@ -28,7 +28,7 @@ const emits = defineEmits<{
   (e: 'update:modelValue', value: number | null): void;
 }>();
 
-const categories = ref<Array<ApiAdvertisementCategoryType>>([]);
+const categories = ref<ApiAdvertisementCategoryType[]>([]);
 
 const current = ref(props.modelValue);
 

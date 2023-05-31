@@ -13,8 +13,8 @@ export type ApiAdvertisementType = {
   id: number;
   title: string;
   description: string;
-  advertisement_type: Array<AdvertisementTypeEnum>;
-  images: Array<ApiAdvertisementImageType>;
+  advertisement_type: AdvertisementTypeEnum[];
+  images: ApiAdvertisementImageType[];
   urgency_type: AdvertisementUrgencyEnum;
   category: ApiAdvertisementCategoryType;
 };
@@ -23,8 +23,8 @@ export type ApiAdvertisementListItemType = {
   id: number;
   title: string;
   description: string;
-  advertisement_type: Array<AdvertisementTypeEnum>;
-  images: Array<ApiAdvertisementImageType>;
+  advertisement_type: AdvertisementTypeEnum[];
+  images: ApiAdvertisementImageType[];
   urgency_type: AdvertisementUrgencyEnum;
   category: ApiAdvertisementCategoryType;
 };
@@ -33,8 +33,8 @@ export type ApiPatchedAdvertisementType = {
   id: number;
   title?: string;
   description?: string;
-  advertisement_type?: Array<AdvertisementTypeEnum>;
-  images?: Array<ApiAdvertisementImageType>;
+  advertisement_type?: AdvertisementTypeEnum[];
+  images?: ApiAdvertisementImageType[];
   urgency_type?: AdvertisementUrgencyEnum;
   category?: ApiAdvertisementCategoryType;
 };
@@ -42,8 +42,8 @@ export type ApiPatchedAdvertisementType = {
 export type ApiCreatedAdvertisementType = {
   title: string;
   description: string;
-  advertisement_type: Array<AdvertisementTypeEnum>;
-  images?: Array<File>;
+  advertisement_type: AdvertisementTypeEnum[];
+  images?: File[];
   urgency_type: AdvertisementUrgencyEnum;
   category: number;
 };

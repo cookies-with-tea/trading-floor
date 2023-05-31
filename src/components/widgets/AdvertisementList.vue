@@ -13,7 +13,7 @@ import { ApiAdvertisementListItemType } from '@/api/KY/AdvertisementService/adve
 import AdvertisementPreview from '@/components/widgets/AdvertisementPreview/AdvertisementPreview.vue';
 
 defineProps<{
-  advertisements: Array<ApiAdvertisementListItemType>;
+  advertisements: ApiAdvertisementListItemType[];
 }>();
 </script>
 

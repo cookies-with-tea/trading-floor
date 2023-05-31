@@ -132,7 +132,7 @@ const handleCreateAdvertisementFormSubmit = async (): Promise<void> => {
   });
 };
 
-const categories = ref<Array<ApiAdvertisementCategoryType>>([]);
+const categories = ref<ApiAdvertisementCategoryType[]>([]);
 
 const typesOption = AllowedAdvertisementTypes.map((type) => ({
   value: type,

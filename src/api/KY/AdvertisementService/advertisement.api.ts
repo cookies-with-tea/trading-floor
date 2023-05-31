@@ -8,7 +8,7 @@ import {
 
 class AdvertisementApi extends KyApi {
   getAllAdvertisements = async () => {
-    return this.kyCall<Array<ApiAdvertisementListItemType>>('', {
+    return this.kyCall<ApiAdvertisementListItemType[]>('', {
       method: 'get',
     });
   };
@@ -39,7 +39,7 @@ class AdvertisementApi extends KyApi {
   };
 
   getAllCategories = async () => {
-    return this.kyCall<Array<ApiAdvertisementCategoryType>>('categories', {
+    return this.kyCall<ApiAdvertisementCategoryType[]>('categories', {
       method: 'get',
     });
   };
