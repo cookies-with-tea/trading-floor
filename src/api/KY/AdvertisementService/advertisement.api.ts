@@ -8,38 +8,38 @@ import {
 
 class AdvertisementApi extends KyApi {
   getAllAdvertisements = async () => {
-    return this.kyCall<ApiAdvertisementListItemType[]>('', {
+    return await this.kyCall<ApiAdvertisementListItemType[]>('', {
       method: 'get',
     });
   };
 
   getAdvertisement = async (id: number) => {
-    return this.kyCall<ApiAdvertisementType>(`${id}`, {
+    return await this.kyCall<ApiAdvertisementType>(`${id}`, {
       method: 'get',
     });
   };
   addAdvertisement = async (advertisement: FormData) => {
-    return this.kyCall<ApiAdvertisementType>('', {
+    return await this.kyCall<ApiAdvertisementType>('', {
       method: 'post',
       body: advertisement,
     });
   };
 
   deleteAdvertisement = async (id: number) => {
-    return this.kyCall(`${id}`, {
+    return await this.kyCall(`${id}`, {
       method: 'delete',
     });
   };
 
   updateAdvertisement = async (id: number, advertisement: ApiPatchedAdvertisementType) => {
-    return this.kyCall<ApiAdvertisementType>(`${id}`, {
+    return await this.kyCall<ApiAdvertisementType>(`${id}`, {
       method: 'patch',
       json: advertisement,
     });
   };
 
   getAllCategories = async () => {
-    return this.kyCall<ApiAdvertisementCategoryType[]>('categories', {
+    return await this.kyCall<ApiAdvertisementCategoryType[]>('categories', {
       method: 'get',
     });
   };

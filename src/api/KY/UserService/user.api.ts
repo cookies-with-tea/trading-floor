@@ -3,12 +3,12 @@ import { ApiUserType } from '@/api/KY/UserService/user.types';
 
 class UserApi extends KyApi {
   getSelf = async () => {
-    return this.kyCall<ApiUserType>('me', {
+    return await this.kyCall<ApiUserType>('me', {
       method: 'get',
     });
   };
   getUser = async (id: number) => {
-    return this.kyCall<ApiUserType>(`${id}`, {
+    return await this.kyCall<ApiUserType>(`${id}`, {
       method: 'get',
     });
   };

@@ -4,7 +4,7 @@ import { useTokens } from '@/composables/useTokens';
 
 class AuthApi extends KyApi {
   loginGoogleUser = async (code: string) => {
-    return this.kyCall<ApiGoogleAnswerType>('google', {
+    return await this.kyCall<ApiGoogleAnswerType>('google', {
       method: 'post',
       json: { authorization_code: code },
     });
@@ -19,7 +19,7 @@ class AuthApi extends KyApi {
   };
 
   registerGoogleUser = async (form: ApiGoogleRegistrationFormType) => {
-    return this.kyCall<ApiGoogleAnswerType>('sign-up', {
+    return await this.kyCall<ApiGoogleAnswerType>('sign-up', {
       method: 'post',
       json: form,
     });
