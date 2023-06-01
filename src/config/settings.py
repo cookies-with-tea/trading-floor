@@ -46,7 +46,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     'corsheaders',
-    'multiselectfield',
+    'django_postgres_extensions',
     'rest_framework',
     'rest_framework_simplejwt',
     'drf_spectacular',
