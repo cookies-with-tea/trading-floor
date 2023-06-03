@@ -102,6 +102,7 @@ class AdvertisementSerializer(serializers.ModelSerializer):
 
 class AdvertisementListSerializer(serializers.ModelSerializer):
     author = serializers.HiddenField(default=CurrentUserDefault())
+    images = ImageSerializer(many=True)
     category = AdvertisementCategorySerializer()
 
     class Meta:
