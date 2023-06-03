@@ -32,7 +32,9 @@ class CreateAdvertisementSerializer(serializers.ModelSerializer):
         ('EXCHANGE', 'BUY', 'TAKE'),
     )
 
-    author = serializers.HiddenField(default=CurrentUserDefault())
+    author = serializers.HiddenField(
+        default=CurrentUserDefault()
+    )
     images = serializers.ListField(
         child=serializers.ImageField(
             allow_empty_file=False,
