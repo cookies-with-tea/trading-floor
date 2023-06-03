@@ -103,7 +103,7 @@ class AdvertisementSerializer(serializers.ModelSerializer):
 
 
 class AdvertisementListSerializer(serializers.ModelSerializer):
-    author = serializers.HiddenField(default=CurrentUserDefault())
+    author = UsersGeneralInformation(serializers.CurrentUserDefault(), read_only=True)
     category = AdvertisementCategorySerializer()
 
     class Meta:
