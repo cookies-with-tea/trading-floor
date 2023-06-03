@@ -81,7 +81,7 @@ class AdvertisementCategorySerializer(serializers.ModelSerializer):
 
 
 class AdvertisementSerializer(serializers.ModelSerializer):
-    author = serializers.HiddenField(default=CurrentUserDefault())
+    author = serializers.ReadOnlyField()
     images = ImageSerializer(many=True)
     category = AdvertisementCategorySerializer(read_only=True)
 
@@ -101,7 +101,7 @@ class AdvertisementSerializer(serializers.ModelSerializer):
 
 
 class AdvertisementListSerializer(serializers.ModelSerializer):
-    author = serializers.HiddenField(default=CurrentUserDefault())
+    author = serializers.ReadOnlyField()
     category = AdvertisementCategorySerializer()
 
     class Meta:
