@@ -51,6 +51,7 @@ THIRD_PARTY_APPS = [
     'rest_framework_simplejwt',
     'drf_spectacular',
     'django_filters',
+    'django_jsonfield_backport',
 ]
 
 LOCAL_APPS = [
