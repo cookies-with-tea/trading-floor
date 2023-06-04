@@ -6,4 +6,4 @@ from apps.advertisement.models import Advertisement
 class AdvertisementFilter(filters.FilterSet):
     class Meta:
         model = Advertisement
-        fields = ['category']
+        fields = ['category', 'author.id']
