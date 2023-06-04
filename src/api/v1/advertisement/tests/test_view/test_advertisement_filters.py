@@ -105,6 +105,9 @@ def test_filter_advertisement_by_author_id(
     assert (
         len(response_json) == 10
     ), 'Ожидалось, что все полученные объявления от пользователя номер один'
+    assert (
+        _response_json['author']['id'] == first_author.id for _response_json in response_json
+    ), 'Ожидалось, что все полученные объявление было создано пользователем номер один'
 
     response = api_client.get(reverse('v1:advertisements-list'), data={'author__id': second_author.id})
     response_json = response.json()
@@ -114,3 +117,6 @@ def test_filter_advertisement_by_author_id(
     assert (
         len(response_json) == 30
     ), 'Ожидалось, что все полученные объявления от пользователя номер два'
+    assert (
+        _response_json['author']['id'] == second_author.id for _response_json in response_json
+    ), 'Ожидалось, что все полученные объявление было создано пользователем номер два'
