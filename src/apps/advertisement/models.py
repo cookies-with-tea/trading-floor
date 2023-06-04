@@ -63,7 +63,9 @@ class Advertisement(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Автор',
     )
+
     is_open = models.BooleanField('Открыто объявление?', default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title

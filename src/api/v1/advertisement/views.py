@@ -4,7 +4,7 @@ from rest_framework.viewsets import ModelViewSet
 from api.v1.advertisement import serializers
 from api.v1.advertisement.filters import AdvertisementFilter
 from api.v1.advertisement.serializers import AdvertisementCategorySerializer
-from apps.advertisement.models import Advertisement
+from apps.advertisement.models import Advertisement, AdvertisementCategory
 from apps.user.permissions import IsAuthenticatedAndIsActive
 from utils.mixins.views import SerializerClassMapMixin
 
@@ -22,7 +22,7 @@ class AdvertisementModelViewSet(SerializerClassMapMixin, ModelViewSet):
     filterset_class = AdvertisementFilter
 
 
-class AdvertisementListAPIView(ListAPIView):
+class AdvertisementCategoryListAPIView(ListAPIView):
     serializer_class = AdvertisementCategorySerializer
     permission_classes = [IsAuthenticatedAndIsActive]
-    queryset = Advertisement.objects.all()
+    queryset = AdvertisementCategory.objects.all()
