@@ -25,13 +25,15 @@ class UserDetailSerializer(serializers.ModelSerializer):
             'updated_at',
             'is_active',
             'is_staff',
+            'open_advertisements',
+            'closed_advertisements',
         ]
 
     def get_open_advertisements(self, instance: User) -> ReturnDict:
-        return AdvertisementListSerializer(Advertisement.objects.filter(user=instance, is_open=True), many=True).data
+        return AdvertisementListSerializer(Advertisement.objects.filter(author=instance, is_open=True), many=True).data
 
     def get_closed_advertisements(self, instance: User) -> ReturnDict:
-        return AdvertisementListSerializer(Advertisement.objects.filter(user=instance, is_open=False), many=True).data
+        return AdvertisementListSerializer(Advertisement.objects.filter(author=instance, is_open=False), many=True).data
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
