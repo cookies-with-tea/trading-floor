@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from rest_framework.fields import CurrentUserDefault
 
+from api.v1.user.serializers import UserDetailSerializer
 from apps.advertisement.models import Advertisement, AdvertisementCategory, Image
 
 
@@ -32,7 +33,9 @@ class CreateAdvertisementSerializer(serializers.ModelSerializer):
         ('EXCHANGE', 'BUY', 'TAKE'),
     )
 
-    author = serializers.HiddenField(default=CurrentUserDefault())
+    author = serializers.HiddenField(
+        default=CurrentUserDefault(),
+    )
     images = serializers.ListField(
         child=serializers.ImageField(
             allow_empty_file=False,
@@ -81,7 +84,7 @@ class AdvertisementCategorySerializer(serializers.ModelSerializer):
 
 
 class AdvertisementSerializer(serializers.ModelSerializer):
-    author = serializers.HiddenField(default=CurrentUserDefault())
+    author = UserDetailSerializer(read_only=True)
     images = ImageSerializer(many=True)
     category = AdvertisementCategorySerializer(read_only=True)
 
@@ -101,7 +104,7 @@ class AdvertisementSerializer(serializers.ModelSerializer):
 
 
 class AdvertisementListSerializer(serializers.ModelSerializer):
-    author = serializers.HiddenField(default=CurrentUserDefault())
+    author = UserDetailSerializer(read_only=True)
     images = ImageSerializer(many=True)
     category = AdvertisementCategorySerializer()
 
