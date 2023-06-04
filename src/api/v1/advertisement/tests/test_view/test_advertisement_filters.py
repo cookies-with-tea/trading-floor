@@ -11,10 +11,10 @@ pytestmark = [
 
 
 def test_filter_advertisement_by_category(
-        api_client,
-        advertisement_factory,
-        advertisement_category_factory,
-        user_factory,
+    api_client,
+    advertisement_factory,
+    advertisement_category_factory,
+    user_factory,
 ) -> None:
     user: User = user_factory()
     api_client.force_authenticate(user)
@@ -32,30 +32,30 @@ def test_filter_advertisement_by_category(
     response_json = response.json()
 
     assert (
-            response.status_code == status.HTTP_200_OK
+        response.status_code == status.HTTP_200_OK
     ), f'Ожидался 200 статус-код ответа, а пришёл {response.status_code}'
 
     assert (
-            len(response_json) == 10
+        len(response_json) == 10
     ), f'Ожидалось, что количество объектов в ответе будет равно 10, но пришло {len(response_json)}'
 
     response = api_client.get(reverse('v1:advertisements-list'), data={'category': second_category.id})
     response_json = response.json()
 
     assert (
-            response.status_code == status.HTTP_200_OK
+        response.status_code == status.HTTP_200_OK
     ), f'Ожидался 200 статус-код ответа, а пришёл {response.status_code}'
 
     assert (
-            len(response_json) == 30
+        len(response_json) == 30
     ), f'Ожидалось, что количество объектов в ответе будет равно 30, но пришло {len(response_json)}'
 
 
 def test_filter_advertisement_by_invalid_category(
-        api_client,
-        advertisement_factory,
-        advertisement_category_factory,
-        user_factory,
+    api_client,
+    advertisement_factory,
+    advertisement_category_factory,
+    user_factory,
 ) -> None:
     user: User = user_factory()
     api_client.force_authenticate(user)
@@ -73,7 +73,7 @@ def test_filter_advertisement_by_invalid_category(
     response_json = response.json()
 
     assert (
-            response.status_code == status.HTTP_400_BAD_REQUEST
+        response.status_code == status.HTTP_400_BAD_REQUEST
     ), f'Ожидался 400 статус-код ответа, а пришёл {response.status_code}'
     assert 'Выберите корректный вариант. Вашего варианта нет среди допустимых значений.' in response_json['category'], (
         'Ожидалось, что ответ будет содержать поле "category", внутри которого будет находиться строка'
@@ -82,9 +82,9 @@ def test_filter_advertisement_by_invalid_category(
 
 
 def test_filter_advertisement_by_author_id(
-        api_client,
-        advertisement_factory,
-        user_factory,
+    api_client,
+    advertisement_factory,
+    user_factory,
 ) -> None:
     advertisement: Advertisement = advertisement_factory()
 
@@ -100,7 +100,7 @@ def test_filter_advertisement_by_author_id(
     response = api_client.get(reverse('v1:advertisements-list'), data={'author__id': first_author.id})
     response_json = response.json()
     assert (
-            response.status_code == status.HTTP_200_OK
+        response.status_code == status.HTTP_200_OK
     ), f'Ожидался 200 статус-код ответа, пришёл - {response.status_code}'
     assert (
         len(response_json) == 10
@@ -109,7 +109,7 @@ def test_filter_advertisement_by_author_id(
     response = api_client.get(reverse('v1:advertisements-list'), data={'author__id': second_author.id})
     response_json = response.json()
     assert (
-            response.status_code == status.HTTP_200_OK
+        response.status_code == status.HTTP_200_OK
     ), f'Ожидался 200 статус-код ответа, пришёл - {response.status_code}'
     assert (
         len(response_json) == 30
