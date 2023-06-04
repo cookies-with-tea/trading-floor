@@ -19,16 +19,16 @@ def test_filter_advertisement_by_category(
     user: User = user_factory()
     api_client.force_authenticate(user)
 
-    one_category: AdvertisementCategory = advertisement_category_factory()
-    two_category: AdvertisementCategory = advertisement_category_factory()
+    first_category: AdvertisementCategory = advertisement_category_factory()
+    second_category: AdvertisementCategory = advertisement_category_factory()
 
     for _ in range(10):
-        advertisement_factory(category=one_category)
+        advertisement_factory(category=first_category)
 
     for _ in range(30):
-        advertisement_factory(category=two_category)
+        advertisement_factory(category=second_category)
 
-    response = api_client.get(reverse('v1:advertisements-list'), data={'category': one_category.id})
+    response = api_client.get(reverse('v1:advertisements-list'), data={'category': first_category.id})
     response_json = response.json()
 
     assert (
@@ -39,7 +39,7 @@ def test_filter_advertisement_by_category(
             len(response_json) == 10
     ), f'Ожидалось, что количество объектов в ответе будет равно 10, но пришло {len(response_json)}'
 
-    response = api_client.get(reverse('v1:advertisements-list'), data={'category': two_category.id})
+    response = api_client.get(reverse('v1:advertisements-list'), data={'category': second_category.id})
     response_json = response.json()
 
     assert (
@@ -60,14 +60,14 @@ def test_filter_advertisement_by_invalid_category(
     user: User = user_factory()
     api_client.force_authenticate(user)
 
-    one_category: AdvertisementCategory = advertisement_category_factory()
-    two_category: AdvertisementCategory = advertisement_category_factory()
+    first_category: AdvertisementCategory = advertisement_category_factory()
+    second_category: AdvertisementCategory = advertisement_category_factory()
 
     for _ in range(10):
-        advertisement_factory(category=one_category)
+        advertisement_factory(category=first_category)
 
     for _ in range(30):
-        advertisement_factory(category=two_category)
+        advertisement_factory(category=second_category)
 
     response = api_client.get(reverse('v1:advertisements-list'), data={'category': 123123})
     response_json = response.json()
@@ -88,16 +88,16 @@ def test_filter_advertisement_by_author_id(
 ) -> None:
     advertisement: Advertisement = advertisement_factory()
 
-    one_author: User = user_factory()
-    two_author: User = user_factory()
+    first_author: User = user_factory()
+    second_author: User = user_factory()
     for _ in range(10):
-        advertisement_factory(author=one_author)
+        advertisement_factory(author=first_author)
     for _ in range(30):
-        advertisement_factory(author=two_author)
+        advertisement_factory(author=second_author)
 
     api_client.force_authenticate(advertisement.author)
 
-    response = api_client.get(reverse('v1:advertisements-list'), data={'author__id': one_author.id})
+    response = api_client.get(reverse('v1:advertisements-list'), data={'author__id': first_author.id})
     response_json = response.json()
     assert (
             response.status_code == status.HTTP_200_OK
@@ -106,7 +106,7 @@ def test_filter_advertisement_by_author_id(
         len(response_json) == 10
     ), 'Ожидалось, что все полученные объявления от пользователя номер один'
 
-    response = api_client.get(reverse('v1:advertisements-list'), data={'author__id': two_author.id})
+    response = api_client.get(reverse('v1:advertisements-list'), data={'author__id': second_author.id})
     response_json = response.json()
     assert (
             response.status_code == status.HTTP_200_OK
