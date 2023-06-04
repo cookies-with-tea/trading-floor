@@ -40,17 +40,3 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'is_staff',
             'user',
         ]
-
-
-class UsersGeneralInformation(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = [
-            'id',
-            'first_name',
-            'last_name',
-            'room_number',
-            'avatar',
-            'is_active',
-            'is_staff',
-        ]
