@@ -63,6 +63,7 @@ def test_invalid_authorization_google(
 def test_sign_up(api_client: APIClient, user_factory) -> None:
     user: User = user_factory(
         email='testuser@mer.ci.nsu.ru',
+        avatar=None,
     )
 
     api_client.force_authenticate(user)
@@ -76,6 +77,9 @@ def test_sign_up(api_client: APIClient, user_factory) -> None:
     response_content = response.json()
 
     user.refresh_from_db()
+
+    assert not user.avatar, 'Ожидалось, что в базе данных, поле "avatar" не будет заполнено'
+    assert user.avatar_color is not None, 'Ожидалось, что в базе данных, поле "avatar_color" будет не равно null'
 
     assert response.status_code == status.HTTP_200_OK, 'Ожидался 200 статус-код ответа'
     assert response_content.get('refresh'), 'Ожидалось, что в теле ответа будет поле "refresh"'
