@@ -39,6 +39,7 @@ class AdvertisementFactory(factory.django.DjangoModelFactory):
     category = factory.SubFactory(AdvertisementCategoryFactory)
     urgency_type = factory.Faker('random_element', elements=[item[0] for item in Advertisement.URGENCY_LIST])
     author = factory.SubFactory(UserFactory)
+    is_open = True
 
     class Meta:
         model = Advertisement
