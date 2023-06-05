@@ -1,25 +1,32 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { ROUTE_NAMES } from '@/constants/routeNames';
 import { useTokens } from '@/composables/useTokens';
+import AuthorizationLayout from '@/layouts/AuthorizationLayout.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/',
-      component: DefaultLayout,
+      path: '/login',
+      component: AuthorizationLayout,
       children: [
         {
-          path: 'login',
+          path: '',
           name: ROUTE_NAMES.LoginPage,
           component: async () => import('@/pages/LoginPage.vue'),
           meta: {
             isPublic: true,
           },
         },
+      ],
+    },
+    {
+      path: '/',
+      component: DefaultLayout,
+      children: [
         {
-          path: '/',
+          path: '',
           name: ROUTE_NAMES.HomePage,
           component: async () => import('@/pages/HomePage.vue'),
         },

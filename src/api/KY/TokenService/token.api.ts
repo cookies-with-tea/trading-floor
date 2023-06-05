@@ -3,7 +3,7 @@ import { ApiTokenPairType } from '@/api/KY/commonTypes';
 
 class TokenApi extends KyService {
   refreshTokens = async (refresh: string) => {
-    return this.kyCall<ApiTokenPairType>('refresh', {
+    return await this.kyCall<ApiTokenPairType>('refresh', {
       method: 'post',
       json: { refresh },
     });

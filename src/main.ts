@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 
 import IconTemplate from '@/components/common/IconTemplate.vue';
+import 'element-plus/theme-chalk/dark/css-vars.css';
 
 import 'virtual:svg-icons-register';
 
