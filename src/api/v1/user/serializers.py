@@ -1,8 +1,6 @@
 from django.core.files.storage import default_storage
 from rest_framework import serializers
-from rest_framework.utils.serializer_helpers import ReturnDict
 
-from apps.advertisement.models import Advertisement
 from apps.user.models import User
 from utils.colors import generate_random_color
 
@@ -24,8 +22,6 @@ class UserDetailSerializer(serializers.ModelSerializer):
             'updated_at',
             'is_active',
             'is_staff',
-            'open_advertisements',
-            'closed_advertisements',
         ]
 
     """
