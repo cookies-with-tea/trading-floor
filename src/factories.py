@@ -1,8 +1,6 @@
 import factory.django
 import faker
-from faker import Faker
 from factory.fuzzy import FuzzyInteger
-import random
 
 from apps.advertisement.models import Advertisement, AdvertisementCategory, Image
 from apps.user.models import User
