@@ -8,8 +8,8 @@ from utils.colors import generate_random_color
 
 
 class UserDetailSerializer(serializers.ModelSerializer):
-    open_advertisements = serializers.SerializerMethodField()
-    closed_advertisements = serializers.SerializerMethodField()
+    # open_advertisements = serializers.SerializerMethodField()
+    # closed_advertisements = serializers.SerializerMethodField()
 
     class Meta:
         model = User
