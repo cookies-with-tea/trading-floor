@@ -1,5 +1,6 @@
 import factory.django
 from factory.fuzzy import FuzzyInteger
+import random
 
 from apps.advertisement.models import Advertisement, AdvertisementCategory, Image
 from apps.user.models import User
@@ -39,7 +40,7 @@ class AdvertisementFactory(factory.django.DjangoModelFactory):
     category = factory.SubFactory(AdvertisementCategoryFactory)
     urgency_type = factory.Faker('random_element', elements=[item[0] for item in Advertisement.URGENCY_LIST])
     author = factory.SubFactory(UserFactory)
-    is_open = True
+    is_open = bool(random.getrandbits(1))
 
     class Meta:
         model = Advertisement
