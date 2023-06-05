@@ -2,7 +2,7 @@ import pytest
 from django.urls import reverse
 from rest_framework import status
 
-from apps.advertisement.models import AdvertisementCategory
+from apps.advertisement.models import AdvertisementCategory, Advertisement
 from apps.user.models import User
 
 pytestmark = [
@@ -19,16 +19,16 @@ def test_filter_advertisement_by_category(
     user: User = user_factory()
     api_client.force_authenticate(user)
 
-    one_category: AdvertisementCategory = advertisement_category_factory()
-    two_category: AdvertisementCategory = advertisement_category_factory()
+    first_category: AdvertisementCategory = advertisement_category_factory()
+    second_category: AdvertisementCategory = advertisement_category_factory()
 
     for _ in range(10):
-        advertisement_factory(category=one_category)
+        advertisement_factory(category=first_category)
 
     for _ in range(30):
-        advertisement_factory(category=two_category)
+        advertisement_factory(category=second_category)
 
-    response = api_client.get(reverse('v1:advertisements-list'), data={'category': one_category.id})
+    response = api_client.get(reverse('v1:advertisements-list'), data={'category': first_category.id})
     response_json = response.json()
 
     assert (
@@ -39,7 +39,7 @@ def test_filter_advertisement_by_category(
         len(response_json) == 10
     ), f'Ожидалось, что количество объектов в ответе будет равно 10, но пришло {len(response_json)}'
 
-    response = api_client.get(reverse('v1:advertisements-list'), data={'category': two_category.id})
+    response = api_client.get(reverse('v1:advertisements-list'), data={'category': second_category.id})
     response_json = response.json()
 
     assert (
@@ -60,14 +60,14 @@ def test_filter_advertisement_by_invalid_category(
     user: User = user_factory()
     api_client.force_authenticate(user)
 
-    one_category: AdvertisementCategory = advertisement_category_factory()
-    two_category: AdvertisementCategory = advertisement_category_factory()
+    first_category: AdvertisementCategory = advertisement_category_factory()
+    second_category: AdvertisementCategory = advertisement_category_factory()
 
     for _ in range(10):
-        advertisement_factory(category=one_category)
+        advertisement_factory(category=first_category)
 
     for _ in range(30):
-        advertisement_factory(category=two_category)
+        advertisement_factory(category=second_category)
 
     response = api_client.get(reverse('v1:advertisements-list'), data={'category': 123123})
     response_json = response.json()
@@ -79,3 +79,44 @@ def test_filter_advertisement_by_invalid_category(
         'Ожидалось, что ответ будет содержать поле "category", внутри которого будет находиться строка'
         '"Выберите корректный вариант. Вашего варианта нет среди допустимых значений."'
     )
+
+
+def test_filter_advertisement_by_author_id(
+    api_client,
+    advertisement_factory,
+    user_factory,
+) -> None:
+    advertisement: Advertisement = advertisement_factory()
+
+    first_author: User = user_factory()
+    second_author: User = user_factory()
+    for _ in range(10):
+        advertisement_factory(author=first_author)
+    for _ in range(30):
+        advertisement_factory(author=second_author)
+
+    api_client.force_authenticate(advertisement.author)
+
+    response = api_client.get(reverse('v1:advertisements-list'), data={'author__id': first_author.id})
+    response_json = response.json()
+    assert (
+        response.status_code == status.HTTP_200_OK
+    ), f'Ожидался 200 статус-код ответа, пришёл - {response.status_code}'
+    assert (
+        len(response_json) == 10
+    ), 'Ожидалось, что все полученные объявления от пользователя номер один'
+    assert (
+        _response_json['author']['id'] == first_author.id for _response_json in response_json
+    ), 'Ожидалось, что все полученные объявление было создано пользователем номер один'
+
+    response = api_client.get(reverse('v1:advertisements-list'), data={'author__id': second_author.id})
+    response_json = response.json()
+    assert (
+        response.status_code == status.HTTP_200_OK
+    ), f'Ожидался 200 статус-код ответа, пришёл - {response.status_code}'
+    assert (
+        len(response_json) == 30
+    ), 'Ожидалось, что все полученные объявления от пользователя номер два'
+    assert (
+        _response_json['author']['id'] == second_author.id for _response_json in response_json
+    ), 'Ожидалось, что все полученные объявление было создано пользователем номер два'
