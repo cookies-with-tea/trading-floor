@@ -99,12 +99,29 @@ class AdvertisementSerializer(serializers.ModelSerializer):
             'urgency_type',
             'author',
             'category',
-            'created_at',
         ]
 
 
 class AdvertisementListSerializer(serializers.ModelSerializer):
     author = UserDetailSerializer(read_only=True)
+    images = ImageSerializer(many=True)
+    category = AdvertisementCategorySerializer()
+
+    class Meta:
+        model = Advertisement
+        fields = [
+            'id',
+            'title',
+            'description',
+            'advertisement_type',
+            'images',
+            'urgency_type',
+            'author',
+            'category',
+        ]
+
+
+class AdvertisementByUserSerializer(serializers.ModelSerializer):
     category = AdvertisementCategorySerializer()
     images = ImageSerializer(many=True)
 
@@ -119,7 +136,6 @@ class AdvertisementListSerializer(serializers.ModelSerializer):
             'urgency_type',
             'author',
             'category',
-            'created_at',
         ]
 
 

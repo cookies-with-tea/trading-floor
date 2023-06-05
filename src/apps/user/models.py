@@ -1,3 +1,4 @@
+from colorfield.fields import ColorField
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.core.exceptions import ValidationError
@@ -6,6 +7,7 @@ from imagekit.models import ProcessedImageField
 from pilkit.processors import ResizeToFill
 
 from config.settings import EMAIL_DOMAIN
+from utils.colors import generate_random_color
 from utils.strings import is_correct_email_domain
 
 
@@ -60,12 +62,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True,
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    avatar_color = ColorField(verbose_name='Цвет аватарки', default=generate_random_color, null=True, blank=True)
+    created_at = models.DateTimeField(verbose_name='Дата создания', auto_now_add=True)
+    updated_at = models.DateTimeField(verbose_name='Дата обновления', auto_now=True)
 
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    is_register = models.BooleanField(default=False)
+    is_active = models.BooleanField(verbose_name='Активен ли пользователь?', default=True)
+    is_staff = models.BooleanField(verbose_name='Пользователь является администратором?', default=False)
+    is_register = models.BooleanField(verbose_name='Пользователь зарегистрирован?', default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name']

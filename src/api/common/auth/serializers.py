@@ -34,6 +34,5 @@ class SignUpSerializer(serializers.ModelSerializer):
             'first_name',
             'last_name',
             'room_number',
-            'avatar',
             'is_register',
         ]

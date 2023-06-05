@@ -18,6 +18,7 @@ class AdvertisementModelViewSet(SerializerClassMapMixin, ModelViewSet):
     default_serializer_class = serializers.AdvertisementSerializer
 
     queryset = Advertisement.objects.all()
+    permission_classes = [IsAuthenticatedAndIsActive]
     filterset_class = AdvertisementFilter
 
 
