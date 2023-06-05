@@ -28,6 +28,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
             'closed_advertisements',
         ]
 
+    """
     def get_open_advertisements(self, instance: User) -> ReturnDict:
         from api.v1.advertisement.serializers import AdvertisementByUserSerializer
 
@@ -41,6 +42,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
         return AdvertisementByUserSerializer(
             Advertisement.objects.filter(author=instance, is_open=False), many=True
         ).data
+    """
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
