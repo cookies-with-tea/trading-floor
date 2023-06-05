@@ -126,11 +126,11 @@ def test_filter_advertisement_by_is_open(
     api_client,
     advertisement_factory,
 ) -> None:
-    advertisement: Advertisement = advertisement_factory()
+    advertisement: Advertisement = advertisement_factory(is_open=True)
     for _ in range(9):
-        advertisement_factory()
+        advertisement_factory(is_open=True)
     for _ in range(20):
-        cur = advertisement_factory(is_open=False)
+        advertisement_factory(is_open=False)
 
     api_client.force_authenticate(advertisement.author)
 
