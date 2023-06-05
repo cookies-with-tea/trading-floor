@@ -99,6 +99,7 @@ class AdvertisementSerializer(serializers.ModelSerializer):
             'urgency_type',
             'author',
             'category',
+            'is_open',
         ]
 
 
@@ -118,4 +119,5 @@ class AdvertisementListSerializer(serializers.ModelSerializer):
             'urgency_type',
             'author',
             'category',
+            'is_open',
         ]
