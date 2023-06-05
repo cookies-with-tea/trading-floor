@@ -1,5 +1,4 @@
 from django.db import models
-from multiselectfield import MultiSelectField
 
 from apps.user.models import User
 
@@ -51,12 +50,7 @@ class Advertisement(models.Model):
     title = models.TextField('Название')
     description = models.TextField('Описание', blank=True)
     category = models.ForeignKey(AdvertisementCategory, verbose_name='Категория', on_delete=models.CASCADE)
-    advertisement_type = MultiSelectField(
-        verbose_name='Тип объявления',
-        choices=TYPE_LIST,
-        max_choices=3,
-        max_length=100,
-    )
+    advertisement_type = models.CharField('Тип объявления', max_length=100, choices=TYPE_LIST)
     urgency_type = models.CharField('Срочность объявления', max_length=6, choices=URGENCY_LIST)
     author = models.ForeignKey(
         User,
