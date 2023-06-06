@@ -120,3 +120,40 @@ def test_filter_advertisement_by_author_id(
     assert (
         _response_json['author']['id'] == second_author.id for _response_json in response_json
     ), 'Ожидалось, что все полученные объявление было создано пользователем номер два'
+
+
+def test_filter_advertisement_by_is_open(
+    api_client,
+    advertisement_factory,
+) -> None:
+    advertisement: Advertisement = advertisement_factory(is_open=True)
+    for _ in range(9):
+        advertisement_factory(is_open=True)
+    for _ in range(20):
+        advertisement_factory(is_open=False)
+
+    api_client.force_authenticate(advertisement.author)
+
+    response = api_client.get(reverse('v1:advertisements-list'), data={'is_open': True})
+    response_json = response.json()
+    assert (
+        response.status_code == status.HTTP_200_OK
+    ), f'Ожидался 200 статус-код ответа, пришёл - {response.status_code}'
+    assert (
+        len(response_json) == 10
+    ), f'Ожидалось, что все полученных объявлений будет 10, получили {len(response_json)}'
+    assert (
+        _response_json['is_open'] is True for _response_json in response_json
+    ), 'Ожидалось, что все полученные объявления открыты'
+
+    response = api_client.get(reverse('v1:advertisements-list'), data={'is_open': False})
+    response_json = response.json()
+    assert (
+        response.status_code == status.HTTP_200_OK
+    ), f'Ожидался 200 статус-код ответа, пришёл - {response.status_code}'
+    assert (
+        len(response_json) == 20
+    ), f'Ожидалось, что все полученных объявлений будет 20, получили {len(response_json)}'
+    assert (
+        _response_json['is_open'] is False for _response_json in response_json
+    ), 'Ожидалось, что все полученные объявления закрыты'

@@ -1,16 +1,11 @@
 from django.core.files.storage import default_storage
 from rest_framework import serializers
-from rest_framework.utils.serializer_helpers import ReturnDict
 
-from apps.advertisement.models import Advertisement
 from apps.user.models import User
 from utils.colors import generate_random_color
 
 
 class UserDetailSerializer(serializers.ModelSerializer):
-    open_advertisements = serializers.SerializerMethodField()
-    closed_advertisements = serializers.SerializerMethodField()
-
     class Meta:
         model = User
         fields = [
@@ -24,23 +19,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
             'updated_at',
             'is_active',
             'is_staff',
-            'open_advertisements',
-            'closed_advertisements',
         ]
-
-    def get_open_advertisements(self, instance: User) -> ReturnDict:
-        from api.v1.advertisement.serializers import AdvertisementByUserSerializer
-
-        return AdvertisementByUserSerializer(
-            Advertisement.objects.filter(author=instance, is_open=True), many=True
-        ).data
-
-    def get_closed_advertisements(self, instance: User) -> ReturnDict:
-        from api.v1.advertisement.serializers import AdvertisementByUserSerializer
-
-        return AdvertisementByUserSerializer(
-            Advertisement.objects.filter(author=instance, is_open=False), many=True
-        ).data
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
