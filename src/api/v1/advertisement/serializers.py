@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from rest_framework.fields import CurrentUserDefault
+from rest_framework.fields import CurrentUserDefault, MultipleChoiceField
 
 from api.v1.user.serializers import UserDetailSerializer
 from apps.advertisement.models import Advertisement, AdvertisementCategory, Image
@@ -88,6 +88,8 @@ class AdvertisementSerializer(serializers.ModelSerializer):
     images = ImageSerializer(many=True)
     category = AdvertisementCategorySerializer(read_only=True)
 
+    advertisement_type = MultipleChoiceField(choices=Advertisement.TYPE_LIST)
+
     class Meta:
         model = Advertisement
         fields = [
@@ -107,6 +109,8 @@ class AdvertisementListSerializer(serializers.ModelSerializer):
     author = UserDetailSerializer(read_only=True)
     images = ImageSerializer(many=True)
     category = AdvertisementCategorySerializer()
+
+    advertisement_type = MultipleChoiceField(choices=Advertisement.TYPE_LIST)
 
     class Meta:
         model = Advertisement
