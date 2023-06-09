@@ -12,6 +12,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
             'id',
             'email',
             'first_name',
+            'last_name',
             'room_number',
             'avatar',
             'avatar_color',
