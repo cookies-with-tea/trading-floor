@@ -14,7 +14,6 @@
   color: $color--hint;
   background-color: transparent;
   padding: 5px;
-  margin-right: 10px;
 
   &:hover {
     cursor: pointer;

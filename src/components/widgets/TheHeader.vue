@@ -3,8 +3,9 @@
     <div class="container jc-sb">
       <icon-template height="55" name="vki" width="160" />
       <div class="d-f ai-c">
-        <the-notification />
-        <profile-icon />
+        <the-notification class="mr-10" />
+        <profile-icon class="mr-20" />
+        <new-advertisement />
       </div>
     </div>
   </header>

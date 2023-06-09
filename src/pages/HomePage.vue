@@ -4,8 +4,7 @@
       <h2>Последние объявления</h2>
     </div>
     <div class="home-page__categories">
-      <categories-sidebar v-model="selectedCategory" class="mb-20" />
-      <new-advertisement />
+      <filters-sidebar class="mb-20" />
     </div>
     <div class="home-page__advertisements">
       <advertisement-list :advertisements="advertisements" />
@@ -15,15 +14,22 @@
 
 <script lang="ts" setup>
 import AdvertisementList from '@/components/widgets/AdvertisementList.vue';
-import CategoriesSidebar from '@/components/widgets/CategoriesSidebar.vue';
-import { computed, onBeforeMount, ref } from 'vue';
+import { computed, onBeforeMount, provide, ref } from 'vue';
 import { advertisementApi } from '@/api/KY/AdvertisementService/advertisement.api';
-import { ApiAdvertisementListItemType } from '@/api/KY/AdvertisementService/advertisement.types';
-import NewAdvertisement from '@/components/widgets/buttons/NewAdvertisement.vue';
+import {
+  ApiAdvertisementCategoryType,
+  ApiAdvertisementListItemType,
+} from '@/api/KY/AdvertisementService/advertisement.types';
+import { AdvertisementUrgencyEnum, AllAdvertisementTypes } from '@/types/advertisementTypes';
 
-const selectedCategory = ref<number | null>(null);
+const selectedCategories = ref<number[]>([]);
+const allCategories = ref<ApiAdvertisementCategoryType[]>([]);
 
 const loadedAdvertisement = ref<ApiAdvertisementListItemType[]>([]);
+
+const selectedUrgencies = ref<AdvertisementUrgencyEnum[]>([]);
+
+const selectedTypes = ref<number[]>([]);
 
 const loadAdvertisements = async () => {
   const [error, data] = await advertisementApi.getAllAdvertisements();
@@ -33,19 +39,47 @@ const loadAdvertisements = async () => {
   }
 };
 
-onBeforeMount(loadAdvertisements);
+const loadCategories = async () => {
+  const [error, data] = await advertisementApi.getAllCategories();
+
+  if (!error && data) {
+    allCategories.value = data;
+  }
+};
+
+onBeforeMount(async () => {
+  await loadCategories();
+
+  await loadAdvertisements();
+});
 
 const advertisements = computed(() => {
-  return loadedAdvertisement.value.filter(
-    (el) => selectedCategory.value == null || el.category.id == selectedCategory.value
-  );
+  return loadedAdvertisement.value.filter((el) => {
+    return (
+      (selectedCategories.value.length === 0 || selectedCategories.value.includes(el.category.id)) &&
+      (selectedUrgencies.value.length === 0 || selectedUrgencies.value.includes(el.urgency_type)) &&
+      (selectedTypes.value.length === 0 ||
+        selectedTypes.value
+          .map((type_index) => el.advertisement_type.includes(AllAdvertisementTypes[type_index]))
+          .some((el) => el))
+    );
+  });
 });
+
+provide('selectedCategories', selectedCategories);
+
+provide('allCategories', allCategories);
+
+provide('selectedUrgencies', selectedUrgencies);
+
+provide('selectedTypes', selectedTypes);
 </script>
 
 <style lang="scss" scoped>
 .home-page {
   display: grid;
   grid-gap: 20px;
+  grid-template-columns: 212px 958px;
 
   &__categories {
     grid-column-start: 1;

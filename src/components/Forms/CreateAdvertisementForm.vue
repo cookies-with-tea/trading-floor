@@ -4,41 +4,44 @@
     :model="createAdvertisementFormModel"
     :rules="createAdvertisementFormRules"
   >
-    <el-form-item prop="title">
-      <label for="title">Название</label>
-      <el-input v-model="createAdvertisementFormModel.title" name="title" placeholder="Заголовок" />
+    <label for="title">Название</label>
+    <el-form-item name="title" prop="title">
+      <el-input v-model="createAdvertisementFormModel.title" placeholder="Заголовок" />
     </el-form-item>
-    <el-form-item prop="description">
-      <label for="description">Описание</label>
-      <el-input
-        v-model="createAdvertisementFormModel.description"
-        name="description"
-        placeholder="Описание"
-        type="textarea"
-      />
+    <label for="description">Описание</label>
+    <el-form-item name="description" prop="description">
+      <el-input v-model="createAdvertisementFormModel.description" placeholder="Описание" type="textarea" />
     </el-form-item>
-    <el-form-item prop="urgencyType">
-      <label for="urgency">Срочность</label>
-      <el-radio-group v-model="createAdvertisementFormModel.urgencyType" name="urgency">
+    <label for="urgency">Срочность</label>
+    <el-form-item name="urgency" prop="urgencyType">
+      <el-radio-group v-model="createAdvertisementFormModel.urgencyType">
         <el-radio v-for="urgency in AdvertisementUrgencyEnum" :key="urgency" :label="urgency">{{
           RussianAdvertisementUrgencyEnum[urgency]
         }}</el-radio>
       </el-radio-group>
     </el-form-item>
-    <label for="category">Категория</label>
-    <el-form-item prop="category">
-      <el-select v-model="createAdvertisementFormModel.category">
-        <el-option v-for="category in categories" :key="category.id" :label="category.title" :value="category.id" />
-      </el-select>
-    </el-form-item>
-    <label for="type">Тип объявления</label>
-    <el-form-item prop="advertisementType">
-      <el-select v-model="createAdvertisementFormModel.advertisementType" default-first-option name="type" remote>
-        <el-option v-for="option in typesOptions" :key="option.key" :label="option.label" :value="option.value" />
-      </el-select>
-    </el-form-item>
+
+    <div class="d-f jc-sb">
+      <div>
+        <label for="category">Категория</label>
+        <el-form-item name="category" prop="category">
+          <el-select v-model="createAdvertisementFormModel.category">
+            <el-option v-for="category in categories" :key="category.id" :label="category.title" :value="category.id" />
+          </el-select>
+        </el-form-item>
+      </div>
+      <div>
+        <label for="type">Тип объявления</label>
+        <el-form-item name="type" prop="advertisementType">
+          <el-select v-model="createAdvertisementFormModel.advertisementType" default-first-option name="type" remote>
+            <el-option v-for="option in typesOptions" :key="option.key" :label="option.label" :value="option.value" />
+          </el-select>
+        </el-form-item>
+      </div>
+    </div>
+
     <label for="images">Добавьте изображения</label>
-    <el-form-item prop="images">
+    <el-form-item name="images" prop="images">
       <el-upload
         v-model:file-list="createAdvertisementFormModel.images"
         :auto-upload="false"
@@ -47,7 +50,6 @@
         drag
         list-type="picture-card"
         multiple
-        name="images"
       >
         <el-button>Загрузить</el-button>
       </el-upload>

@@ -6,6 +6,14 @@ export enum AdvertisementTypeEnum {
   take = 'TAKE',
 }
 
+export const AllAdvertisementTypes = [
+  AdvertisementTypeEnum.sell,
+  AdvertisementTypeEnum.exchange,
+  AdvertisementTypeEnum.take,
+  AdvertisementTypeEnum.buy,
+  AdvertisementTypeEnum.give,
+];
+
 export enum AdvertisementUrgencyEnum {
   urgent = 'URGENT',
   nsu = 'NSU',
