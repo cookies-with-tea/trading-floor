@@ -42,7 +42,9 @@ class CreateAdvertisementSerializer(serializers.ModelSerializer):
             use_url=False,
         ),
         write_only=True,
+        required=False,
     )
+    advertisement_type = MultipleChoiceField(choices=Advertisement.TYPE_LIST)
 
     class Meta:
         model = Advertisement
@@ -63,13 +65,16 @@ class CreateAdvertisementSerializer(serializers.ModelSerializer):
         return value
 
     def create(self, validated_data: dict) -> Meta.model:
-        uploaded_images = validated_data.pop('images')
+        uploaded_images = validated_data.pop('images', None)
+
         advertisement = Advertisement.objects.create(**validated_data)
-        for image in uploaded_images:
-            Image.objects.create(
-                advertisement=advertisement,
-                image=image,
-            )
+
+        if uploaded_images:
+            for image in uploaded_images:
+                Image.objects.create(
+                    advertisement=advertisement,
+                    image=image,
+                )
 
         return advertisement
 
