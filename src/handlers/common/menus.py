@@ -1,10 +1,13 @@
-from aiogram import types
-from src.models.advertisement import Advertisement
+from aiogram import F, Router, types
+from aiogram.fsm.context import FSMContext
+
+from src.handlers.user.start import start
+from src.keyboards.inline.common.callbacks import MenuCallbackFactory
 
 
-def advertisement(
-    message: types.Message,
-    advertisement: Advertisement,
-    is_answer: bool = True,
-):
-    method_message = message.answer if is_answer else message.edit_text
+router = Router()
+
+
+@router.callback_query(MenuCallbackFactory.filter(F.action == 'back'))
+async def go_to_menu(callback: types.CallbackQuery, state: FSMContext):
+    await start(callback.message, state, is_edit=True)

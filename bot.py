@@ -18,7 +18,9 @@ def register_all_services(base_url: str):
 
 def register_all_handlers(dp):
     from src.handlers.user.router import user_router
+    from src.handlers.common.menus import router as common_router
 
+    dp.include_router(common_router)
     dp.include_router(user_router)
 
 

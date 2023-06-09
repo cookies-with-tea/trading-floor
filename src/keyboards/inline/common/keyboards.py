@@ -1,3 +1,5 @@
+from typing import List
+
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
@@ -9,24 +11,8 @@ def create_menu_keyboard() -> InlineKeyboardMarkup:
 
     builder.row(
         InlineKeyboardButton(
-            text='Профиль',
-            callback_data=MenuCallbackFactory(action='profile').pack(),
-        )
-    )
-    builder.row(
-        InlineKeyboardButton(
-            text='Создать объявление',
-            callback_data=MenuCallbackFactory(action='create_advertisement').pack(),
-        ),
-        InlineKeyboardButton(
             text='Список объявлений',
             callback_data=MenuCallbackFactory(action='list_advertisement').pack(),
-        ),
-    )
-    builder.row(
-        InlineKeyboardButton(
-            text='Мои объявления',
-            callback_data=MenuCallbackFactory(action='my_advertisement').pack(),
         ),
     )
 
@@ -35,7 +21,7 @@ def create_menu_keyboard() -> InlineKeyboardMarkup:
 
 def create_choice_category() -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
-    
+
     builder.row(
         InlineKeyboardButton(
             text='Одежда',
@@ -51,13 +37,13 @@ def create_choice_category() -> InlineKeyboardMarkup:
         ),
         *create_back_button(),
     )
-    
+
     return builder.as_markup()
 
 
 def create_choice_urgency_type() -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
-    
+
     builder.row(
         InlineKeyboardButton(
             text='Срочно',
@@ -73,22 +59,22 @@ def create_choice_urgency_type() -> InlineKeyboardMarkup:
         ),
         *create_back_button(),
     )
-    
+
     return builder.as_markup()
 
 
 def create_back_menu_keyboard() -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
 
-    builder.row(
-        *create_back_button()
-    )
+    builder.row(*create_back_button())
 
     return builder.as_markup()
 
 
-def create_back_button() -> InlineKeyboardButton:
-    return InlineKeyboardButton(
-            text='Назад',
+def create_back_button() -> list[InlineKeyboardButton]:
+    return [
+        InlineKeyboardButton(
+            text='В меню',
             callback_data=MenuCallbackFactory(action='back').pack(),
-        ),
+        )
+    ]

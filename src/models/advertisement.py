@@ -3,6 +3,7 @@ from typing import Optional
 
 from src.models.category import Category
 from src.models.media import Image
+from src.models.user import User
 
 
 @dataclass
@@ -12,5 +13,5 @@ class Advertisement:
     category: Category
     urgency_type: str
     images: list[Image]
-    # author: User
+    author: User
     id: Optional[int] = None

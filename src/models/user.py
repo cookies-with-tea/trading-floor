@@ -11,4 +11,7 @@ class User:
     avatar: str
     created_at: datetime.datetime
 
+    telegram_username: Optional[str] = None
+    vk_username: Optional[str] = None
+
     id: Optional[int] = None
