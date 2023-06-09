@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "traiding-floor-bot"
+version = "0.1.0"
+description = ""
+authors = ["s1veme <kpdpav@gmail.com>"]
+readme = "README.md"
+packages = [{include = "traiding_floor_bot"}]
+
+[tool.poetry.dependencies]
+python = "3.10"
+environs = "^9.5.0"
+aiogram = {version = "^3.0.0b7", allow-prereleases = true}
+aiohttp = {extras = ["speedups"], version = "^3.8.4"}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.black]
+line-length = 120
+target-version = ["py39", "py310"]
+include = ".py$"
+force-exclude = """
+migrations
+| .venv
+| venv
+"""
+
+[tool.isort]
+profile="black"
+line_length=120
+extend_skip_glob = [
+  "migrations/*",
+  ".venv/*",
+  "venv/*"
+]
