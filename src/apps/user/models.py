@@ -66,6 +66,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     created_at = models.DateTimeField(verbose_name='Дата создания', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='Дата обновления', auto_now=True)
 
+    telegram_username = models.TextField(verbose_name='Имя пользователя в Telegram', blank=True, null=True)
+    vk_username = models.TextField(verbose_name='Имя пользователя в VK', blank=True, null=True)
+
     is_active = models.BooleanField(verbose_name='Активен ли пользователь?', default=True)
     is_staff = models.BooleanField(verbose_name='Пользователь является администратором?', default=False)
     is_register = models.BooleanField(verbose_name='Пользователь зарегистрирован?', default=False)

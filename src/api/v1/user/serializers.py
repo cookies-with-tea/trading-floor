@@ -13,6 +13,8 @@ class UserDetailSerializer(serializers.ModelSerializer):
             'email',
             'first_name',
             'last_name',
+            'telegram_username',
+            'vk_username',
             'room_number',
             'avatar',
             'avatar_color',
@@ -29,6 +31,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'first_name',
+            'telegram_username',
+            'vk_username',
             'room_number',
             'avatar',
             'avatar_color',
