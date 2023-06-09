@@ -1,6 +1,7 @@
 import { AfterResponseHook, BeforeRequestHook } from 'ky';
 import { tokenApi } from '@/api/KY/TokenService/token.api';
 import { useTokens } from '@/composables/useTokens';
+import router from '@/router';
 
 export const requestAuthorizationHeader: BeforeRequestHook = (request: Request) => {
   const { getAccess } = useTokens(localStorage);
@@ -33,6 +34,8 @@ export const responseRetryOn401: AfterResponseHook = async (request, options, re
         // @ts-ignore
         return this.kyInstance(request);
       }
+
+      await router.push({ name: 'LoginPage' });
     }
   }
 };

@@ -21,6 +21,7 @@ import { provide, ref } from 'vue';
 import GoogleRegistrationForm from '@/components/Forms/GoogleRegistrationForm.vue';
 import { authApi } from '@/api/KY/AuthService/auth.api';
 import { useTokens } from '@/composables/useTokens';
+import router from '@/router';
 
 const isRegistrationDialogVisible = ref(false);
 
@@ -59,6 +60,8 @@ const handleUserGoogleRegister = async (form: GoogleRegistrationFormType): Promi
       setRefresh(refresh);
 
       setAccess(access);
+
+      await router.push({ name: 'HomePage' });
     }
 
     isRegistrationDialogVisible.value = false;
