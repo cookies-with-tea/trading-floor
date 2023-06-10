@@ -23,7 +23,7 @@ class AdvertisementModelViewSet(SerializerClassMapMixin, ModelViewSet):
     }
     default_serializer_class = serializers.AdvertisementSerializer
 
-    queryset = Advertisement.objects.all().order_by('created_at')
+    queryset = Advertisement.objects.all().order_by('-created_at')
     filterset_class = AdvertisementFilter
     pagination_class = AdvertisementListPagination
 
