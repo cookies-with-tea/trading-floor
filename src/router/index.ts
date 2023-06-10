@@ -26,6 +26,11 @@ const router = createRouter({
       component: DefaultLayout,
       children: [
         {
+          path: '/:id',
+          name: ROUTE_NAMES.ProfilePage,
+          component: async () => import('@/pages/ProfilePage.vue'),
+        },
+        {
           path: '',
           name: ROUTE_NAMES.HomePage,
           component: async () => import('@/pages/HomePage.vue'),

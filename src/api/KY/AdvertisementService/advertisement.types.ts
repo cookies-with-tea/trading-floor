@@ -1,4 +1,5 @@
 import { AdvertisementTypeEnum, AdvertisementUrgencyEnum } from '@/types/advertisementTypes';
+import { ApiUserType } from '@/api/KY/UserService/user.types';
 
 export type ApiAdvertisementImageType = {
   id: number;
@@ -18,6 +19,21 @@ export type ApiAdvertisementType = {
   images: ApiAdvertisementImageType[];
   urgency_type: AdvertisementUrgencyEnum;
   category: ApiAdvertisementCategoryType;
+  is_open: boolean;
+  author: ApiUserType;
+};
+
+export type ApiAllAdvertisementQueryParams = {
+  author__id?: number;
+  category?: number;
+  is_open?: boolean;
+};
+
+export type ApiAdvertisementListType = {
+  count: number;
+  prev: string;
+  next: string;
+  results: ApiAdvertisementListItemType[];
 };
 
 export type ApiAdvertisementListItemType = {
@@ -28,23 +44,17 @@ export type ApiAdvertisementListItemType = {
   images: ApiAdvertisementImageType[];
   urgency_type: AdvertisementUrgencyEnum;
   category: ApiAdvertisementCategoryType;
+  is_open: boolean;
+  author: ApiUserType;
 };
 
 export type ApiPatchedAdvertisementType = {
-  id: number;
+  id?: number;
   title?: string;
   description?: string;
   advertisement_type?: AdvertisementTypeEnum[];
   images?: ApiAdvertisementImageType[];
   urgency_type?: AdvertisementUrgencyEnum;
   category?: ApiAdvertisementCategoryType;
-};
-
-export type ApiCreatedAdvertisementType = {
-  title: string;
-  description: string;
-  advertisement_type: AdvertisementTypeEnum[];
-  images?: File[];
-  urgency_type: AdvertisementUrgencyEnum;
-  category: number;
+  is_open?: boolean;
 };

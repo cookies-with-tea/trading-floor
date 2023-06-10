@@ -4,6 +4,8 @@
       v-for="advertisement in advertisements"
       :key="advertisement.id"
       :advertisement="advertisement"
+      :is-own="selfUserId == advertisement.author.id"
+      @deleted="handleDelete"
     />
   </div>
 </template>
@@ -12,11 +14,22 @@
 import { ApiAdvertisementListItemType } from '@/api/KY/AdvertisementService/advertisement.types';
 import AdvertisementPreview from '@/components/widgets/AdvertisementPreview/AdvertisementPreview.vue';
 
+type Emits = {
+  (e: 'delete', value: number): void;
+};
+
 type Props = {
   advertisements: ApiAdvertisementListItemType[];
+  selfUserId: number;
 };
 
 defineProps<Props>();
+
+const emits = defineEmits<Emits>();
+
+const handleDelete = (value: number) => {
+  emits('delete', value);
+};
 </script>
 
 <style lang="scss" scoped>

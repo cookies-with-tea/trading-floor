@@ -9,5 +9,9 @@
 <style lang="scss" scoped>
 .notification {
   color: $color--header-text;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 </style>

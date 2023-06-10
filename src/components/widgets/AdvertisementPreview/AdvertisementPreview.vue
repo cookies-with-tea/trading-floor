@@ -17,20 +17,68 @@
         <advertisement-type v-for="type in advertisement.advertisement_type" :key="type" :advertisement-type="type" />
       </div>
     </div>
-    <el-button class="advertisement-preview__response-button" type="primary">Откликнуться</el-button>
-    <el-button class="advertisement-preview__goto-button" type="primary"> Перейти к объявлению </el-button>
+    <el-button
+      v-if="isOwn && advertisement.is_open"
+      class="advertisement-preview__response-button"
+      type="primary"
+      @click="closeAdvertisement"
+      >Закрыть</el-button
+    >
+    <el-button
+      v-else-if="!isOwn && advertisement.is_open"
+      class="advertisement-preview__response-button"
+      type="primary"
+      @click="showContacts"
+      >Откликнуться</el-button
+    >
+    <el-button
+      :class="{ expand: !advertisement.is_open && isOwn }"
+      class="advertisement-preview__goto-button"
+      type="primary"
+    >
+      Перейти к объявлению
+    </el-button>
   </div>
+  <base-dialog v-if="!isOwn" v-model="isContactsDialogVisible">
+    <h3 class="ta-c">Контакты</h3>
+    <span>Telegram: {{ advertisement.author.telegram_username }}</span>
+    <br />
+    <br />
+    <span>ВК: {{ advertisement.author.vk_username }}</span>
+  </base-dialog>
 </template>
 
 <script lang="ts" setup>
 import { ApiAdvertisementListItemType } from '@/api/KY/AdvertisementService/advertisement.types';
 import AdvertisementType from '@/components/widgets/buttons/AdvertisementType.vue';
+import { advertisementApi } from '@/api/KY/AdvertisementService/advertisement.api';
+import { ref } from 'vue';
 
 type Props = {
   advertisement: ApiAdvertisementListItemType;
+  isOwn: boolean;
 };
 
-defineProps<Props>();
+type Emits = {
+  (e: 'deleted', value: number): void;
+};
+
+const props = defineProps<Props>();
+const emits = defineEmits<Emits>();
+
+const isContactsDialogVisible = ref(false);
+
+const closeAdvertisement = async () => {
+  const [error] = await advertisementApi.updateAdvertisement(props.advertisement.id, { is_open: false });
+
+  if (!error) {
+    emits('deleted', props.advertisement.id);
+  }
+};
+
+const showContacts = () => {
+  isContactsDialogVisible.value = true;
+};
 </script>
 
 <style lang="scss" scoped>
@@ -64,6 +112,7 @@ defineProps<Props>();
   }
 
   &__types {
+    display: flex;
     justify-self: end;
   }
 
@@ -100,6 +149,10 @@ defineProps<Props>();
   &__goto-button {
     grid-column-start: 2;
     grid-row-start: 2;
+
+    &.expand {
+      grid-column: 1/2;
+    }
   }
 
   &__response-button {

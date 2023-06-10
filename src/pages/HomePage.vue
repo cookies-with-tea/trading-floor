@@ -7,7 +7,7 @@
       <filters-sidebar class="mb-20" />
     </div>
     <div class="home-page__advertisements">
-      <advertisement-list :advertisements="advertisements" />
+      <advertisement-list :advertisements="advertisements" :self-user-id="userId" @delete="handleAdvertisementClose" />
     </div>
   </div>
 </template>
@@ -21,22 +21,31 @@ import {
   ApiAdvertisementListItemType,
 } from '@/api/KY/AdvertisementService/advertisement.types';
 import { AdvertisementUrgencyEnum, AllAdvertisementTypes } from '@/types/advertisementTypes';
+import { userApi } from '@/api/KY/UserService/user.api';
 
 const selectedCategories = ref<number[]>([]);
 const allCategories = ref<ApiAdvertisementCategoryType[]>([]);
 
-const loadedAdvertisement = ref<ApiAdvertisementListItemType[]>([]);
+const loadedAdvertisements = ref<ApiAdvertisementListItemType[]>([]);
 
 const selectedUrgencies = ref<AdvertisementUrgencyEnum[]>([]);
 
 const selectedTypes = ref<number[]>([]);
 
+const userId = ref(0);
+
 const loadAdvertisements = async () => {
-  const [error, data] = await advertisementApi.getAllAdvertisements();
+  const [error, data] = await advertisementApi.getAllAdvertisements({ is_open: true });
 
   if (!error && data) {
-    loadedAdvertisement.value = data;
+    loadedAdvertisements.value = data.results;
   }
+};
+
+const handleAdvertisementClose = (id: number) => {
+  loadedAdvertisements.value = loadedAdvertisements.value.filter((el) => el.id != id);
+
+  console.log(loadedAdvertisements.value);
 };
 
 const loadCategories = async () => {
@@ -47,14 +56,24 @@ const loadCategories = async () => {
   }
 };
 
+const loadUserId = async () => {
+  const [error, data] = await userApi.getSelf();
+
+  if (!error && data) {
+    userId.value = data.id;
+  }
+};
+
 onBeforeMount(async () => {
   await loadCategories();
 
   await loadAdvertisements();
+
+  await loadUserId();
 });
 
 const advertisements = computed(() => {
-  return loadedAdvertisement.value.filter((el) => {
+  return loadedAdvertisements.value.filter((el) => {
     return (
       (selectedCategories.value.length === 0 || selectedCategories.value.includes(el.category.id)) &&
       (selectedUrgencies.value.length === 0 || selectedUrgencies.value.includes(el.urgency_type)) &&
