@@ -18,6 +18,6 @@ class GoogleOauth:
         except oauthlib.oauth2.rfc6749.errors.InvalidGrantError:
             return None
 
-        google_user: dict = flow.authorized_session().get(cls.USER_INFO_URL).json()
+        google_user: dict = flow.authorized_session().get(cls.USER_INFO_URL, verify=False).json()
 
         return GoogleUser(email=google_user['email'], picture=google_user['picture'])
