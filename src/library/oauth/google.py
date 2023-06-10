@@ -20,4 +20,4 @@ class GoogleOauth:
 
         google_user: dict = flow.authorized_session().get(cls.USER_INFO_URL).json()
 
-        return GoogleUser(email=google_user['email'])
+        return GoogleUser(email=google_user['email'], picture=google_user['picture'])

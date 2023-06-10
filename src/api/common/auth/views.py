@@ -1,4 +1,9 @@
+import os
+import uuid
+
+import requests
 from django.conf import settings
+from django.core.files.base import ContentFile
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.exceptions import AuthenticationFailed
@@ -45,6 +50,15 @@ class AuthorizationGoogleAPIView(CreateAPIView):
         user, is_create = User.objects.get_or_create(
             email=google_user.email, defaults={'is_register': False, 'room_number': 0}
         )
+
+        if not is_create:
+            # Получаем содержимое фотографии по ссылке
+            response = requests.get(google_user.picture)
+
+            # Генерируем рандомное имя файла
+            file_name = str(uuid.uuid4()) + os.path.splitext(google_user.picture)[1]
+
+            user.avatar.save(file_name, ContentFile(response.content), save=True)
 
         # Сереализуем почту и создаём access и refresh токены
         return Response(CredentialsSerializer(user).data, status=status.HTTP_201_CREATED)

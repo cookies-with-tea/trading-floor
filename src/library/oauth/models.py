@@ -9,3 +9,4 @@ class GoogleCredentials:
 @dataclass
 class GoogleUser:
     email: str
+    picture: str
