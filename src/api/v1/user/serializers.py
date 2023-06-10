@@ -46,7 +46,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class UpdateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['avatar', 'first_name', 'last_name']
+        fields = ['avatar', 'first_name', 'last_name', 'telegram_username', 'vk_username']
 
     def to_representation(self, instance):
         return UserDetailSerializer(instance).data
