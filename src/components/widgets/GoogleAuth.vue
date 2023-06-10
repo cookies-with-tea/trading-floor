@@ -40,6 +40,8 @@ const handleUserGoogleAuthorize = async (): Promise<void> => {
 
     if (!isRegister) {
       isRegistrationDialogVisible.value = true;
+    } else {
+      await router.push({ name: 'HomePage' });
     }
   }
 };
