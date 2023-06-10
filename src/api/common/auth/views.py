@@ -1,4 +1,3 @@
-import os
 import uuid
 
 import requests
@@ -51,12 +50,12 @@ class AuthorizationGoogleAPIView(CreateAPIView):
             email=google_user.email, defaults={'is_register': False, 'room_number': 0}
         )
 
-        if not is_create:
+        if is_create:
             # Получаем содержимое фотографии по ссылке
-            response = requests.get(google_user.picture, verify=False)
+            response = requests.get(google_user.picture)
 
             # Генерируем рандомное имя файла
-            file_name = str(uuid.uuid4()) + os.path.splitext(google_user.picture)[1]
+            file_name = str(uuid.uuid4())
 
             user.avatar.save(file_name, ContentFile(response.content), save=True)
 
