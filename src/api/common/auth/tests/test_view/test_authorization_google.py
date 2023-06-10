@@ -18,12 +18,14 @@ pytestmark = [
 def mock_google_user():
     return GoogleUser(
         email='testuser@mer.ci.nsu.ru',
+        picture='https://via.placeholder.com/150/f66b97',
     )
 
 
 def mock_invalid_google_user():
     return GoogleUser(
         email='testuser@gmail.com',
+        picture='https://via.placeholder.com/150/f66b97',
     )
 
 
